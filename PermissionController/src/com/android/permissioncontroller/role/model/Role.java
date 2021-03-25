@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Process;
 import android.os.UserHandle;
 import android.text.TextUtils;
@@ -35,6 +36,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.preference.Preference;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.permissioncontroller.Constants;
 import com.android.permissioncontroller.permission.utils.CollectionUtils;
 import com.android.permissioncontroller.permission.utils.Utils;
@@ -111,6 +113,11 @@ public class Role {
     private final int mLabelResource;
 
     /**
+     * The minimum SDK version for this role to be available.
+     */
+    private final int mMinSdkVersion;
+
+    /**
      * Whether this role should override user's choice about privileges when granting.
      */
     private final boolean mOverrideUserWhenGranting;
@@ -178,12 +185,6 @@ public class Role {
     private final List<String> mPermissions;
 
     /**
-     * Restricted permissions to be exempted by this role
-     */
-    @NonNull
-    private final List<String> mExemptedPermissions;
-
-    /**
      * The app op permissions to be granted by this role.
      */
     @NonNull
@@ -204,12 +205,12 @@ public class Role {
     public Role(@NonNull String name, @Nullable RoleBehavior behavior,
             @Nullable String defaultHoldersResourceName, @StringRes int descriptionResource,
             boolean exclusive, boolean fallBackToDefaultHolder, @StringRes int labelResource,
-            boolean overrideUserWhenGranting, @StringRes int requestDescriptionResource,
-            @StringRes int requestTitleResource, boolean requestable,
-            @StringRes int searchKeywordsResource, @StringRes int shortLabelResource,
-            boolean showNone, boolean systemOnly, boolean visible,
-            @NonNull List<RequiredComponent> requiredComponents, @NonNull List<String> permissions,
-            @NonNull List<String> exemptedPermissions, @NonNull List<String> appOpPermissions,
+            int minSdkVersion, boolean overrideUserWhenGranting,
+            @StringRes int requestDescriptionResource, @StringRes int requestTitleResource,
+            boolean requestable, @StringRes int searchKeywordsResource,
+            @StringRes int shortLabelResource, boolean showNone, boolean systemOnly,
+            boolean visible, @NonNull List<RequiredComponent> requiredComponents,
+            @NonNull List<String> permissions, @NonNull List<String> appOpPermissions,
             @NonNull List<AppOp> appOps, @NonNull List<PreferredActivity> preferredActivities) {
         mName = name;
         mBehavior = behavior;
@@ -218,6 +219,7 @@ public class Role {
         mExclusive = exclusive;
         mFallBackToDefaultHolder = fallBackToDefaultHolder;
         mLabelResource = labelResource;
+        mMinSdkVersion = minSdkVersion;
         mOverrideUserWhenGranting = overrideUserWhenGranting;
         mRequestDescriptionResource = requestDescriptionResource;
         mRequestTitleResource = requestTitleResource;
@@ -229,7 +231,6 @@ public class Role {
         mVisible = visible;
         mRequiredComponents = requiredComponents;
         mPermissions = permissions;
-        mExemptedPermissions = exemptedPermissions;
         mAppOpPermissions = appOpPermissions;
         mAppOps = appOps;
         mPreferredActivities = preferredActivities;
@@ -346,6 +347,16 @@ public class Role {
      * @return whether this role is available.
      */
     public boolean isAvailableAsUser(@NonNull UserHandle user, @NonNull Context context) {
+        // Workaround to match the value 31 for S in roles.xml before SDK finalization.
+        if (mMinSdkVersion == 31) {
+            if (!SdkLevel.isAtLeastS()) {
+                return false;
+            }
+        } else {
+            if (Build.VERSION.SDK_INT < mMinSdkVersion) {
+                return false;
+            }
+        }
         if (mBehavior != null) {
             return mBehavior.isAvailableAsUser(this, user, context);
         }
@@ -711,9 +722,9 @@ public class Role {
      */
     public void grant(@NonNull String packageName, boolean dontKillApp,
             boolean overrideUserSetAndFixedPermissions, @NonNull Context context) {
-        boolean permissionOrAppOpChanged = Permissions.grant(packageName, mPermissions, true,
-                overrideUserSetAndFixedPermissions, true, false, false, context);
-        permissionOrAppOpChanged |= Permissions.exempt(packageName, mExemptedPermissions, context);
+        boolean permissionOrAppOpChanged = Permissions.grant(packageName, mPermissions,
+                SdkLevel.isAtLeastS() ? !mSystemOnly : true, overrideUserSetAndFixedPermissions,
+                true, false, false, context);
 
         int appOpPermissionsSize = mAppOpPermissions.size();
         for (int i = 0; i < appOpPermissionsSize; i++) {
@@ -758,20 +769,16 @@ public class Role {
         otherRoleNames.remove(mName);
 
         List<String> permissionsToRevoke = new ArrayList<>(mPermissions);
-        List<String> permissionsToRestrict = new ArrayList<>(mExemptedPermissions);
         ArrayMap<String, Role> roles = Roles.get(context);
         int otherRoleNamesSize = otherRoleNames.size();
         for (int i = 0; i < otherRoleNamesSize; i++) {
             String roleName = otherRoleNames.get(i);
             Role role = roles.get(roleName);
             permissionsToRevoke.removeAll(role.mPermissions);
-            permissionsToRestrict.removeAll(role.mExemptedPermissions);
         }
 
         boolean permissionOrAppOpChanged = Permissions.revoke(packageName, permissionsToRevoke,
                 true, false, overrideSystemFixedPermissions, context);
-        permissionOrAppOpChanged |=
-                Permissions.restrict(packageName, permissionsToRestrict, context);
 
         List<String> appOpPermissionsToRevoke = new ArrayList<>(mAppOpPermissions);
         for (int i = 0; i < otherRoleNamesSize; i++) {
@@ -902,6 +909,7 @@ public class Role {
                 + ", mExclusive=" + mExclusive
                 + ", mFallBackToDefaultHolder=" + mFallBackToDefaultHolder
                 + ", mLabelResource=" + mLabelResource
+                + ", mMinSdkVersion=" + mMinSdkVersion
                 + ", mOverrideUserWhenGranting=" + mOverrideUserWhenGranting
                 + ", mRequestDescriptionResource=" + mRequestDescriptionResource
                 + ", mRequestTitleResource=" + mRequestTitleResource
@@ -913,7 +921,6 @@ public class Role {
                 + ", mVisible=" + mVisible
                 + ", mRequiredComponents=" + mRequiredComponents
                 + ", mPermissions=" + mPermissions
-                + ", mExemptedPermissions=" + mExemptedPermissions
                 + ", mAppOpPermissions=" + mAppOpPermissions
                 + ", mAppOps=" + mAppOps
                 + ", mPreferredActivities=" + mPreferredActivities

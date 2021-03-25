@@ -184,6 +184,9 @@
    <!-- [CHAR LIMIT=NONE] Warning message when turning off permission for system apps -->
    <string name="system_warning">If you deny this permission, basic features of your device may no longer function as intended.</string>
 
+    <!-- [CHAR LIMIT=NONE] Warning message when turning off permission for an app managing a companion device -->
+    <string name="cdm_profile_revoke_warning">If you deny this permission, some features of your device managed by this app may no longer function as intended.</string>
+
    <!-- [CHAR LIMIT=NONE] Summary of a permission switch when it's enforced by policy -->
    <string name="permission_summary_enforced_by_policy">Enforced by policy</string>
 
@@ -374,6 +377,9 @@
     <!-- Label for the title of the permission bar chart showing how often the most common permissions are used [CHAR LIMIT=50] -->
     <string name="permission_usage_bar_chart_title_last_15_minutes">Permission usage in last 15 minutes</string>
 
+    <!-- Suffix for the title of the permission usage preference on the top level page [CHAR LIMIT=50] -->
+    <string name="suffix_permission_usage_preference">usage</string>
+
     <!-- Label for the title of the permission bar chart showing how often the most common permissions are used [CHAR LIMIT=50] -->
     <string name="permission_usage_bar_chart_title_last_minute">Permission usage in last 1 minute</string>
 
@@ -381,6 +387,12 @@
     <plurals name="permission_usage_bar_label">
         <item quantity="one">1 app</item>
         <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> apps</item>
+    </plurals>
+
+    <!-- Label for the permission usage preference that shows how many apps have used various permissions [CHAR LIMIT=10] -->
+    <plurals name="permission_usage_preference_label">
+        <item quantity="one">1 app used</item>
+        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> apps used</item>
     </plurals>
 
     <!-- Label for the button to bring the user to view the details of recent permission accesses [CHAR LIMIT=42] -->
