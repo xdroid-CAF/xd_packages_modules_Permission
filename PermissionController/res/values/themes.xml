@@ -23,6 +23,8 @@
         <item name="preferenceCategoryTitleTextAppearance">@style/TextAppearance.CategoryTitle</item>
     </style>
 
+    <style name="Settings.Role" />
+
     <style name="TextAppearance.CategoryTitle"
            parent="@android:style/TextAppearance.DeviceDefault.Medium">
         <item name="android:textAllCaps">true</item>
@@ -81,6 +83,8 @@
         <item name="carDividerColor">@color/car_divider_color</item>
     </style>
 
+    <style name="PreferenceDivider" parent="AutoRevokeDivider" />
+
     <style name="AutoRevokeDivider">
         <item name="android:background">@color/divider_color_primary</item>
     </style>
@@ -95,6 +99,10 @@
     </style>
 
     <style name="Settings.FilterTouches">
+        <item name="android:filterTouchesWhenObscured">true</item>
+    </style>
+
+    <style name="Settings.Role.FilterTouches">
         <item name="android:filterTouchesWhenObscured">true</item>
     </style>
 

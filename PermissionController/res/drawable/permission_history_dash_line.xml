@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2021 The Android Open Source Project
   ~
@@ -14,7 +15,17 @@
   ~ limitations under the License.
   -->
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/coarse_off" />
-    <item android:drawable="@drawable/coarse_selected" />
-</layer-list>
+<rotate
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="90"
+    android:toDegrees="90">
+    <shape android:shape="line">
+        <stroke
+            android:color="?android:colorControlNormal"
+            android:dashWidth="1dp"
+            android:dashGap="1dp"
+            android:width="1dp"
+            android:height="36dp"
+        />
+    </shape>
+</rotate>

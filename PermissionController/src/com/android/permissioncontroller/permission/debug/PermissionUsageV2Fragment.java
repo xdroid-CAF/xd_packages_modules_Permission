@@ -59,6 +59,7 @@ import com.android.permissioncontroller.permission.model.AppPermissionUsage;
 import com.android.permissioncontroller.permission.model.AppPermissionUsage.GroupUsage;
 import com.android.permissioncontroller.permission.model.legacy.PermissionApps;
 import com.android.permissioncontroller.permission.ui.handheld.PermissionControlPreference;
+import com.android.permissioncontroller.permission.ui.handheld.PermissionUsageV2ControlPreference;
 import com.android.permissioncontroller.permission.ui.handheld.SettingsWithLargeHeader;
 import com.android.permissioncontroller.permission.utils.Utils;
 import com.android.settingslib.HelpUtils;
@@ -85,6 +86,7 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
     static final int SORT_RECENT = 1;
     static final int SORT_RECENT_APPS = 2;
 
+    public static final int FILTER_24_HOURS = 2;
     private static final int MENU_SORT_BY_APP = MENU_HIDE_SYSTEM + 1;
     private static final int MENU_SORT_BY_TIME = MENU_HIDE_SYSTEM + 2;
     private static final int MENU_FILTER_BY_PERMISSIONS = MENU_HIDE_SYSTEM + 3;
@@ -148,6 +150,8 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
         mSort = SORT_RECENT_APPS;
         mFilterGroup = null;
         initializeTimeFilter();
+        mFilterTimeIndex = FILTER_24_HOURS;
+
         if (savedInstanceState != null) {
             mShowSystem = savedInstanceState.getBoolean(SHOW_SYSTEM_KEY);
             mFilterGroup = savedInstanceState.getString(PERM_NAME_KEY);
@@ -199,21 +203,6 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
                 context.getString(R.string.permission_usage_last_15_minutes)));
         mFilterTimes.add(new TimeFilterItem(MINUTES.toMillis(1),
                 context.getString(R.string.permission_usage_last_minute)));
-
-        long numMillis = getArguments().getLong(Intent.EXTRA_DURATION_MILLIS);
-        long supremum = Long.MAX_VALUE;
-        int supremumIndex = -1;
-        int numTimes = mFilterTimes.size();
-        for (int i = 0; i < numTimes; i++) {
-            long curTime = mFilterTimes.get(i).getTime();
-            if (curTime >= numMillis && curTime <= supremum) {
-                supremum = curTime;
-                supremumIndex = i;
-            }
-        }
-        if (supremumIndex != -1) {
-            mFilterTimeIndex = supremumIndex;
-        }
     }
 
     @Override
@@ -409,7 +398,7 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
                 GroupUsage groupUsage = appGroups.get(groupNum);
                 long lastAccessTime = groupUsage.getLastAccessTime();
 
-                if (groupUsage.getAccessCount() <= 0) {
+                if (!groupUsage.hasDiscreteData()) {
                     continue;
                 }
                 if (lastAccessTime == 0) {
@@ -421,12 +410,10 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
                 if (lastAccessTime < startTime) {
                     continue;
                 }
+
                 final boolean isSystemApp = !Utils.isGroupOrBgGroupUserSensitive(
                         groupUsage.getGroup());
                 seenSystemApp = seenSystemApp || isSystemApp;
-                if (isSystemApp && !mShowSystem) {
-                    continue;
-                }
 
                 used = true;
                 addGroupUser(groupUsage.getGroup().getName());
@@ -457,7 +444,7 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
             ArrayList<PermissionApps.PermissionApp> permApps,
             PreferenceCategory category) {
         new PermissionApps.AppDataLoader(context, () -> {
-            Preference permissionUsagePreference = null;
+            PermissionUsageV2ControlPreference permissionUsagePreference = null;
             int permissionUsageAppCount = 0;
             GroupUsage lastGroupUsage = null;
             String lastAccessTimeString = null;
@@ -539,13 +526,17 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
         }
     }
 
-    private Preference createPermissionUsagePreference(@NonNull Context context,
-            @NonNull AppPermissionGroup appPermissionGroup, @Nullable String summaryString) {
-        Preference permissionUsagePreference = new Preference(context);
+    private PermissionUsageV2ControlPreference createPermissionUsagePreference(
+            @NonNull Context context,
+            @NonNull AppPermissionGroup appPermissionGroup,
+            @Nullable String summaryString) {
+        PermissionUsageV2ControlPreference permissionUsagePreference =
+                new PermissionUsageV2ControlPreference(context);
 
         permissionUsagePreference.setTitle(appPermissionGroup.getLabel()
                 + " " + context.getString(R.string.suffix_permission_usage_preference));
         permissionUsagePreference.setIcon(appPermissionGroup.getIconResId());
+        permissionUsagePreference.setGroup(appPermissionGroup.getName());
         if (summaryString != null) {
             permissionUsagePreference.setSummary(summaryString);
         }

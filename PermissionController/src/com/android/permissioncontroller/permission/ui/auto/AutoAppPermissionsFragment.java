@@ -43,7 +43,7 @@ import com.android.permissioncontroller.R;
 import com.android.permissioncontroller.auto.AutoSettingsFrameFragment;
 import com.android.permissioncontroller.permission.model.AppPermissionGroup;
 import com.android.permissioncontroller.permission.model.AppPermissions;
-import com.android.permissioncontroller.permission.model.livedatatypes.AutoRevokeState;
+import com.android.permissioncontroller.permission.model.livedatatypes.HibernationSettingState;
 import com.android.permissioncontroller.permission.ui.Category;
 import com.android.permissioncontroller.permission.ui.model.AppPermissionGroupsViewModel;
 import com.android.permissioncontroller.permission.ui.model.AppPermissionGroupsViewModelFactory;
@@ -130,12 +130,6 @@ public class AutoAppPermissionsFragment extends AutoSettingsFrameFragment {
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         setPreferenceScreen(getPreferenceManager().createPreferenceScreen(getContext()));
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        getPreferenceScreen().removeAll();
     }
 
     private void showAllPermissions() {
@@ -335,7 +329,7 @@ public class AutoAppPermissionsFragment extends AutoSettingsFrameFragment {
         autoRevokeCategory.addPreference(autoRevokeSummary);
     }
 
-    private void setAutoRevokeToggleState(AutoRevokeState state) {
+    private void setAutoRevokeToggleState(HibernationSettingState state) {
         if (state == null || !mViewModel.getPackagePermGroupsLiveData().isInitialized()
                 || getListView() == null || getView() == null) {
             return;
