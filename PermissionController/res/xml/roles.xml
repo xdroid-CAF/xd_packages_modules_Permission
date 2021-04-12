@@ -73,6 +73,11 @@
         <permission name="android.permission.WRITE_EXTERNAL_STORAGE" />
     </permission-set>
 
+    <permission-set name="nearby_devices">
+        <permission name="android.permission.BLUETOOTH_CONNECT" />
+        <permission name="android.permission.BLUETOOTH_SCAN" />
+    </permission-set>
+
     <role
         name="android.app.role.ASSISTANT"
         behavior="AssistantRoleBehavior"
@@ -499,6 +504,7 @@
         <permissions>
             <permission-set name="microphone" />
             <permission-set name="location" />
+            <permission-set name="nearby_devices" />
             <permission name="android.permission.CALL_PHONE" />
             <permission name="android.permission.READ_CALENDAR" />
             <permission name="android.permission.READ_CALL_LOG" />
@@ -523,6 +529,7 @@
             <permission name="android.permission.PERFORM_IMS_SINGLE_REGISTRATION" />
             <permission name="android.permission.BACKGROUND_CAMERA" />
             <permission name="android.permission.RECORD_BACKGROUND_AUDIO" />
+            <permission name="android.permission.BYPASS_ROLE_QUALIFICATION" />
         </permissions>
     </role>
 
@@ -586,6 +593,7 @@
 
     <role
         name="android.app.role.SYSTEM_TELEVISION_NOTIFICATION_HANDLER"
+        behavior="SystemTelevisionNotificationHandlerRoleBehavior"
         defaultHolders="config_systemTelevisionNotificationHandler"
         exclusive="true"
         minSdkVersion="31"
@@ -755,4 +763,17 @@
             <permission name="android.permission.OBSERVE_SENSOR_PRIVACY" />
         </permissions>
     </role>
+
+    <!---
+      ~ A role for the system package that serves as the activity recognizer on the device.
+      ~ This is the application that provides the data behind the activity recognition
+      ~ runtime permission.
+      -->
+    <role
+        name="android.app.role.SYSTEM_ACTIVITY_RECOGNIZER"
+        allowBypassingQualification="true"
+        defaultHolders="config_systemActivityRecognizer"
+        exclusive="true"
+        systemOnly="true"
+        visible="false" />
 </roles>
