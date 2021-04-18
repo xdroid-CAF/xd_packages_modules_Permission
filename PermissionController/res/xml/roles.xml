@@ -117,9 +117,6 @@
         <app-op-permissions>
             <app-op-permission name="android.permission.SYSTEM_ALERT_WINDOW" />
         </app-op-permissions>
-        <exempt-permissions>
-            <permission name="android.permission.RECORD_BACKGROUND_AUDIO" />
-        </exempt-permissions>
     </role>
 
     <!---
@@ -286,6 +283,7 @@
             <permission-set name="storage" />
             <permission-set name="microphone" />
             <permission-set name="camera" />
+            <permission name="android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND" />
         </permissions>
         <app-ops>
             <app-op name="android:write_sms" mode="allowed" />
@@ -348,6 +346,9 @@
                 </intent-filter>
             </activity>
         </required-components>
+        <permissions>
+            <permission name="android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND" />
+        </permissions>
     </role>
 
     <!---
@@ -443,6 +444,7 @@
         <permissions>
             <permission-set name="storage" />
             <permission name="android.permission.ACCESS_MEDIA_LOCATION" />
+            <permission name="android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND" />
         </permissions>
         <app-ops>
             <app-op name="android:write_media_images" mode="allowed" />
@@ -455,6 +457,7 @@
         behavior="SystemAutomotiveClusterRoleBehavior"
         defaultHolders="config_systemAutomotiveCluster"
         exclusive="true"
+        minSdkVersion="31"
         systemOnly="true"
         visible="false">
         <permissions>
@@ -470,12 +473,14 @@
         behavior="CompanionDeviceWatchRoleBehavior"
         description="@string/role_watch_description"
         exclusive="false"
+        minSdkVersion="31"
         overrideUserWhenGranting="false"
         systemOnly="false"
         visible="false">
         <permissions>
             <permission-set name="calendar" />
             <permission-set name="phone" />
+            <permission-set name="sms" />
             <permission-set name="contacts" />
         </permissions>
         <app-op-permissions>
@@ -488,6 +493,7 @@
         name="android.app.role.SYSTEM_AUTOMOTIVE_PROJECTION"
         defaultHolders="config_systemAutomotiveProjection"
         exclusive="false"
+        minSdkVersion="31"
         systemOnly="true"
         visible="false">
         <permissions>
@@ -508,12 +514,15 @@
         behavior="SystemShellRoleBehavior"
         defaultHolders="config_systemShell"
         exclusive="true"
+        minSdkVersion="31"
         systemOnly="true"
         visible="false">
         <permissions>
             <!-- Used for CTS testing -->
             <permission name="android.permission.ACCESS_RCS_USER_CAPABILITY_EXCHANGE" />
             <permission name="android.permission.PERFORM_IMS_SINGLE_REGISTRATION" />
+            <permission name="android.permission.BACKGROUND_CAMERA" />
+            <permission name="android.permission.RECORD_BACKGROUND_AUDIO" />
         </permissions>
     </role>
 
@@ -521,10 +530,85 @@
         name="android.app.role.SYSTEM_CONTACTS"
         defaultHolders="config_systemContacts"
         exclusive="true"
+        minSdkVersion="31"
         systemOnly="true"
         visible="false">
         <permissions>
             <permission name="android.permission.ACCESS_RCS_USER_CAPABILITY_EXCHANGE" />
+        </permissions>
+    </role>
+
+    <role
+        name="android.app.role.SYSTEM_SPEECH_RECOGNIZER"
+        defaultHolders="config_systemSpeechRecognizer"
+        exclusive="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false">
+        <permissions>
+            <permission name="android.permission.RECORD_AUDIO" />
+        </permissions>
+        <required-components>
+            <service>
+                <intent-filter>
+                    <action name="android.speech.RecognitionService" />
+                </intent-filter>
+            </service>
+        </required-components>
+    </role>
+
+    <role
+        name="android.app.role.SYSTEM_WIFI_COEX_MANAGER"
+        defaultHolders="config_systemWifiCoexManager"
+        exclusive="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false">
+        <permissions>
+            <permission name="android.permission.WIFI_ACCESS_COEX_UNSAFE_CHANNELS" />
+            <permission name="android.permission.WIFI_UPDATE_COEX_UNSAFE_CHANNELS" />
+        </permissions>
+    </role>
+
+    <role
+        name="android.app.role.SYSTEM_WELLBEING"
+        defaultHolders="config_systemWellbeing"
+        exclusive="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false" >
+        <permissions>
+            <permission name="android.permission.ACCESS_INSTANT_APPS"/>
+            <permission name="android.permission.SUSPEND_APPS"/>
+            <permission name="android.permission.SYSTEM_APPLICATION_OVERLAY"/>
+        </permissions>
+    </role>
+
+    <role
+        name="android.app.role.SYSTEM_TELEVISION_NOTIFICATION_HANDLER"
+        defaultHolders="config_systemTelevisionNotificationHandler"
+        exclusive="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false">
+        <permissions>
+            <permission name="android.permission.SYSTEM_APPLICATION_OVERLAY" />
+        </permissions>
+    </role>
+
+    <!---
+        A role for the system package that is allowed to create CompanionDeviceManager associations
+        based on user consent to allow the associated app to manage the associated device.
+    -->
+    <role
+        name="android.app.role.SYSTEM_COMPANION_DEVICE_PROVIDER"
+        defaultHolders="config_companionProviderPackage"
+        exclusive="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false" >
+        <permissions>
+            <permission name="android.permission.ASSOCIATE_COMPANION_DEVICES"/>
         </permissions>
     </role>
 </roles>

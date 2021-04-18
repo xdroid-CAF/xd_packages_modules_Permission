@@ -106,6 +106,9 @@
     <!-- Title for the dialog button to allow a permission grant only when the app is in the foreground. [CHAR LIMIT=60] -->
     <string name="grant_dialog_button_allow_foreground">While using the app</string>
 
+    <!-- Title for the dialog button to change to precise location. [CHAR LIMIT=60] -->
+    <string name="grant_dialog_button_change_to_precise_location">Change to precise location</string>
+
     <!-- Title for the dialog button to allow a permission grant temporarily in teh foreground. [CHAR LIMIT=60] -->
     <string name="grant_dialog_button_allow_one_time">Only this time</string>
 
@@ -183,6 +186,9 @@
 
    <!-- [CHAR LIMIT=NONE] Warning message when turning off permission for system apps -->
    <string name="system_warning">If you deny this permission, basic features of your device may no longer function as intended.</string>
+
+    <!-- [CHAR LIMIT=NONE] Warning message when turning off permission for an app managing a companion device -->
+    <string name="cdm_profile_revoke_warning">If you deny this permission, some features of your device managed by this app may no longer function as intended.</string>
 
    <!-- [CHAR LIMIT=NONE] Summary of a permission switch when it's enforced by policy -->
    <string name="permission_summary_enforced_by_policy">Enforced by policy</string>
@@ -290,6 +296,18 @@
     <!-- Title for permission usage [CHAR LIMIT=30] -->
     <string name="permission_usage_title">Dashboard</string>
 
+    <!-- Title for permission group usage [CHAR LIMIT=30] -->
+    <string name="permission_group_usage_title"><xliff:g id="permgroup" example="Location">%1$s</xliff:g> usage</string>
+
+    <!-- Subtitle for permission group usage [CHAR LIMIT=100] -->
+    <string name="permission_group_usage_subtitle">When apps stopped using your <xliff:g id="permgroup" example="Location">%1$s</xliff:g> in the last 24 hours</string>
+
+    <!-- Subtitle for access time list dialog [CHAR LIMIT=100] -->
+    <string name="permission_usage_access_dialog_subtitle">When this app used your <xliff:g id="permgroup" example="Location">%1$s</xliff:g>:</string>
+
+    <!-- Link text for intent out to location provider [CHAR LIMIT=20] -->
+    <string name="permission_usage_access_dialog_learn_more">Learn more</string>
+
     <!-- Summary for showing a single permission access and the number of accesses [CHAR LIMIT=80] -->
     <plurals name="permission_usage_summary">
         <item quantity="one">Last access: <xliff:g id="time" example="12:10 PM">%1$s</xliff:g>\n<xliff:g id="num" example="42">%2$s</xliff:g> access</item>
@@ -374,6 +392,9 @@
     <!-- Label for the title of the permission bar chart showing how often the most common permissions are used [CHAR LIMIT=50] -->
     <string name="permission_usage_bar_chart_title_last_15_minutes">Permission usage in last 15 minutes</string>
 
+    <!-- Suffix for the title of the permission usage preference on the top level page [CHAR LIMIT=50] -->
+    <string name="suffix_permission_usage_preference">usage</string>
+
     <!-- Label for the title of the permission bar chart showing how often the most common permissions are used [CHAR LIMIT=50] -->
     <string name="permission_usage_bar_chart_title_last_minute">Permission usage in last 1 minute</string>
 
@@ -381,6 +402,12 @@
     <plurals name="permission_usage_bar_label">
         <item quantity="one">1 app</item>
         <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> apps</item>
+    </plurals>
+
+    <!-- Label for the permission usage preference that shows how many apps have used various permissions [CHAR LIMIT=10] -->
+    <plurals name="permission_usage_preference_label">
+        <item quantity="one">1 app used</item>
+        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> apps used</item>
     </plurals>
 
     <!-- Label for the button to bring the user to view the details of recent permission accesses [CHAR LIMIT=42] -->
@@ -431,6 +458,9 @@
         <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> apps</item>
     </plurals>
 
+    <!-- Label for the title of permission history. [CHAR LIMIT=20] -->
+    <string name="permission_history_title">Permission history</string>
+
     <!-- Help URL, permission usage [DO NOT TRANSLATE] -->
     <string name="help_permission_usage" translatable="false"></string>
 
@@ -463,6 +493,12 @@
 
     <!-- Title for the dialog button to deny with prejudice a permission grant. [CHAR LIMIT=60] -->
     <string name="app_permission_button_deny">Deny</string>
+
+    <!-- Content description for precise location image. [CHAR LIMIT=50] -->
+    <string name="precise_image_description">Precise location</string>
+
+    <!-- Content description for approximate location image. [CHAR LIMIT=50] -->
+    <string name="approximate_image_description">Approximate location</string>
 
     <!-- Title for location accuracy switch in location settings. [CHAR LIMIT=60] -->
     <string name="app_permission_location_accuracy">Use precise location</string>
@@ -530,6 +566,12 @@
     <!-- Summary describing the permissions that have been removed from an app, when more than two permissions are removed [CHAR LIMIT=none] -->
     <string name="auto_revoked_app_summary_many"><xliff:g id="permission_name" example="Microphone">%1$s</xliff:g> and <xliff:g id="number" example="2">%2$s</xliff:g> other permissions removed</string>
 
+    <!-- The title of a page showing unused apps that have been hibernated [CHAR LIMIT=60]-->
+    <string name="unused_apps_page_title">Unused apps</string>
+
+    <!-- Summary for the screen that shows all unused apps that have been hibernated [CHAR LIMIT=none] -->
+    <string name="unused_apps_page_summary">If an app is unused for a few months:\n\n\u2022 Permissions are removed to protect your data\n\u2022 Notifications are stopped to save battery\n\u2022 Temporary files are removed to free up space</string>
+
     <!-- Title for a category of apps that were last used several months ago [CHAR LIMIT=none] -->
     <string name="last_opened_category_title">Last opened more than <xliff:g id="number" example="3">%s</xliff:g> months ago</string>
 
@@ -565,6 +607,9 @@
 
     <!-- Label for showing a permission group's description in the header of the list of apps that have the location permission [CHAR LIMIT=none] -->
     <string name="permission_description_summary_location">Apps with this permission can access this device\'s location</string>
+
+    <!-- Label for showing a permission group's description in the header of the list of apps that have the nearby devices permission [CHAR LIMIT=none] -->
+    <string name="permission_description_summary_nearby_devices">Apps with this permission can discover and connect to nearby Bluetooth devices</string>
 
     <!-- Label for showing a permission group's description in the header of the list of apps that have the microphone permission [CHAR LIMIT=none] -->
     <string name="permission_description_summary_microphone">Apps with this permission can record audio</string>
@@ -661,6 +706,15 @@
         <item quantity="one"><xliff:g id="count" example="1">%1$d</xliff:g> app hasn\u2019t been used in a few months. Tap to review</item>
         <item quantity="other"><xliff:g id="count" example="2">%1$d</xliff:g> apps haven\u2019t been used in a few months. Tap to review</item>
     </plurals>
+
+    <!-- The notification title for the notification that app hibernation has happened [CHAR LIMIT=60] -->
+    <plurals name="unused_apps_notification_title">
+        <item quantity="one"><xliff:g id="count" example="1">%1$d</xliff:g> unused app</item>
+        <item quantity="other"><xliff:g id="count" example="2">%1$d</xliff:g> unused apps</item>
+    </plurals>
+
+    <!-- The notification content for the hibernation reminder notification [CHAR LIMIT=none] -->
+    <string name="unused_apps_notification_content">Permissions and temporary files have been removed and notifications were stopped. Tap to review.</string>
 
     <!-- The subtitle for the auto revoke settings card [CHAR LIMIT=none] -->
     <string name="auto_revoke_setting_subtitle">Some apps haven\u2019t been used in a few months</string>
@@ -882,7 +936,7 @@
     <string name="role_call_screening_request_description">No permissions needed</string>
 
     <!-- Description for the watch profile role. [CHAR LIMIT=NONE] -->
-    <string name="role_watch_description"><xliff:g id="app_name" example="Wear">%1$s</xliff:g> will get access to Notifications, Phone, Contacts and Calendar.</string>
+    <string name="role_watch_description"><xliff:g id="app_name" example="Wear">%1$s</xliff:g> will be allowed to interact with your notifications and access your Phone, SMS, Contacts and Calendar permissions.</string>
 
     <!-- Subtitle for the application that is the current default application [CHAR LIMIT=30] -->
     <string name="request_role_current_default">Current default</string>
@@ -1078,6 +1132,13 @@ Allow <xliff:g id="app_name" example="Gmail">%4$s</xliff:g> to upload a bug repo
     <string name="permgroupupgraderequest_location">Change location access for &lt;b><xliff:g id="app_name" example="Gmail">%1$s</xliff:g>&lt;/b>?</string>
     <!-- Subtitle of the message shown to the user when the apps requests permission to use the location while app is in foreground and background. Try to keep the link annotation at the end of the string [CHAR LIMIT=150] -->
     <string name="permgroupupgraderequestdetail_location">This app wants to access your location all the time, even when you\u2019re not using the app. <annotation id="link">Allow in settings.</annotation></string>
+
+    <!-- Message shown to the user when the apps requests permission from this group. If ever possible this should stay below 80 characters (assuming the parameters takes 20 characters). Don't abbreviate until the message reaches 120 characters though. [CHAR LIMIT=120] -->
+    <string name="permgrouprequest_nearby_devices">Allow
+        &lt;b><xliff:g id="app_name" example="Gmail">%1$s</xliff:g>&lt;/b> to discover and connect to nearby Bluetooth devices?</string>
+    <!-- Subtitle of the message shown to the user when the apps requests permission to discovery and connect to nearby devices while app is in foreground and background. Try to keep the link annotation at the end of the string [CHAR LIMIT=150] -->
+    <string name="permgroupupgraderequestdetail_nearby_devices">Allow &lt;b><xliff:g id="app_name" example="Gmail">%1$s</xliff:g>&lt;/b> to discover and connect to nearby Bluetooth devices? <annotation id="link">Allow in settings.</annotation></string>
+
     <!-- Message shown to the user when the app requests permission to use fine location [CHAR LIMIT=120] -->
     <string name="permgrouprequest_finelocation">Allow &lt;b><xliff:g id="app_name" example="Gmail">%1$s</xliff:g>&lt;/b> to access this device\u2019s precise location?</string>
     <!-- Message shown to the user when the app requests permission to use coarse location [CHAR LIMIT=120] -->

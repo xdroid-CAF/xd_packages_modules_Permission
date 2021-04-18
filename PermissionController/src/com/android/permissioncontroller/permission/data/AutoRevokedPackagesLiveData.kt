@@ -20,7 +20,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager.FLAG_PERMISSION_AUTO_REVOKED
 import android.os.Build
 import android.os.UserHandle
-import com.android.permissioncontroller.hibernation.getUnusedThresholdMs
+import android.util.Log
 import com.android.permissioncontroller.permission.utils.KotlinUtils
 import com.android.permissioncontroller.permission.utils.Utils
 import kotlinx.coroutines.Dispatchers.Main
@@ -31,9 +31,13 @@ import kotlinx.coroutines.launch
 /**
  * Tracks which packages have been auto-revoked, and which groups have been auto revoked for those
  * packages.
+ *
+ * ```(packageName, user) -> [groupName]```
  */
 object AutoRevokedPackagesLiveData
     : SmartAsyncMediatorLiveData<Map<Pair<String, UserHandle>, Set<String>>>() {
+
+    private val LOG_TAG = AutoRevokedPackagesLiveData::class.java.simpleName
 
     init {
         addSource(AllPackageInfosLiveData) {
@@ -142,51 +146,25 @@ object AutoRevokedPackagesLiveData
         for ((userPackage, permGroups) in packageAutoRevokedPermsList) {
             autoRevokedCopy[userPackage] = permGroups.toSet()
         }
+        Log.i(LOG_TAG, "postValue: $autoRevokedCopy")
         postValue(autoRevokedCopy)
     }
 }
 
-/**
- * Gets all Auto Revoked packages that have not been opened in a few months. This will let us remove
- * used apps from the Auto Revoke screen.
- */
-object UnusedAutoRevokedPackagesLiveData
-    : SmartUpdateMediatorLiveData<Map<Pair<String, UserHandle>, Set<String>>>() {
-    private val unusedThreshold = getUnusedThresholdMs()
-    private val usageStatsLiveData = UsageStatsLiveData[unusedThreshold]
-
-    init {
-        addSource(usageStatsLiveData) {
-            update()
-        }
-        addSource(AutoRevokedPackagesLiveData) {
-            update()
-        }
-    }
-
-    override fun onUpdate() {
-        if (!usageStatsLiveData.isInitialized || !AutoRevokedPackagesLiveData.isInitialized) {
-            return
-        }
-
-        val autoRevokedPackages = AutoRevokedPackagesLiveData.value!!
-
-        val unusedPackages = mutableMapOf<Pair<String, UserHandle>, Set<String>>()
-        for ((userPackage, perms) in autoRevokedPackages) {
-            unusedPackages[userPackage] = perms.toSet()
-        }
-
-        val now = System.currentTimeMillis()
-        for ((user, stats) in usageStatsLiveData.value!!) {
-            for (stat in stats) {
-                val userPackage = stat.packageName to user
-                if (userPackage in autoRevokedPackages &&
-                    (now - stat.lastTimeVisible) < unusedThreshold) {
-                    unusedPackages.remove(userPackage)
-                }
+private val autoRevokedPackagesSetLiveData =
+    object : SmartUpdateMediatorLiveData<Set<Pair<String, UserHandle>>>() {
+        init {
+            addSource(AutoRevokedPackagesLiveData) {
+                update()
             }
         }
 
-        value = unusedPackages
+        override fun onUpdate() {
+            if (!AutoRevokedPackagesLiveData.isInitialized) {
+                return
+            }
+            value = AutoRevokedPackagesLiveData.value!!.keys
+        }
     }
-}
+
+val unusedAutoRevokePackagesLiveData = UnusedPackagesLiveData(autoRevokedPackagesSetLiveData)

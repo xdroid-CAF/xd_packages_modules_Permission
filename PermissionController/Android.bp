@@ -113,11 +113,13 @@ android_app {
         "SettingsLibBarChartPreference",
         "SettingsLibActionBarShadow",
         "SettingsLibProgressBar",
+        "SettingsLibCollapsingToolbarBaseActivity",
         "androidx.annotation_annotation",
         "permissioncontroller-statsd",
         "car-ui-lib-overlayable",
         "libprotobuf-java-lite",
         "SettingsLibUtils",
+        "modules-utils-build_system",
     ],
 
     proto: {

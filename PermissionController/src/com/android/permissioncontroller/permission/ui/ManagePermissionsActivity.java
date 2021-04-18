@@ -46,17 +46,18 @@ import com.android.permissioncontroller.Constants;
 import com.android.permissioncontroller.DeviceUtils;
 import com.android.permissioncontroller.PermissionControllerStatsLog;
 import com.android.permissioncontroller.R;
+import com.android.permissioncontroller.permission.debug.PermissionDetailsFragment;
 import com.android.permissioncontroller.permission.debug.PermissionUsageFragment;
 import com.android.permissioncontroller.permission.debug.PermissionUsageV2Fragment;
 import com.android.permissioncontroller.permission.debug.UtilsKt;
 import com.android.permissioncontroller.permission.ui.auto.AutoAllAppPermissionsFragment;
 import com.android.permissioncontroller.permission.ui.auto.AutoAppPermissionsFragment;
-import com.android.permissioncontroller.permission.ui.auto.AutoAutoRevokeFragment;
 import com.android.permissioncontroller.permission.ui.auto.AutoManageStandardPermissionsFragment;
 import com.android.permissioncontroller.permission.ui.auto.AutoPermissionAppsFragment;
+import com.android.permissioncontroller.permission.ui.auto.AutoUnusedAppsFragment;
 import com.android.permissioncontroller.permission.ui.handheld.AppPermissionFragment;
 import com.android.permissioncontroller.permission.ui.handheld.AppPermissionGroupsFragment;
-import com.android.permissioncontroller.permission.ui.handheld.HandheldAutoRevokeFragment;
+import com.android.permissioncontroller.permission.ui.handheld.HandheldUnusedAppsFragment;
 import com.android.permissioncontroller.permission.ui.handheld.PermissionAppsFragment;
 import com.android.permissioncontroller.permission.ui.legacy.AppPermissionActivity;
 import com.android.permissioncontroller.permission.ui.wear.AppPermissionsFragmentWear;
@@ -155,13 +156,24 @@ public final class ManagePermissionsActivity extends FragmentActivity {
                 String groupName = getIntent().getStringExtra(Intent.EXTRA_PERMISSION_GROUP_NAME);
                 androidXFragment = PermissionUsageFragment.newInstance(groupName, Long.MAX_VALUE);
 
-                if (false) {
-                    // TODO: theianchen
-                    // Here's a blank permission usage V2 top level page.
-                    // Setting the condition to false since it's still WIP.
-                    androidXFragment = PermissionUsageV2Fragment.newInstance();
+                // TODO: theianchen Once Permission Usage link is added to Permission Manager,
+                //                  this check needs to be moved to wrap around the new link.
+                if (UtilsKt.isPrivacyHubEnabled()) {
+                    androidXFragment = PermissionUsageV2Fragment
+                            .newInstance(groupName, Long.MAX_VALUE);
                 }
             } break;
+
+            case Intent.ACTION_REVIEW_PERMISSION_HISTORY: {
+                if (UtilsKt.isPrivacyHubEnabled()) {
+                    String groupName = getIntent()
+                            .getStringExtra(Intent.EXTRA_PERMISSION_GROUP_NAME);
+                    androidXFragment = PermissionDetailsFragment
+                            .newInstance(groupName, Long.MAX_VALUE);
+                }
+
+                break;
+            }
 
             case Intent.ACTION_MANAGE_APP_PERMISSION: {
                 if (DeviceUtils.isAuto(this) || DeviceUtils.isTelevision(this)
@@ -284,19 +296,21 @@ public final class ManagePermissionsActivity extends FragmentActivity {
                 }
             } break;
 
+            case Intent.ACTION_MANAGE_UNUSED_APPS :
+                // fall through
             case ACTION_MANAGE_AUTO_REVOKE: {
                 Log.i(LOG_TAG, "sessionId " + sessionId + " starting auto revoke fragment"
                         + " from notification");
                 PermissionControllerStatsLog.write(AUTO_REVOKE_NOTIFICATION_CLICKED, sessionId);
 
                 if (DeviceUtils.isAuto(this)) {
-                    androidXFragment = AutoAutoRevokeFragment.newInstance();
-                    androidXFragment.setArguments(AutoRevokeFragment.createArgs(sessionId));
+                    androidXFragment = AutoUnusedAppsFragment.newInstance();
+                    androidXFragment.setArguments(UnusedAppsFragment.createArgs(sessionId));
                 } else if (DeviceUtils.isWear(this) || DeviceUtils.isTelevision(this)) {
-                    androidXFragment = HandheldAutoRevokeFragment.newInstance();
-                    androidXFragment.setArguments(AutoRevokeFragment.createArgs(sessionId));
+                    androidXFragment = HandheldUnusedAppsFragment.newInstance();
+                    androidXFragment.setArguments(UnusedAppsFragment.createArgs(sessionId));
                 } else {
-                    setNavGraph(AutoRevokeFragment.createArgs(sessionId), R.id.auto_revoke);
+                    setNavGraph(UnusedAppsFragment.createArgs(sessionId), R.id.auto_revoke);
                     return;
                 }
             } break;
