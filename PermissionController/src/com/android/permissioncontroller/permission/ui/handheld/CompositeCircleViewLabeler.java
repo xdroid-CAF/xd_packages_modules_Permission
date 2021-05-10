@@ -18,6 +18,7 @@ package com.android.permissioncontroller.permission.ui.handheld;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -68,14 +69,19 @@ public class CompositeCircleViewLabeler extends RelativeLayout {
         for (int i = 0; i < getChildCount(); i++) {
             if (getChildAt(i) instanceof TextView) {
                 removeViewAt(i);
+                i--;
             }
         }
         mCircleId = circleId;
         mCenterLabel = centerLabel;
-        addView(centerLabel);
+        if (centerLabel != null) {
+            addView(centerLabel);
+        }
         mLabels = labels;
         for (int i = 0; i < labels.length; i++) {
-            addView(labels[i]);
+            if (labels[i] != null) {
+                addView(labels[i]);
+            }
         }
         mLabelRadiusScalar = labelRadiusScalar;
     }
@@ -90,16 +96,23 @@ public class CompositeCircleViewLabeler extends RelativeLayout {
         int ccvHeight = ccv.getHeight();
         float ccvCenterX = ccv.getX() + (ccvWidth * 0.5f);
         float ccvCenterY = ccv.getY() + (ccvHeight * 0.5f);
-        float ccvRadius = Math.max(ccvWidth, ccvHeight) * 0.5f;
+        float ccvRadius = Math.min(ccvWidth, ccvHeight) * 0.5f;
         float labelRadius = ccvRadius * mLabelRadiusScalar;
 
         // Position center label.
-        mCenterLabel.setX(ccvCenterX - (mCenterLabel.getWidth() * 0.5f));
-        mCenterLabel.setY(ccvCenterY - (mCenterLabel.getHeight() * 0.5f));
+        if (mCenterLabel != null) {
+            mCenterLabel.setX((int) (ccvCenterX - (mCenterLabel.getWidth() * 0.5f)));
+            mCenterLabel.setY((int) (ccvCenterY - (mCenterLabel.getHeight() * 0.5f)));
+        }
 
         // For each provided label, determine position angle.
         for (int i = 0; i < mLabels.length; i++) {
             TextView label = mLabels[i];
+            if (label == null) {
+                continue;
+            }
+            label.setVisibility((ccv.getValue(i) > 0) ? View.VISIBLE : View.GONE);
+
             // For circle path, top angle is 270d. Convert to unit circle rads.
             double angle = Math.toRadians(360 - ccv.getPartialCircleCenterAngle(i));
             double x = ccvCenterX + (Math.cos(angle) * labelRadius);
@@ -114,8 +127,8 @@ public class CompositeCircleViewLabeler extends RelativeLayout {
             } else if (angle < (Math.PI * 1.5d)) {
                 x -= label.getWidth();
             }
-            label.setX((float) x);
-            label.setY((float) y);
+            label.setX((int) x);
+            label.setY((int) y);
         }
     }
 }
