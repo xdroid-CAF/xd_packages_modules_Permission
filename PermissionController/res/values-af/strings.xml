@@ -43,6 +43,7 @@
     <string name="grant_dialog_button_allow_always" msgid="4485552579273565981">"Laat altyd toe"</string>
     <string name="grant_dialog_button_allow_foreground" msgid="501896824973636533">"Terwyl die program gebruik word"</string>
     <string name="grant_dialog_button_change_to_precise_location" msgid="3273115879467236033">"Verander na presiese ligging"</string>
+    <string name="grant_dialog_button_keey_approximate_location" msgid="438025182769080011">"Hou benaderde ligging"</string>
     <string name="grant_dialog_button_allow_one_time" msgid="2618088516449706391">"Net hierdie keer"</string>
     <string name="grant_dialog_button_allow_background" msgid="8236044729434367833">"Laat altyd toe"</string>
     <string name="grant_dialog_button_allow_all_files" msgid="4955436994954829894">"Laat toe dat alle lêers bestuur word"</string>
@@ -106,7 +107,25 @@
     <string name="app_name_unknown" msgid="1319665005754048952">"Onbekend"</string>
     <string name="permission_usage_title" msgid="5095876355858467390">"Kontroleskerm"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g>-gebruik"</string>
-    <string name="permission_group_usage_subtitle" msgid="5302255813297881611">"Toe programme in die afgelope 24 uur opgehou het om jou <xliff:g id="PERMGROUP">%1$s</xliff:g> te gebruik"</string>
+    <string name="permission_group_usage_subtitle" msgid="2060508926529591334">"Tydlyn van wanneer jy jou <xliff:g id="PERMGROUP">%1$s</xliff:g> in die afgelope 24 uur gebruik het"</string>
+    <string name="permission_usage_access_dialog_subtitle" msgid="5567142130422605829">"Wanneer hierdie program jou <xliff:g id="PERMGROUP">%1$s</xliff:g> gebruik het:"</string>
+    <string name="permission_usage_access_dialog_learn_more" msgid="7121468469493184613">"Kom meer te wete"</string>
+    <plurals name="duration_used_days" formatted="false" msgid="6029658139201482951">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dae lank gebruik</item>
+      <item quantity="one">1 dag lank gebruik</item>
+    </plurals>
+    <plurals name="duration_used_hours" formatted="false" msgid="2934347147156813767">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> uur lank gebruik</item>
+      <item quantity="one">1 uur lank gebruik</item>
+    </plurals>
+    <plurals name="duration_used_minutes" formatted="false" msgid="1871095305219275611">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min. lank gebruik</item>
+      <item quantity="one">1 min. lank gebruik</item>
+    </plurals>
+    <plurals name="duration_used_seconds" formatted="false" msgid="4036612197985123365">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sek. lank gebruik</item>
+      <item quantity="one">1 sek. lank gebruik</item>
+    </plurals>
     <plurals name="permission_usage_summary" formatted="false" msgid="2837021459986644819">
       <item quantity="other">Jongste gebruik: <xliff:g id="TIME_2">%1$s</xliff:g>\n<xliff:g id="NUM_3">%2$s</xliff:g> keer gebruik</item>
       <item quantity="one">Jongste gebruik: <xliff:g id="TIME_0">%1$s</xliff:g>\n<xliff:g id="NUM_1">%2$s</xliff:g> keer gebruik</item>
@@ -143,15 +162,14 @@
     <string name="permission_usage_bar_chart_title_last_day" msgid="7950805735777472871">"Toestemminggebruik in afgelope 24 uur"</string>
     <string name="permission_usage_bar_chart_title_last_hour" msgid="6571647509660009185">"Toestemminggebruik in afgelope 1 uur"</string>
     <string name="permission_usage_bar_chart_title_last_15_minutes" msgid="2743143675412824819">"Toestemminggebruik in afgelope 15 minute"</string>
-    <string name="suffix_permission_usage_preference" msgid="8738902080074563098">"gebruik"</string>
     <string name="permission_usage_bar_chart_title_last_minute" msgid="820450867183487607">"Toestemminggebruik in afgelope 1 minuut"</string>
     <plurals name="permission_usage_bar_label" formatted="false" msgid="2316692513662993785">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> programme</item>
       <item quantity="one">1 program</item>
     </plurals>
-    <plurals name="permission_usage_preference_label" formatted="false" msgid="7730498549813201392">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> programme</item>
-      <item quantity="one">1 program</item>
+    <plurals name="permission_usage_preference_label" formatted="false" msgid="7599037764529821028">
+      <item quantity="other"><xliff:g id="NUMBER">%1$d</xliff:g> programme het <xliff:g id="PERMGROUP_1">%2$s</xliff:g> gebruik</item>
+      <item quantity="one">1 program het <xliff:g id="PERMGROUP_0">%2$s</xliff:g> gebruik</item>
     </plurals>
     <string name="permission_usage_view_details" msgid="6675335735468752787">"Sien alles in Dashboard"</string>
     <string name="app_permission_usage_filter_label" msgid="7182861154638631550">"Gefiltreer volgens: <xliff:g id="PERM">%1$s</xliff:g>"</string>
@@ -171,6 +189,8 @@
       <item quantity="one">1 program</item>
     </plurals>
     <string name="permission_history_title" msgid="8340081285133025225">"Toestemminggeskiedenis"</string>
+    <string name="permission_history_category_today" msgid="7496389369158806620">"Vandag"</string>
+    <string name="permission_history_category_yesterday" msgid="7242517121222012521">"Gister"</string>
     <string name="app_permission_usage_title" msgid="6676802437831981822">"Programtoestemmingsgebruik"</string>
     <string name="app_permission_usage_summary" msgid="390383661936709672">"Toegang: <xliff:g id="NUM">%1$s</xliff:g> keer. Totale tydsduur: <xliff:g id="DURATION">%2$s</xliff:g>. <xliff:g id="TIME">%3$s</xliff:g> gelede laas gebruik."</string>
     <string name="app_permission_usage_summary_no_duration" msgid="3698475875179457400">"Toegang: <xliff:g id="NUM">%1$s</xliff:g> keer. <xliff:g id="TIME">%2$s</xliff:g> gelede laas gebruik."</string>
@@ -206,7 +226,7 @@
     <string name="auto_revoked_app_summary_two" msgid="1910545340763709389">"<xliff:g id="PERMISSION_NAME_0">%1$s</xliff:g>- en <xliff:g id="PERMISSION_NAME_1">%2$s</xliff:g>-toestemming verwyder"</string>
     <string name="auto_revoked_app_summary_many" msgid="5930976230827378798">"<xliff:g id="PERMISSION_NAME">%1$s</xliff:g> en <xliff:g id="NUMBER">%2$s</xliff:g> ander toestemmings verwyder"</string>
     <string name="unused_apps_page_title" msgid="6986983535677572559">"Ongebruikte programme"</string>
-    <string name="unused_apps_page_summary" msgid="5271048000004368665">"As \'n program vir paar maande nie gebruik word nie:\n\n• Word toestemmings verwyder om jou privaatheid te beskerm\n• Word tydelike lêers verwyder om spasie beskikbaar te maak\n• Word kennisgewings verwyder om batterykrag te bespaar"</string>
+    <string name="unused_apps_page_summary" msgid="4644643299214625298">"As \'n program vir paar maande nie gebruik word nie:\n\n• Word toestemmings verwyder om jou privaatheid te beskerm\n• Word kennisgewings gestop om batterykrag te bespaar\n• Word tydelike lêers verwyder om spasie beskikbaar te maak"</string>
     <string name="last_opened_category_title" msgid="7871347400611202595">"Meer as <xliff:g id="NUMBER">%s</xliff:g> maande gelede laas oopgemaak"</string>
     <string name="last_opened_summary" msgid="5248984030024968808">"Program is <xliff:g id="DATE">%s</xliff:g> laas oopgemaak"</string>
     <string name="last_opened_summary_short" msgid="1646067226191176825">"<xliff:g id="DATE">%s</xliff:g> laas oopgemaak"</string>
@@ -219,6 +239,7 @@
     <string name="permission_description_summary_camera" msgid="108004375101882069">"Programme met hierdie toestemming kan foto\'s neem en video\'s opneem"</string>
     <string name="permission_description_summary_contacts" msgid="2337798886460408996">"Programme met hierdie toestemming kan toegang tot jou kontakte kry"</string>
     <string name="permission_description_summary_location" msgid="2817531799933480694">"Programme met hierdie toestemming kan toegang tot jou toestel se ligging kry"</string>
+    <string name="permission_description_summary_nearby_devices" msgid="4993093121706938071">"Programme met hierdie toestemming kan toestelle in die omtrek ontdek, daaraan koppel, en die relatiewe posisie daarvan bepaal"</string>
     <string name="permission_description_summary_microphone" msgid="630834800308329907">"Programme met hierdie toestemming kan oudio opneem"</string>
     <string name="permission_description_summary_phone" msgid="4515277217435233619">"Programme met hierdie toestemming kan foonoproepe maak en bestuur"</string>
     <string name="permission_description_summary_sensors" msgid="1836045815643119949">"Programme met hierdie toestemming kan toegang kry tot sensordata oor jou lewenstekens"</string>
@@ -265,7 +286,7 @@
       <item quantity="other"><xliff:g id="COUNT_1">%1$d</xliff:g> ongebruikte programme</item>
       <item quantity="one"><xliff:g id="COUNT_0">%1$d</xliff:g> ongebruikte program</item>
     </plurals>
-    <string name="unused_apps_notification_content" msgid="3704446042109375119">"Toestemmings en tydelike lêers is verwyder. Tik om na te gaan."</string>
+    <string name="unused_apps_notification_content" msgid="9195026773244581246">"Toestemmings en tydelike lêers is verwyder en kennisgewings is gestop. Tik om na te gaan."</string>
     <string name="auto_revoke_setting_subtitle" msgid="8631720570723050460">"Sommige programme is \'n paar maande laas gebruik"</string>
     <plurals name="auto_revoke_setting_subtitle_count" formatted="false" msgid="85594789277193087">
       <item quantity="other"><xliff:g id="COUNT_1">%1$d</xliff:g> programme is \'n paar maande laas gebruik</item>
@@ -314,7 +335,7 @@
     <string name="role_assistant_description" msgid="6622458130459922952">"Bystandprogramme kan jou help op grond van inligting vanaf die skerm waarna jy kyk. Sommige programme steun sowel lanseerder- as steminvoerdienste om vir jou geïntegreerde bystand te gee."</string>
     <string name="role_assistant_request_title" msgid="5964976301922776060">"Stel <xliff:g id="APP_NAME">%1$s</xliff:g> as jou verstekbystandprogram?"</string>
     <string name="role_assistant_request_description" msgid="6836644847620178483">"Kry toegang tot SMS, oproeprekord"</string>
-    <string name="role_browser_label" msgid="2877796144554070207">"Verstekblaaierprogram"</string>
+    <string name="role_browser_label" msgid="2877796144554070207">"Verstekblaaier"</string>
     <string name="role_browser_short_label" msgid="6745009127123292296">"Blaaierprogram"</string>
     <string name="role_browser_description" msgid="3465253637499842671">"Programme wat jou toegang tot die internet gee en na vertoonskakels waarop jy tik"</string>
     <string name="role_browser_request_title" msgid="2895200507835937192">"Stel <xliff:g id="APP_NAME">%1$s</xliff:g> as jou verstekblaaierprogram?"</string>
@@ -348,7 +369,7 @@
     <string name="role_call_redirection_description" msgid="6091669882014664420">"Programme wat jou toelaat om uitgaande oproepe na \'n ander foonnommer aan te stuur"</string>
     <string name="role_call_redirection_request_title" msgid="2816244455003562925">"Stel <xliff:g id="APP_NAME">%1$s</xliff:g> as jou oproepherleiding-verstekprogram?"</string>
     <string name="role_call_redirection_request_description" msgid="3118895714178527164">"Geen toestemmings is nodig nie"</string>
-    <string name="role_call_screening_label" msgid="883935222060878724">"Verstekbeller-ID en strooiposprogram"</string>
+    <string name="role_call_screening_label" msgid="883935222060878724">"Verstekbeller-ID- en -strooiposprogram"</string>
     <string name="role_call_screening_short_label" msgid="2048465565063130834">"Beller-ID en strooiposprogram"</string>
     <string name="role_call_screening_description" msgid="2349431420497468981">"Programme wat dit vir jou moontlik maak om oproepe te identifiseer en strooipos, robotoproepe en ongewenste nommers te blokkeer"</string>
     <string name="role_call_screening_request_title" msgid="7358309224566977290">"Stel <xliff:g id="APP_NAME">%1$s</xliff:g> as jou verstekbeller-ID en -strooiposprogram?"</string>
@@ -415,13 +436,15 @@
     <string name="permgroupbackgroundrequestdetail_location" msgid="8021219324989662957">"Hierdie program wil dalk die hele tyd toegang tot jou ligging hê, selfs wanneer jy nie die program gebruik nie. "<annotation id="link">"Laat toe in instellings."</annotation></string>
     <string name="permgroupupgraderequest_location" msgid="8328408946822691636">"Verander liggingtoegang vir &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;?"</string>
     <string name="permgroupupgraderequestdetail_location" msgid="1550899076845189165">"Hierdie program wil die hele tyd toegang tot jou ligging hê, selfs wanneer jy nie die program gebruik nie. "<annotation id="link">"Laat toe in instellings."</annotation></string>
-    <string name="permgrouprequest_finelocation" msgid="169340229199345158">"Gee &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; toegang tot hierdie toestel se presiese ligging?"</string>
+    <string name="permgrouprequest_nearby_devices" msgid="620046480867488546">"Laat &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; toe om toestelle in die omtrek te ontdek en daaraan te koppel?"</string>
+    <string name="permgroupupgraderequestdetail_nearby_devices" msgid="2560445503628306938">"Laat &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; toe om toestelle in die omtrek te ontdek en daaraan te koppel? "<annotation id="link">"Laat in Instellings toe."</annotation></string>
+    <string name="permgrouprequest_fineupgrade" msgid="2334242928821697672">"Verander <xliff:g id="APP_NAME">&lt;b&gt;%1$s&lt;/b&gt;</xliff:g> se liggingtoegang van benaderd na presies?"</string>
     <string name="permgrouprequest_coarselocation" msgid="7244605063736425232">"Gee &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; toegang tot hierdie toestel se benaderde ligging?"</string>
     <string name="permgrouprequest_finelocation_imagetext" msgid="1313062433398914334">"Presies"</string>
     <string name="permgrouprequest_coarselocation_imagetext" msgid="8650605041483025297">"Benaderd"</string>
     <string name="permgrouprequest_calendar" msgid="1493150855673603806">"Gee &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; toegang tot jou kalender?"</string>
     <string name="permgrouprequest_sms" msgid="5672063688745420991">"Laat &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; toe om SMS\'e te stuur en te bekyk?"</string>
-    <string name="permgrouprequest_storage" msgid="8717773092518621602">"Gee vir &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; toegang tot jou foto\'s, media en lêers op jou toestel?"</string>
+    <string name="permgrouprequest_storage" msgid="8717773092518621602">"Gee vir &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; toegang tot foto\'s, media en lêers op jou toestel?"</string>
     <string name="permgrouprequest_microphone" msgid="2825208549114811299">"Laat &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; toe om oudio op te neem?"</string>
     <string name="permgrouprequestdetail_microphone" msgid="8510456971528228861">"Die program sal net kan oudio opneem terwyl jy die program gebruik"</string>
     <string name="permgroupbackgroundrequest_microphone" msgid="8874462606796368183">"Laat &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; toe om oudio op te neem?"</string>

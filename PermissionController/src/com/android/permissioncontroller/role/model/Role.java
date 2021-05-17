@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.SharedLibraryInfo;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Process;
@@ -42,6 +43,7 @@ import com.android.permissioncontroller.permission.utils.CollectionUtils;
 import com.android.permissioncontroller.permission.utils.Utils;
 import com.android.permissioncontroller.role.ui.TwoTargetPreference;
 import com.android.permissioncontroller.role.utils.PackageUtils;
+import com.android.permissioncontroller.role.utils.RoleManagerCompat;
 import com.android.permissioncontroller.role.utils.UserUtils;
 
 import java.util.ArrayList;
@@ -80,6 +82,11 @@ public class Role {
      */
     @NonNull
     private final String mName;
+
+    /**
+     * Whether this role allows bypassing role holder qualification.
+     */
+    private final boolean mAllowBypassingQualification;
 
     /**
      * The behavior of this role.
@@ -202,10 +209,10 @@ public class Role {
     @NonNull
     private final List<PreferredActivity> mPreferredActivities;
 
-    public Role(@NonNull String name, @Nullable RoleBehavior behavior,
-            @Nullable String defaultHoldersResourceName, @StringRes int descriptionResource,
-            boolean exclusive, boolean fallBackToDefaultHolder, @StringRes int labelResource,
-            int minSdkVersion, boolean overrideUserWhenGranting,
+    public Role(@NonNull String name, boolean allowBypassingQualification,
+            @Nullable RoleBehavior behavior, @Nullable String defaultHoldersResourceName,
+            @StringRes int descriptionResource, boolean exclusive, boolean fallBackToDefaultHolder,
+            @StringRes int labelResource, int minSdkVersion, boolean overrideUserWhenGranting,
             @StringRes int requestDescriptionResource, @StringRes int requestTitleResource,
             boolean requestable, @StringRes int searchKeywordsResource,
             @StringRes int shortLabelResource, boolean showNone, boolean systemOnly,
@@ -213,6 +220,7 @@ public class Role {
             @NonNull List<String> permissions, @NonNull List<String> appOpPermissions,
             @NonNull List<AppOp> appOps, @NonNull List<PreferredActivity> preferredActivities) {
         mName = name;
+        mAllowBypassingQualification = allowBypassingQualification;
         mBehavior = behavior;
         mDefaultHoldersResourceName = defaultHoldersResourceName;
         mDescriptionResource = descriptionResource;
@@ -239,6 +247,13 @@ public class Role {
     @NonNull
     public String getName() {
         return mName;
+    }
+
+    /**
+     * @see #mAllowBypassingQualification
+     */
+    public boolean shouldAllowBypassingQualification() {
+        return mAllowBypassingQualification;
     }
 
     @Nullable
@@ -347,8 +362,8 @@ public class Role {
      * @return whether this role is available.
      */
     public boolean isAvailableAsUser(@NonNull UserHandle user, @NonNull Context context) {
-        // Workaround to match the value 31 for S in roles.xml before SDK finalization.
-        if (mMinSdkVersion == 31) {
+        // Workaround to match the value 31+ for S+ in roles.xml before SDK finalization.
+        if (mMinSdkVersion >= 31) {
             if (!SdkLevel.isAtLeastS()) {
                 return false;
             }
@@ -581,6 +596,12 @@ public class Role {
      * @return whether the package is qualified for a role
      */
     public boolean isPackageQualified(@NonNull String packageName, @NonNull Context context) {
+        RoleManager roleManager = context.getSystemService(RoleManager.class);
+        if (mAllowBypassingQualification
+                && RoleManagerCompat.isBypassingRoleQualification(roleManager)) {
+            return true;
+        }
+
         if (!isPackageMinimallyQualifiedAsUser(packageName, Process.myUserHandle(), context)) {
             return false;
         }
@@ -704,8 +725,14 @@ public class Role {
 
         PackageManager userPackageManager = UserUtils.getUserContext(context, user)
                 .getPackageManager();
-        if (!userPackageManager.getDeclaredSharedLibraries(packageName, 0).isEmpty()) {
-            return false;
+        List<SharedLibraryInfo> declaredLibraries = userPackageManager.getDeclaredSharedLibraries(
+                packageName, 0);
+        final int libCount = declaredLibraries.size();
+        for (int i = 0; i < libCount; i++) {
+            SharedLibraryInfo sharedLibrary = declaredLibraries.get(i);
+            if (sharedLibrary.getType() != SharedLibraryInfo.TYPE_DYNAMIC) {
+                return false;
+            }
         }
 
         return true;
@@ -903,6 +930,7 @@ public class Role {
     public String toString() {
         return "Role{"
                 + "mName='" + mName + '\''
+                + ", mAllowBypassingQualification=" + mAllowBypassingQualification
                 + ", mBehavior=" + mBehavior
                 + ", mDefaultHoldersResourceName=" + mDefaultHoldersResourceName
                 + ", mDescriptionResource=" + mDescriptionResource

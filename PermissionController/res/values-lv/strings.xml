@@ -43,6 +43,7 @@
     <string name="grant_dialog_button_allow_always" msgid="4485552579273565981">"Vienmēr atļaut"</string>
     <string name="grant_dialog_button_allow_foreground" msgid="501896824973636533">"Lietotnes izmantošanas laikā"</string>
     <string name="grant_dialog_button_change_to_precise_location" msgid="3273115879467236033">"Mainīt uz precīzu atrašanās vietu"</string>
+    <string name="grant_dialog_button_keey_approximate_location" msgid="438025182769080011">"Turpināt izmantot aptuveno atrašanās vietu"</string>
     <string name="grant_dialog_button_allow_one_time" msgid="2618088516449706391">"Tikai šoreiz"</string>
     <string name="grant_dialog_button_allow_background" msgid="8236044729434367833">"Vienmēr atļaut"</string>
     <string name="grant_dialog_button_allow_all_files" msgid="4955436994954829894">"Atļaut pārvaldīt visus failus"</string>
@@ -107,7 +108,29 @@
     <string name="app_name_unknown" msgid="1319665005754048952">"Nezināma"</string>
     <string name="permission_usage_title" msgid="5095876355858467390">"Informācijas panelis"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Šīs atļauju grupas lietojums: <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
-    <string name="permission_group_usage_subtitle" msgid="5302255813297881611">"Kad lietotnes pārtrauca izmantot tālāk norādīto atļauju grupu pēdējo 24 stundu laikā: <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
+    <string name="permission_group_usage_subtitle" msgid="2060508926529591334">"Šajā laika grafikā ir norādīts atļauju grupas “<xliff:g id="PERMGROUP">%1$s</xliff:g>” lietojums pēdējo 24 stundu laikā"</string>
+    <string name="permission_usage_access_dialog_subtitle" msgid="5567142130422605829">"Kad šī lietotne izmantoja atļauju “<xliff:g id="PERMGROUP">%1$s</xliff:g>”:"</string>
+    <string name="permission_usage_access_dialog_learn_more" msgid="7121468469493184613">"Uzzināt vairāk"</string>
+    <plurals name="duration_used_days" formatted="false" msgid="6029658139201482951">
+      <item quantity="zero">Izmantota <xliff:g id="NUMBER">%s</xliff:g> dienas</item>
+      <item quantity="one">Izmantota <xliff:g id="NUMBER">%s</xliff:g> dienu</item>
+      <item quantity="other">Izmantota <xliff:g id="NUMBER">%s</xliff:g> dienas</item>
+    </plurals>
+    <plurals name="duration_used_hours" formatted="false" msgid="2934347147156813767">
+      <item quantity="zero">Izmantota <xliff:g id="NUMBER">%s</xliff:g> stundas</item>
+      <item quantity="one">Izmantota <xliff:g id="NUMBER">%s</xliff:g> stundu</item>
+      <item quantity="other">Izmantota <xliff:g id="NUMBER">%s</xliff:g> stundas</item>
+    </plurals>
+    <plurals name="duration_used_minutes" formatted="false" msgid="1871095305219275611">
+      <item quantity="zero">Izmantota <xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
+      <item quantity="one">Izmantota <xliff:g id="NUMBER">%s</xliff:g> minūti</item>
+      <item quantity="other">Izmantota <xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
+    </plurals>
+    <plurals name="duration_used_seconds" formatted="false" msgid="4036612197985123365">
+      <item quantity="zero">Izmantota <xliff:g id="NUMBER">%s</xliff:g> sekundes</item>
+      <item quantity="one">Izmantota <xliff:g id="NUMBER">%s</xliff:g> sekundi</item>
+      <item quantity="other">Izmantota <xliff:g id="NUMBER">%s</xliff:g> sekundes</item>
+    </plurals>
     <plurals name="permission_usage_summary" formatted="false" msgid="2837021459986644819">
       <item quantity="zero">Pēdējā piekļuve: <xliff:g id="TIME_2">%1$s</xliff:g>\n<xliff:g id="NUM_3">%2$s</xliff:g> piekļuves gadījumi</item>
       <item quantity="one">Pēdējā piekļuve: <xliff:g id="TIME_2">%1$s</xliff:g>\n<xliff:g id="NUM_3">%2$s</xliff:g> piekļuves gadījums</item>
@@ -148,17 +171,16 @@
     <string name="permission_usage_bar_chart_title_last_day" msgid="7950805735777472871">"Atļauju lietojums pēdējo 24 stundu laikā"</string>
     <string name="permission_usage_bar_chart_title_last_hour" msgid="6571647509660009185">"Atļauju lietojums pēdējās stundas laikā"</string>
     <string name="permission_usage_bar_chart_title_last_15_minutes" msgid="2743143675412824819">"Atļauju lietojums pēdējās 15 minūtēs"</string>
-    <string name="suffix_permission_usage_preference" msgid="8738902080074563098">"lietojums"</string>
     <string name="permission_usage_bar_chart_title_last_minute" msgid="820450867183487607">"Atļauju lietojums pēdējā minūtē"</string>
     <plurals name="permission_usage_bar_label" formatted="false" msgid="2316692513662993785">
       <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> lietotnes</item>
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> lietotne</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> lietotnes</item>
     </plurals>
-    <plurals name="permission_usage_preference_label" formatted="false" msgid="7730498549813201392">
-      <item quantity="zero"><xliff:g id="NUMBER">%d</xliff:g> lietotņu</item>
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> lietotne</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> lietotnes</item>
+    <plurals name="permission_usage_preference_label" formatted="false" msgid="7599037764529821028">
+      <item quantity="zero"><xliff:g id="NUMBER">%1$d</xliff:g> lietotņu izmantoja šo atļauju: <xliff:g id="PERMGROUP_1">%2$s</xliff:g></item>
+      <item quantity="one"><xliff:g id="NUMBER">%1$d</xliff:g> lietotne izmantoja šo atļauju: <xliff:g id="PERMGROUP_1">%2$s</xliff:g></item>
+      <item quantity="other"><xliff:g id="NUMBER">%1$d</xliff:g> lietotnes izmantoja šo atļauju: <xliff:g id="PERMGROUP_1">%2$s</xliff:g></item>
     </plurals>
     <string name="permission_usage_view_details" msgid="6675335735468752787">"Skatīt visu rīkā Permission Dashboard"</string>
     <string name="app_permission_usage_filter_label" msgid="7182861154638631550">"Filtrēts pēc: <xliff:g id="PERM">%1$s</xliff:g>"</string>
@@ -179,6 +201,8 @@
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> lietotnes</item>
     </plurals>
     <string name="permission_history_title" msgid="8340081285133025225">"Atļauju vēsture"</string>
+    <string name="permission_history_category_today" msgid="7496389369158806620">"Šodien"</string>
+    <string name="permission_history_category_yesterday" msgid="7242517121222012521">"Vakar"</string>
     <string name="app_permission_usage_title" msgid="6676802437831981822">"Lietotņu atļauju lietojums"</string>
     <string name="app_permission_usage_summary" msgid="390383661936709672">"Piekļuve: <xliff:g id="NUM">%1$s</xliff:g> reizes. Kopējais ilgums: <xliff:g id="DURATION">%2$s</xliff:g>. Pēdējā lietošanas reize pirms šāda laika: <xliff:g id="TIME">%3$s</xliff:g>."</string>
     <string name="app_permission_usage_summary_no_duration" msgid="3698475875179457400">"Piekļuve: <xliff:g id="NUM">%1$s</xliff:g> reizes. Pēdējā lietošanas reize pirms šāda laika: <xliff:g id="TIME">%2$s</xliff:g>."</string>
@@ -214,7 +238,7 @@
     <string name="auto_revoked_app_summary_two" msgid="1910545340763709389">"Atļauja “<xliff:g id="PERMISSION_NAME_0">%1$s</xliff:g>” un “<xliff:g id="PERMISSION_NAME_1">%2$s</xliff:g>” tika automātiski noņemta"</string>
     <string name="auto_revoked_app_summary_many" msgid="5930976230827378798">"Atļauja “<xliff:g id="PERMISSION_NAME">%1$s</xliff:g>” un vēl <xliff:g id="NUMBER">%2$s</xliff:g> tika automātiski noņemtas"</string>
     <string name="unused_apps_page_title" msgid="6986983535677572559">"Neizmantotās lietotnes"</string>
-    <string name="unused_apps_page_summary" msgid="5271048000004368665">"Ja kāda lietotne nav izmantota vairākus mēnešus:\n\n• tiek noņemtas atļaujas, lai aizsargātu jūsu konfidencialitāti;\n• tiek noņemti pagaidu faili, lai atbrīvotu vietu;\n• tiek apturēti paziņojumi, lai taupītu akumulatora enerģiju."</string>
+    <string name="unused_apps_page_summary" msgid="4644643299214625298">"Ja kāda lietotne nav izmantota vairākus mēnešus:\n\n• tiek noņemtas atļaujas, lai aizsargātu jūsu datus;\n• tiek apturēti paziņojumi, lai taupītu akumulatora enerģiju;\n• tiek noņemti pagaidu faili, lai atbrīvotu vietu."</string>
     <string name="last_opened_category_title" msgid="7871347400611202595">"Pēdējoreiz atvērtas pirms vairāk nekā <xliff:g id="NUMBER">%s</xliff:g> mēnešiem"</string>
     <string name="last_opened_summary" msgid="5248984030024968808">"Lietotne pēdējoreiz tika atvērta <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="last_opened_summary_short" msgid="1646067226191176825">"Pēdējoreiz atvērta <xliff:g id="DATE">%s</xliff:g>"</string>
@@ -227,6 +251,7 @@
     <string name="permission_description_summary_camera" msgid="108004375101882069">"Lietotnes, kurām ir šī atļauja, var uzņemt attēlus un ierakstīt videoklipus"</string>
     <string name="permission_description_summary_contacts" msgid="2337798886460408996">"Lietotnes, kurām ir šī atļauja, var piekļūt jūsu kontaktpersonām"</string>
     <string name="permission_description_summary_location" msgid="2817531799933480694">"Lietotnes, kurām ir šī atļauja, var piekļūt šīs ierīces atrašanās vietai"</string>
+    <string name="permission_description_summary_nearby_devices" msgid="4993093121706938071">"Lietotnes, kurām ir šī atļauja, var atrast tuvumā esošas ierīces, veidot savienojumus ar tām un noteikt to relatīvo atrašanās vietu"</string>
     <string name="permission_description_summary_microphone" msgid="630834800308329907">"Lietotnes, kurām ir šī atļauja, var ierakstīt audio"</string>
     <string name="permission_description_summary_phone" msgid="4515277217435233619">"Lietotnes, kurām ir šī atļauja, var veikt un pārvaldīt tālruņa zvanus"</string>
     <string name="permission_description_summary_sensors" msgid="1836045815643119949">"Lietotnes, kurām ir šī atļauja, var piekļūt sensoru datiem par jūsu veselības rādījumiem"</string>
@@ -279,7 +304,7 @@
       <item quantity="one"><xliff:g id="COUNT_1">%1$d</xliff:g> neizmantota lietotne</item>
       <item quantity="other"><xliff:g id="COUNT_1">%1$d</xliff:g> neizmantotas lietotnes</item>
     </plurals>
-    <string name="unused_apps_notification_content" msgid="3704446042109375119">"Atļaujas un pagaidu faili ir noņemti. Pieskarieties, lai tos skatītu."</string>
+    <string name="unused_apps_notification_content" msgid="9195026773244581246">"Atļaujas un pagaidu faili ir noņemti, un paziņojumi ir apturēti. Pieskarieties, lai to pārskatītu."</string>
     <string name="auto_revoke_setting_subtitle" msgid="8631720570723050460">"Dažas lietotnes nav izmantotas vairākus mēnešus."</string>
     <plurals name="auto_revoke_setting_subtitle_count" formatted="false" msgid="85594789277193087">
       <item quantity="zero"><xliff:g id="COUNT_1">%1$d</xliff:g> lietotnes nav izmantotas vairākus mēnešus.</item>
@@ -430,7 +455,9 @@
     <string name="permgroupbackgroundrequestdetail_location" msgid="8021219324989662957">"Iespējams, šī lietotne vēlēsies piekļūt jūsu atrašanās vietai vienmēr, pat ja neizmantojat lietotni. "<annotation id="link">"Atļauju varat piešķirt iestatījumos"</annotation>"."</string>
     <string name="permgroupupgraderequest_location" msgid="8328408946822691636">"Vai mainīt lietotnei &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; piekļuvi atrašanās vietai?"</string>
     <string name="permgroupupgraderequestdetail_location" msgid="1550899076845189165">"Šī lietotne vēlas piekļūt jūsu atrašanās vietai vienmēr, pat ja neizmantojat lietotni. "<annotation id="link">"Atļauju varat piešķirt iestatījumos"</annotation>"."</string>
-    <string name="permgrouprequest_finelocation" msgid="169340229199345158">"Vai atļaut lietotnei &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; piekļūt precīzai šīs ierīces atrašanās vietai?"</string>
+    <string name="permgrouprequest_nearby_devices" msgid="620046480867488546">"Vai atļaut lietotnei &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; atrast tuvumā esošas ierīces un izveidot savienojumu ar tām?"</string>
+    <string name="permgroupupgraderequestdetail_nearby_devices" msgid="2560445503628306938">"Vai atļaut lietotnei &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; atrast tuvumā esošas ierīces un izveidot savienojumu ar tām? "<annotation id="link">"Varat to atļaut iestatījumos."</annotation></string>
+    <string name="permgrouprequest_fineupgrade" msgid="2334242928821697672">"Vai mainīt lietotnes <xliff:g id="APP_NAME">&lt;b&gt;%1$s&lt;/b&gt;</xliff:g> piekļuvi atrašanās vietai no aptuvenās uz precīzo?"</string>
     <string name="permgrouprequest_coarselocation" msgid="7244605063736425232">"Vai atļaut lietotnei &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; piekļūt aptuvenai šīs ierīces atrašanās vietai?"</string>
     <string name="permgrouprequest_finelocation_imagetext" msgid="1313062433398914334">"Precīza"</string>
     <string name="permgrouprequest_coarselocation_imagetext" msgid="8650605041483025297">"Aptuvena"</string>

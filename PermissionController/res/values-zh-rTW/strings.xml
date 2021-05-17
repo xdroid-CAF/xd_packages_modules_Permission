@@ -43,6 +43,7 @@
     <string name="grant_dialog_button_allow_always" msgid="4485552579273565981">"一律允許"</string>
     <string name="grant_dialog_button_allow_foreground" msgid="501896824973636533">"使用應用程式時"</string>
     <string name="grant_dialog_button_change_to_precise_location" msgid="3273115879467236033">"改用精確位置"</string>
+    <string name="grant_dialog_button_keey_approximate_location" msgid="438025182769080011">"繼續使用概略位置"</string>
     <string name="grant_dialog_button_allow_one_time" msgid="2618088516449706391">"僅允許這一次"</string>
     <string name="grant_dialog_button_allow_background" msgid="8236044729434367833">"一律允許"</string>
     <string name="grant_dialog_button_allow_all_files" msgid="4955436994954829894">"允許管理所有檔案"</string>
@@ -106,7 +107,25 @@
     <string name="app_name_unknown" msgid="1319665005754048952">"不明"</string>
     <string name="permission_usage_title" msgid="5095876355858467390">"資訊主頁"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"<xliff:g id="PERMGROUP">%1$s</xliff:g>使用情況"</string>
-    <string name="permission_group_usage_subtitle" msgid="5302255813297881611">"過去 24 小時內，應用程式已停止使用你的<xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
+    <string name="permission_group_usage_subtitle" msgid="2060508926529591334">"「<xliff:g id="PERMGROUP">%1$s</xliff:g>」在過去 24 小時的使用情況時間軸"</string>
+    <string name="permission_usage_access_dialog_subtitle" msgid="5567142130422605829">"這個應用程式使用你的<xliff:g id="PERMGROUP">%1$s</xliff:g>時："</string>
+    <string name="permission_usage_access_dialog_learn_more" msgid="7121468469493184613">"瞭解詳情"</string>
+    <plurals name="duration_used_days" formatted="false" msgid="6029658139201482951">
+      <item quantity="other">使用時間：<xliff:g id="NUMBER">%s</xliff:g> 天</item>
+      <item quantity="one">使用時間：1 天</item>
+    </plurals>
+    <plurals name="duration_used_hours" formatted="false" msgid="2934347147156813767">
+      <item quantity="other">使用時間：<xliff:g id="NUMBER">%s</xliff:g> 小時</item>
+      <item quantity="one">使用時間：1 小時</item>
+    </plurals>
+    <plurals name="duration_used_minutes" formatted="false" msgid="1871095305219275611">
+      <item quantity="other">使用時間：<xliff:g id="NUMBER">%s</xliff:g> 分鐘</item>
+      <item quantity="one">使用時間：1 分鐘</item>
+    </plurals>
+    <plurals name="duration_used_seconds" formatted="false" msgid="4036612197985123365">
+      <item quantity="other">使用時間：<xliff:g id="NUMBER">%s</xliff:g> 秒</item>
+      <item quantity="one">使用時間：1 秒</item>
+    </plurals>
     <plurals name="permission_usage_summary" formatted="false" msgid="2837021459986644819">
       <item quantity="other">上次存取時間：<xliff:g id="TIME_2">%1$s</xliff:g>\n存取次數：<xliff:g id="NUM_3">%2$s</xliff:g> 次</item>
       <item quantity="one">上次存取時間：<xliff:g id="TIME_0">%1$s</xliff:g>\n存取次數：<xliff:g id="NUM_1">%2$s</xliff:g> 次</item>
@@ -143,15 +162,14 @@
     <string name="permission_usage_bar_chart_title_last_day" msgid="7950805735777472871">"過去 24 小時內各權限的使用頻率"</string>
     <string name="permission_usage_bar_chart_title_last_hour" msgid="6571647509660009185">"過去 1 小時內各權限的使用頻率"</string>
     <string name="permission_usage_bar_chart_title_last_15_minutes" msgid="2743143675412824819">"過去 15 分鐘內各權限的使用頻率"</string>
-    <string name="suffix_permission_usage_preference" msgid="8738902080074563098">"使用情況"</string>
     <string name="permission_usage_bar_chart_title_last_minute" msgid="820450867183487607">"過去 1 分鐘內各權限的使用頻率"</string>
     <plurals name="permission_usage_bar_label" formatted="false" msgid="2316692513662993785">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> 個應用程式</item>
       <item quantity="one">1 個應用程式</item>
     </plurals>
-    <plurals name="permission_usage_preference_label" formatted="false" msgid="7730498549813201392">
-      <item quantity="other">有 <xliff:g id="NUMBER">%d</xliff:g> 個應用程式使用</item>
-      <item quantity="one">有 1 個應用程式使用</item>
+    <plurals name="permission_usage_preference_label" formatted="false" msgid="7599037764529821028">
+      <item quantity="other"><xliff:g id="NUMBER">%1$d</xliff:g> 個應用程式使用了「<xliff:g id="PERMGROUP_1">%2$s</xliff:g>」</item>
+      <item quantity="one">1 個應用程式使用了「<xliff:g id="PERMGROUP_0">%2$s</xliff:g>」</item>
     </plurals>
     <string name="permission_usage_view_details" msgid="6675335735468752787">"在資訊主頁查看所有詳細資料"</string>
     <string name="app_permission_usage_filter_label" msgid="7182861154638631550">"篩選依據：<xliff:g id="PERM">%1$s</xliff:g>"</string>
@@ -171,6 +189,8 @@
       <item quantity="one">1 個應用程式</item>
     </plurals>
     <string name="permission_history_title" msgid="8340081285133025225">"權限記錄"</string>
+    <string name="permission_history_category_today" msgid="7496389369158806620">"今天"</string>
+    <string name="permission_history_category_yesterday" msgid="7242517121222012521">"昨天"</string>
     <string name="app_permission_usage_title" msgid="6676802437831981822">"應用程式權限使用情況"</string>
     <string name="app_permission_usage_summary" msgid="390383661936709672">"使用次數：<xliff:g id="NUM">%1$s</xliff:g> 次。總時間長度：<xliff:g id="DURATION">%2$s</xliff:g>。上次使用時間：<xliff:g id="TIME">%3$s</xliff:g>前。"</string>
     <string name="app_permission_usage_summary_no_duration" msgid="3698475875179457400">"使用次數：<xliff:g id="NUM">%1$s</xliff:g> 次。上次使用時間：<xliff:g id="TIME">%2$s</xliff:g>前。"</string>
@@ -191,7 +211,7 @@
     <string name="app_permission_footer_permission_apps_link" msgid="3941988129992794327">"查看具備此權限的所有應用程式"</string>
     <string name="assistant_mic_label" msgid="1011432357152323896">"顯示 Google 助理的麥克風使用狀況"</string>
     <string name="auto_revoke_label" msgid="5068393642936571656">"如果應用程式未使用，系統會移除相關權限"</string>
-    <string name="auto_revoke_summary" msgid="5867548789805911683">"為了保護你的資料，系統會針對數個月未使用的應用程式移除相關權限。"</string>
+    <string name="auto_revoke_summary" msgid="5867548789805911683">"為了保護你的資料，如果你連續幾個月都未使用這個應用程式，系統會移除其權限。"</string>
     <string name="auto_revoke_summary_with_permissions" msgid="389712086597285013">"為了保護你的資料，如果應用程式已有數個月未使用，系統將移除以下權限：<xliff:g id="PERMS">%1$s</xliff:g>"</string>
     <string name="auto_revoked_apps_page_summary" msgid="6594753657893756536">"為了保護你的資料，針對數個月未使用的應用程式，系統已移除相關權限。"</string>
     <string name="auto_revoke_open_app_message" msgid="8075556291711205039">"如要重新授予權限，請開啟應用程式。"</string>
@@ -206,7 +226,7 @@
     <string name="auto_revoked_app_summary_two" msgid="1910545340763709389">"已移除<xliff:g id="PERMISSION_NAME_0">%1$s</xliff:g>和<xliff:g id="PERMISSION_NAME_1">%2$s</xliff:g>存取權"</string>
     <string name="auto_revoked_app_summary_many" msgid="5930976230827378798">"已移除<xliff:g id="PERMISSION_NAME">%1$s</xliff:g>存取權和另外 <xliff:g id="NUMBER">%2$s</xliff:g> 項權限"</string>
     <string name="unused_apps_page_title" msgid="6986983535677572559">"未使用的應用程式"</string>
-    <string name="unused_apps_page_summary" msgid="5271048000004368665">"如果你數個月未使用某個應用程式，系統將對該應用程式採取以下措施：\n\n• 移除權限以保護你的隱私\n• 移除暫存檔以釋出空間\n• 停止通知功能以節省電力"</string>
+    <string name="unused_apps_page_summary" msgid="4644643299214625298">"如果你數個月未使用某個應用程式，系統將對該應用程式採取以下措施：\n\n• 移除權限以保護你的資料\n• 停止通知以節省電力\n• 移除暫存檔以釋出空間"</string>
     <string name="last_opened_category_title" msgid="7871347400611202595">"距離上次開啟時間已超過 <xliff:g id="NUMBER">%s</xliff:g> 個月"</string>
     <string name="last_opened_summary" msgid="5248984030024968808">"應用程式上次開啟時間：<xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="last_opened_summary_short" msgid="1646067226191176825">"上次開啟時間：<xliff:g id="DATE">%s</xliff:g>"</string>
@@ -219,6 +239,7 @@
     <string name="permission_description_summary_camera" msgid="108004375101882069">"具備此權限的應用程式可拍照及錄影"</string>
     <string name="permission_description_summary_contacts" msgid="2337798886460408996">"具備此權限的應用程式可存取你的聯絡人"</string>
     <string name="permission_description_summary_location" msgid="2817531799933480694">"具備此權限的應用程式可存取這個裝置的位置資訊"</string>
+    <string name="permission_description_summary_nearby_devices" msgid="4993093121706938071">"擁有這個權限的應用程式不但可以探索附近的裝置並進行連線，還能判斷與附近裝置間的相對位置。"</string>
     <string name="permission_description_summary_microphone" msgid="630834800308329907">"具備此權限的應用程式可錄音"</string>
     <string name="permission_description_summary_phone" msgid="4515277217435233619">"具備此權限的應用程式可撥打電話及管理通話"</string>
     <string name="permission_description_summary_sensors" msgid="1836045815643119949">"具備此權限的應用程式可存取與你生命徵象相關的感應器資料"</string>
@@ -265,7 +286,7 @@
       <item quantity="other"><xliff:g id="COUNT_1">%1$d</xliff:g> 個未使用的應用程式</item>
       <item quantity="one"><xliff:g id="COUNT_0">%1$d</xliff:g> 個未使用的應用程式</item>
     </plurals>
-    <string name="unused_apps_notification_content" msgid="3704446042109375119">"系統將移除權限和暫存檔案。輕觸即可查看。"</string>
+    <string name="unused_apps_notification_content" msgid="9195026773244581246">"系統已移除權限和暫存檔案，同時也停止通知。輕觸即可查看。"</string>
     <string name="auto_revoke_setting_subtitle" msgid="8631720570723050460">"某些應用程式已有數個月未使用"</string>
     <plurals name="auto_revoke_setting_subtitle_count" formatted="false" msgid="85594789277193087">
       <item quantity="other"><xliff:g id="COUNT_1">%1$d</xliff:g> 個應用程式已有數個月未使用</item>
@@ -415,7 +436,9 @@
     <string name="permgroupbackgroundrequestdetail_location" msgid="8021219324989662957">"這個應用程式可能會要求隨時存取你的位置資訊 (即使在你未使用此應用程式時)。"<annotation id="link">"如要授予權限，請前往「設定」"</annotation>"。"</string>
     <string name="permgroupupgraderequest_location" msgid="8328408946822691636">"要變更「<xliff:g id="APP_NAME">%1$s</xliff:g>」的位置資訊存取權嗎？"</string>
     <string name="permgroupupgraderequestdetail_location" msgid="1550899076845189165">"這個應用程式想要隨時存取你的位置資訊 (即使在你未使用此應用程式時)。"<annotation id="link">"如要授予權限，請前往「設定」"</annotation>"。"</string>
-    <string name="permgrouprequest_finelocation" msgid="169340229199345158">"要允許「<xliff:g id="APP_NAME">%1$s</xliff:g>」&lt;b&gt;&lt;/b&gt;存取這部裝置的精確位置資訊嗎？"</string>
+    <string name="permgrouprequest_nearby_devices" msgid="620046480867488546">"要允許「<xliff:g id="APP_NAME">%1$s</xliff:g>」&lt;b&gt;&lt;/b&gt;探索附近的裝置並進行連線嗎？"</string>
+    <string name="permgroupupgraderequestdetail_nearby_devices" msgid="2560445503628306938">"要允許「<xliff:g id="APP_NAME">%1$s</xliff:g>」&lt;b&gt;&lt;/b&gt;探索附近的裝置並進行連線嗎？"<annotation id="link">"請前往「設定」授予權限。"</annotation></string>
+    <string name="permgrouprequest_fineupgrade" msgid="2334242928821697672">"要將「<xliff:g id="APP_NAME">&lt;b&gt;%1$s&lt;/b&gt;</xliff:g>」位置資訊存取權從概略位置改為精確位置嗎？"</string>
     <string name="permgrouprequest_coarselocation" msgid="7244605063736425232">"要允許「<xliff:g id="APP_NAME">%1$s</xliff:g>」&lt;b&gt;&lt;/b&gt;存取這部裝置的概略位置資訊嗎？"</string>
     <string name="permgrouprequest_finelocation_imagetext" msgid="1313062433398914334">"精確"</string>
     <string name="permgrouprequest_coarselocation_imagetext" msgid="8650605041483025297">"概略"</string>

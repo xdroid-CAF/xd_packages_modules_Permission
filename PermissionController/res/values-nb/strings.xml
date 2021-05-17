@@ -43,6 +43,7 @@
     <string name="grant_dialog_button_allow_always" msgid="4485552579273565981">"Tillat hele tiden"</string>
     <string name="grant_dialog_button_allow_foreground" msgid="501896824973636533">"Når appen brukes"</string>
     <string name="grant_dialog_button_change_to_precise_location" msgid="3273115879467236033">"Bytt til nøyaktig posisjon"</string>
+    <string name="grant_dialog_button_keey_approximate_location" msgid="438025182769080011">"Behold omtrentlig posisjon"</string>
     <string name="grant_dialog_button_allow_one_time" msgid="2618088516449706391">"Bare denne gangen"</string>
     <string name="grant_dialog_button_allow_background" msgid="8236044729434367833">"Tillat hele tiden"</string>
     <string name="grant_dialog_button_allow_all_files" msgid="4955436994954829894">"Gi tillatelse til administrering av alle filer"</string>
@@ -63,7 +64,7 @@
     </plurals>
     <string name="old_sdk_deny_warning" msgid="2382236998845153919">"Denne appen er laget for en eldre versjon av Android. Hvis du ikke gir tillatelse, kan det føre til at den ikke lenger fungerer som den skal."</string>
     <string name="default_permission_description" msgid="4624464917726285203">"utføre en ukjent handling"</string>
-    <string name="app_permissions_group_summary" msgid="8788419008958284002">"<xliff:g id="COUNT_0">%1$d</xliff:g> av <xliff:g id="COUNT_1">%2$d</xliff:g> apper er tillatt"</string>
+    <string name="app_permissions_group_summary" msgid="8788419008958284002">"<xliff:g id="COUNT_0">%1$d</xliff:g> av <xliff:g id="COUNT_1">%2$d</xliff:g> apper har denne tillatelsen"</string>
     <string name="app_permissions_group_summary2" msgid="4329922444840521150">"<xliff:g id="COUNT_0">%1$d</xliff:g>/<xliff:g id="COUNT_1">%2$d</xliff:g> apper er tillatt"</string>
     <string name="menu_show_system" msgid="4254021607027872504">"Vis systemet"</string>
     <string name="menu_hide_system" msgid="3855390843744028465">"Skjul systemet"</string>
@@ -106,7 +107,25 @@
     <string name="app_name_unknown" msgid="1319665005754048952">"Ukjent"</string>
     <string name="permission_usage_title" msgid="5095876355858467390">"Oversikt"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"Bruk av <xliff:g id="PERMGROUP">%1$s</xliff:g>"</string>
-    <string name="permission_group_usage_subtitle" msgid="5302255813297881611">"Når apper stoppet å bruke <xliff:g id="PERMGROUP">%1$s</xliff:g> de siste 24 timene"</string>
+    <string name="permission_group_usage_subtitle" msgid="2060508926529591334">"Tidslinje over når du har brukt <xliff:g id="PERMGROUP">%1$s</xliff:g> de siste 24 timene"</string>
+    <string name="permission_usage_access_dialog_subtitle" msgid="5567142130422605829">"Når denne appen brukte <xliff:g id="PERMGROUP">%1$s</xliff:g>:"</string>
+    <string name="permission_usage_access_dialog_learn_more" msgid="7121468469493184613">"Finn ut mer"</string>
+    <plurals name="duration_used_days" formatted="false" msgid="6029658139201482951">
+      <item quantity="other">Brukt i <xliff:g id="NUMBER">%s</xliff:g> dager</item>
+      <item quantity="one">Brukt i 1 dag</item>
+    </plurals>
+    <plurals name="duration_used_hours" formatted="false" msgid="2934347147156813767">
+      <item quantity="other">Brukt i <xliff:g id="NUMBER">%s</xliff:g> timer</item>
+      <item quantity="one">Brukt i 1 time</item>
+    </plurals>
+    <plurals name="duration_used_minutes" formatted="false" msgid="1871095305219275611">
+      <item quantity="other">Brukt i <xliff:g id="NUMBER">%s</xliff:g> min</item>
+      <item quantity="one">Brukt i 1 min</item>
+    </plurals>
+    <plurals name="duration_used_seconds" formatted="false" msgid="4036612197985123365">
+      <item quantity="other">Brukt i <xliff:g id="NUMBER">%s</xliff:g> sek</item>
+      <item quantity="one">Brukt i 1 sek</item>
+    </plurals>
     <plurals name="permission_usage_summary" formatted="false" msgid="2837021459986644819">
       <item quantity="other">Sist brukt: <xliff:g id="TIME_2">%1$s</xliff:g>\n<xliff:g id="NUM_3">%2$s</xliff:g> ganger</item>
       <item quantity="one">Sist brukt: <xliff:g id="TIME_0">%1$s</xliff:g>\n<xliff:g id="NUM_1">%2$s</xliff:g> gang</item>
@@ -143,15 +162,14 @@
     <string name="permission_usage_bar_chart_title_last_day" msgid="7950805735777472871">"Bruk av tillatelser de siste 24 timene"</string>
     <string name="permission_usage_bar_chart_title_last_hour" msgid="6571647509660009185">"Bruk av tillatelser den siste timen"</string>
     <string name="permission_usage_bar_chart_title_last_15_minutes" msgid="2743143675412824819">"Bruk av tillatelser de siste 15 minuttene"</string>
-    <string name="suffix_permission_usage_preference" msgid="8738902080074563098">"bruk"</string>
     <string name="permission_usage_bar_chart_title_last_minute" msgid="820450867183487607">"Bruk av tillatelser det siste minuttet"</string>
     <plurals name="permission_usage_bar_label" formatted="false" msgid="2316692513662993785">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> apper</item>
       <item quantity="one">1 app</item>
     </plurals>
-    <plurals name="permission_usage_preference_label" formatted="false" msgid="7730498549813201392">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> apper har brukt</item>
-      <item quantity="one">1 app har brukt</item>
+    <plurals name="permission_usage_preference_label" formatted="false" msgid="7599037764529821028">
+      <item quantity="other"><xliff:g id="NUMBER">%1$d</xliff:g> apper har brukt <xliff:g id="PERMGROUP_1">%2$s</xliff:g></item>
+      <item quantity="one">1 app har brukt <xliff:g id="PERMGROUP_0">%2$s</xliff:g></item>
     </plurals>
     <string name="permission_usage_view_details" msgid="6675335735468752787">"Se alt i oversikten"</string>
     <string name="app_permission_usage_filter_label" msgid="7182861154638631550">"Filtrert etter: <xliff:g id="PERM">%1$s</xliff:g>"</string>
@@ -171,12 +189,14 @@
       <item quantity="one">1 app</item>
     </plurals>
     <string name="permission_history_title" msgid="8340081285133025225">"Tillatelseslogg"</string>
+    <string name="permission_history_category_today" msgid="7496389369158806620">"I dag"</string>
+    <string name="permission_history_category_yesterday" msgid="7242517121222012521">"I går"</string>
     <string name="app_permission_usage_title" msgid="6676802437831981822">"Bruk av apptillatelser"</string>
     <string name="app_permission_usage_summary" msgid="390383661936709672">"Tilgang: <xliff:g id="NUM">%1$s</xliff:g> ganger. Total varighet: <xliff:g id="DURATION">%2$s</xliff:g>. Sist brukt for <xliff:g id="TIME">%3$s</xliff:g> siden."</string>
     <string name="app_permission_usage_summary_no_duration" msgid="3698475875179457400">"Tilgang: <xliff:g id="NUM">%1$s</xliff:g> ganger. Sist brukt for <xliff:g id="TIME">%2$s</xliff:g> siden."</string>
     <string name="app_permission_button_allow" msgid="5808039516494774647">"Tillat"</string>
     <string name="app_permission_button_allow_all_files" msgid="1792232272599018825">"Gi tillatelse til administrering av alle filer"</string>
-    <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Gi bare tilgang til medier"</string>
+    <string name="app_permission_button_allow_media_only" msgid="2834282724426046154">"Har bare tilgang til medier"</string>
     <string name="app_permission_button_allow_always" msgid="4573292371734011171">"Tillat hele tiden"</string>
     <string name="app_permission_button_allow_foreground" msgid="1991570451498943207">"Bare tillat når appen brukes"</string>
     <string name="app_permission_button_ask" msgid="3342950658789427">"Spør hver gang"</string>
@@ -206,7 +226,7 @@
     <string name="auto_revoked_app_summary_two" msgid="1910545340763709389">"Tillatelsene <xliff:g id="PERMISSION_NAME_0">%1$s</xliff:g> og <xliff:g id="PERMISSION_NAME_1">%2$s</xliff:g> er fjernet"</string>
     <string name="auto_revoked_app_summary_many" msgid="5930976230827378798">"<xliff:g id="PERMISSION_NAME">%1$s</xliff:g> og <xliff:g id="NUMBER">%2$s</xliff:g> andre tillatelser er fjernet"</string>
     <string name="unused_apps_page_title" msgid="6986983535677572559">"Ubrukte apper"</string>
-    <string name="unused_apps_page_summary" msgid="5271048000004368665">"Dette skjer hvis en app ikke brukes på noen måneder:\n\n• Tillatelser fjernes for å ivareta personvernet ditt.\n• Midlertidige filer fjernes for å frigjøre plass.\n• Varsles stoppes for å spare batteri."</string>
+    <string name="unused_apps_page_summary" msgid="4644643299214625298">"Dette skjer hvis en app ikke brukes på noen måneder:\n\n• Tillatelser fjernes for å beskytte dataene dine.\n• Varsles stoppes for å spare batteri.\n• Midlertidige filer fjernes for å frigjøre plass."</string>
     <string name="last_opened_category_title" msgid="7871347400611202595">"Sist åpnet for mer enn <xliff:g id="NUMBER">%s</xliff:g> måneder siden"</string>
     <string name="last_opened_summary" msgid="5248984030024968808">"Appen ble sist åpnet <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="last_opened_summary_short" msgid="1646067226191176825">"Sist åpnet <xliff:g id="DATE">%s</xliff:g>"</string>
@@ -219,6 +239,7 @@
     <string name="permission_description_summary_camera" msgid="108004375101882069">"Apper med denne tillatelsen kan ta bilder og spille inn video"</string>
     <string name="permission_description_summary_contacts" msgid="2337798886460408996">"Apper med denne tillatelsen har tilgang til kontaktene dine"</string>
     <string name="permission_description_summary_location" msgid="2817531799933480694">"Apper med denne tillatelsen har tilgang til denne enhetens posisjon"</string>
+    <string name="permission_description_summary_nearby_devices" msgid="4993093121706938071">"Apper med denne tillatelsen kan oppdage, koble til og fastslå den relative posisjonen til enheter i nærheten"</string>
     <string name="permission_description_summary_microphone" msgid="630834800308329907">"Apper med denne tillatelsen kan ta opp lyd"</string>
     <string name="permission_description_summary_phone" msgid="4515277217435233619">"Apper med denne tillatelsen kan ringe og administrere anrop"</string>
     <string name="permission_description_summary_sensors" msgid="1836045815643119949">"Apper med denne tillatelsen har tilgang til sensordata om de vitale tegnene dine"</string>
@@ -232,7 +253,7 @@
     <string name="allowed_always_header" msgid="6455903312589013545">"Tillatt hele tiden"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"Tillatt bare når appen brukes"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"Har bare tilgang til medier"</string>
-    <string name="allowed_storage_full" msgid="5356699280625693530">"Har tillatelse til å administrere alle filer"</string>
+    <string name="allowed_storage_full" msgid="5356699280625693530">"Kan administrere alle filer"</string>
     <string name="ask_header" msgid="2633816846459944376">"Spør hver gang"</string>
     <string name="denied_header" msgid="2253955654228120835">"Avvist"</string>
     <plurals name="days" formatted="false" msgid="7882807103511175827">
@@ -265,7 +286,7 @@
       <item quantity="other"><xliff:g id="COUNT_1">%1$d</xliff:g> ubrukte apper</item>
       <item quantity="one"><xliff:g id="COUNT_0">%1$d</xliff:g> ubrukt app</item>
     </plurals>
-    <string name="unused_apps_notification_content" msgid="3704446042109375119">"Tillatelser og midlertidige filer er blitt fjernet. Trykk for å gjennomgå."</string>
+    <string name="unused_apps_notification_content" msgid="9195026773244581246">"Tillatelser og midlertidige filer er fjernet, og varsler er stoppet. Trykk for å gjennomgå."</string>
     <string name="auto_revoke_setting_subtitle" msgid="8631720570723050460">"Enkelte apper er ikke brukt på noen måneder"</string>
     <plurals name="auto_revoke_setting_subtitle_count" formatted="false" msgid="85594789277193087">
       <item quantity="other"><xliff:g id="COUNT_1">%1$d</xliff:g> apper er ikke brukt på noen måneder</item>
@@ -302,7 +323,7 @@
     <string name="no_apps_allowed" msgid="7718822655254468631">"Ingen apper har denne tillatelsen"</string>
     <string name="no_apps_allowed_full" msgid="8011716991498934104">"Ingen apper tillates for alle filer"</string>
     <string name="no_apps_allowed_scoped" msgid="4908850477787659501">"Ingen apper tillates for bare medier"</string>
-    <string name="no_apps_denied" msgid="7663435886986784743">"Ingen apptillatelser er avvist"</string>
+    <string name="no_apps_denied" msgid="7663435886986784743">"Ingen apper er avvist"</string>
     <string name="car_permission_selected" msgid="180837028920791596">"Valgt"</string>
     <string name="settings" msgid="5409109923158713323">"Innstillinger"</string>
     <string name="accessibility_service_dialog_title_single" msgid="7956432823014102366">"<xliff:g id="SERVICE_NAME">%s</xliff:g> har full tilgang til enheten din"</string>
@@ -310,7 +331,7 @@
     <string name="accessibility_service_dialog_bottom_text_single" msgid="1128666197822205958">"<xliff:g id="SERVICE_NAME">%s</xliff:g> kan se skjermen, handlinger og inndata, utføre handlinger og kontrollere skjermen."</string>
     <string name="accessibility_service_dialog_bottom_text_multiple" msgid="7009848932395519852">"Disse appene kan se skjermen, handlinger og inndata, utføre handlinger og kontrollere skjermen."</string>
     <string name="role_assistant_label" msgid="4727586018198208128">"Standard digital assistentapp"</string>
-    <string name="role_assistant_short_label" msgid="3369003713187703399">"Digital assistentapp"</string>
+    <string name="role_assistant_short_label" msgid="3369003713187703399">"Digital assistent-app"</string>
     <string name="role_assistant_description" msgid="6622458130459922952">"Assistentapper kan hjelpe deg basert på informasjon fra skjermen du bruker. Noen apper støtter tjenester for både appoversikten og taleinndata for å gi deg integrert hjelp."</string>
     <string name="role_assistant_request_title" msgid="5964976301922776060">"Vil du angi <xliff:g id="APP_NAME">%1$s</xliff:g> som standard assistentapp?"</string>
     <string name="role_assistant_request_description" msgid="6836644847620178483">"Får tilgang til SMS, samtalelogg"</string>
@@ -415,7 +436,9 @@
     <string name="permgroupbackgroundrequestdetail_location" msgid="8021219324989662957">"Denne appen vil kanskje ha tilgang til posisjonen din hele tiden, selv når du ikke bruker appen. "<annotation id="link">"Gi tillatelse i innstillingene."</annotation></string>
     <string name="permgroupupgraderequest_location" msgid="8328408946822691636">"Vil du endre posisjonstilgang for &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;?"</string>
     <string name="permgroupupgraderequestdetail_location" msgid="1550899076845189165">"Denne appen vil ha tilgang til posisjonen din hele tiden, selv når du ikke bruker appen. "<annotation id="link">"Gi tillatelse i innstillingene."</annotation></string>
-    <string name="permgrouprequest_finelocation" msgid="169340229199345158">"Vil du gi &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; tilgang til denne enhetens nøyaktige posisjon?"</string>
+    <string name="permgrouprequest_nearby_devices" msgid="620046480867488546">"Vil du gi &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; tillatelse til å oppdage og koble til enheter i nærheten?"</string>
+    <string name="permgroupupgraderequestdetail_nearby_devices" msgid="2560445503628306938">"Vil du gi &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; tillatelse til å oppdage og koble til enheter i nærheten? "<annotation id="link">"Tillat i innstillingene."</annotation></string>
+    <string name="permgrouprequest_fineupgrade" msgid="2334242928821697672">"Vil du endre posisjontilgangen til <xliff:g id="APP_NAME">&lt;b&gt;%1$s&lt;/b&gt;</xliff:g> fra omtrentlig til nøyaktig?"</string>
     <string name="permgrouprequest_coarselocation" msgid="7244605063736425232">"Vil du gi &lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; tilgang til denne enhetens omtrentlige posisjon?"</string>
     <string name="permgrouprequest_finelocation_imagetext" msgid="1313062433398914334">"Nøyaktig"</string>
     <string name="permgrouprequest_coarselocation_imagetext" msgid="8650605041483025297">"Omtrentlig"</string>

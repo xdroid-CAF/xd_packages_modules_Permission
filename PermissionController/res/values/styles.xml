@@ -380,6 +380,9 @@
         <item name="android:layout_marginStart">48dp</item>
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
     <style name="AppPermissionLocationAccuracyText">
@@ -410,6 +413,8 @@
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
     </style>
 
     <style name="AppPermissionFooter">
@@ -765,6 +770,31 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">?android:textAppearanceListItemSecondary</item>
         <item name="android:layout_marginStart">16dp</item>
+    </style>
+
+    <style name="AccessTimeDialogTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="AccessTimeDialogSubtitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="AccessTimeDialogLearnMore">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?android:attr/colorAccent</item>
     </style>
 
     <!-- END ONGOING USAGE DIALOG -->

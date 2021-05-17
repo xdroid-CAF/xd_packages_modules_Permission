@@ -73,6 +73,12 @@
         <permission name="android.permission.WRITE_EXTERNAL_STORAGE" />
     </permission-set>
 
+    <permission-set name="nearby_devices">
+        <permission name="android.permission.BLUETOOTH_ADVERTISE" />
+        <permission name="android.permission.BLUETOOTH_CONNECT" />
+        <permission name="android.permission.BLUETOOTH_SCAN" />
+    </permission-set>
+
     <role
         name="android.app.role.ASSISTANT"
         behavior="AssistantRoleBehavior"
@@ -457,6 +463,7 @@
         behavior="SystemAutomotiveClusterRoleBehavior"
         defaultHolders="config_systemAutomotiveCluster"
         exclusive="true"
+        fallBackToDefaultHolder="true"
         minSdkVersion="31"
         systemOnly="true"
         visible="false">
@@ -482,6 +489,7 @@
             <permission-set name="phone" />
             <permission-set name="sms" />
             <permission-set name="contacts" />
+            <permission-set name="nearby_devices" />
         </permissions>
         <app-op-permissions>
             <app-op-permission name="android.permission.MANAGE_ONGOING_CALLS" />
@@ -493,12 +501,14 @@
         name="android.app.role.SYSTEM_AUTOMOTIVE_PROJECTION"
         defaultHolders="config_systemAutomotiveProjection"
         exclusive="false"
+        fallBackToDefaultHolder="true"
         minSdkVersion="31"
         systemOnly="true"
         visible="false">
         <permissions>
             <permission-set name="microphone" />
             <permission-set name="location" />
+            <permission-set name="nearby_devices" />
             <permission name="android.permission.CALL_PHONE" />
             <permission name="android.permission.READ_CALENDAR" />
             <permission name="android.permission.READ_CALL_LOG" />
@@ -514,6 +524,7 @@
         behavior="SystemShellRoleBehavior"
         defaultHolders="config_systemShell"
         exclusive="true"
+        fallBackToDefaultHolder="true"
         minSdkVersion="31"
         systemOnly="true"
         visible="false">
@@ -523,6 +534,9 @@
             <permission name="android.permission.PERFORM_IMS_SINGLE_REGISTRATION" />
             <permission name="android.permission.BACKGROUND_CAMERA" />
             <permission name="android.permission.RECORD_BACKGROUND_AUDIO" />
+            <permission name="android.permission.BYPASS_ROLE_QUALIFICATION" />
+            <permission name="android.permission.OBSERVE_SENSOR_PRIVACY" />
+            <permission name="android.permission.MANAGE_SENSOR_PRIVACY" />
         </permissions>
     </role>
 
@@ -530,6 +544,7 @@
         name="android.app.role.SYSTEM_CONTACTS"
         defaultHolders="config_systemContacts"
         exclusive="true"
+        fallBackToDefaultHolder="true"
         minSdkVersion="31"
         systemOnly="true"
         visible="false">
@@ -542,6 +557,7 @@
         name="android.app.role.SYSTEM_SPEECH_RECOGNIZER"
         defaultHolders="config_systemSpeechRecognizer"
         exclusive="true"
+        fallBackToDefaultHolder="true"
         minSdkVersion="31"
         systemOnly="true"
         visible="false">
@@ -561,6 +577,7 @@
         name="android.app.role.SYSTEM_WIFI_COEX_MANAGER"
         defaultHolders="config_systemWifiCoexManager"
         exclusive="true"
+        fallBackToDefaultHolder="true"
         minSdkVersion="31"
         systemOnly="true"
         visible="false">
@@ -574,6 +591,7 @@
         name="android.app.role.SYSTEM_WELLBEING"
         defaultHolders="config_systemWellbeing"
         exclusive="true"
+        fallBackToDefaultHolder="true"
         minSdkVersion="31"
         systemOnly="true"
         visible="false" >
@@ -586,8 +604,10 @@
 
     <role
         name="android.app.role.SYSTEM_TELEVISION_NOTIFICATION_HANDLER"
+        behavior="SystemTelevisionNotificationHandlerRoleBehavior"
         defaultHolders="config_systemTelevisionNotificationHandler"
         exclusive="true"
+        fallBackToDefaultHolder="true"
         minSdkVersion="31"
         systemOnly="true"
         visible="false">
@@ -602,13 +622,203 @@
     -->
     <role
         name="android.app.role.SYSTEM_COMPANION_DEVICE_PROVIDER"
-        defaultHolders="config_companionProviderPackage"
+        defaultHolders="config_systemCompanionDeviceProvider"
         exclusive="true"
+        fallBackToDefaultHolder="true"
         minSdkVersion="31"
         systemOnly="true"
         visible="false" >
         <permissions>
             <permission name="android.permission.ASSOCIATE_COMPANION_DEVICES"/>
+        </permissions>
+    </role>
+
+    <!---
+      ~ A role for the system package that provides on-device intelligent processor for system UI
+      ~ features.
+      ~ A package holding this role must comply with requirements outlined in the Android CDD
+      ~ section "9.8.6 Content Capture".
+      ~ Example link for Android 11:
+      ~ https://source.android.com/compatibility/11/android-11-cdd#9_8_6_content_capture
+      -->
+    <role
+        name="android.app.role.SYSTEM_UI_INTELLIGENCE"
+        defaultHolders="config_systemUiIntelligence"
+        exclusive="true"
+        fallBackToDefaultHolder="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false">
+        <permissions>
+            <permission name="android.permission.ACCESS_SHORTCUTS" />
+            <permission name="android.permission.MANAGE_APP_PREDICTIONS" />
+            <permission name="android.permission.UNLIMITED_SHORTCUTS_API_CALLS" />
+            <permission name="android.permission.MANAGE_SEARCH_UI" />
+            <permission name="android.permission.READ_EXTERNAL_STORAGE" />
+            <permission name="android.permission.READ_PEOPLE_DATA" />
+        </permissions>
+    </role>
+
+    <!---
+      ~ A role for the system package that provides on-device intelligent processor for ambient
+      ~ audio.
+      ~ A package holding this role must comply with requirements outlined in the Android CDD
+      ~ section "9.8.6 Content Capture".
+      ~ Example link for Android 11:
+      ~ https://source.android.com/compatibility/11/android-11-cdd#9_8_6_content_capture
+      -->
+    <role
+        name="android.app.role.SYSTEM_AMBIENT_AUDIO_INTELLIGENCE"
+        defaultHolders="config_systemAmbientAudioIntelligence"
+        exclusive="true"
+        fallBackToDefaultHolder="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false">
+        <permissions>
+            <permission name="android.permission.CAPTURE_AUDIO_OUTPUT" />
+            <permission name="android.permission.CAPTURE_MEDIA_OUTPUT" />
+            <permission name="android.permission.CAPTURE_VOICE_COMMUNICATION_OUTPUT" />
+            <permission name="android.permission.MODIFY_AUDIO_ROUTING" />
+            <permission name="android.permission.RECORD_AUDIO" />
+            <permission name="android.permission.CAPTURE_AUDIO_HOTWORD" />
+            <permission name="android.permission.EXEMPT_FROM_AUDIO_RECORD_RESTRICTIONS" />
+            <permission name="android.permission.MANAGE_SOUND_TRIGGER" />
+            <permission name="android.permission.LOCATION_HARDWARE" />
+            <permission name="android.permission.MANAGE_MUSIC_RECOGNITION" />
+            <permission name="android.permission.OBSERVE_SENSOR_PRIVACY" />
+        </permissions>
+    </role>
+
+    <!---
+      ~ A role for the system package that provides on-device intelligent processor for audio.
+      ~ A package holding this role must comply with requirements outlined in the Android CDD
+      ~ section "9.8.6 Content Capture".
+      ~ Example link for Android 11:
+      ~ https://source.android.com/compatibility/11/android-11-cdd#9_8_6_content_capture
+      -->
+    <role
+        name="android.app.role.SYSTEM_AUDIO_INTELLIGENCE"
+        defaultHolders="config_systemAudioIntelligence"
+        exclusive="true"
+        fallBackToDefaultHolder="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false">
+        <permissions>
+            <permission name="android.permission.CAPTURE_AUDIO_OUTPUT" />
+            <permission name="android.permission.CAPTURE_MEDIA_OUTPUT" />
+            <permission name="android.permission.CAPTURE_VOICE_COMMUNICATION_OUTPUT" />
+            <permission name="android.permission.CONTROL_INCALL_EXPERIENCE" />
+            <permission name="android.permission.MODIFY_AUDIO_ROUTING" />
+            <permission name="android.permission.MODIFY_PHONE_STATE" />
+            <permission name="android.permission.RECORD_AUDIO" />
+            <permission name="android.permission.SYSTEM_APPLICATION_OVERLAY" />
+        </permissions>
+    </role>
+
+    <!---
+      ~ A role for the system package that provides on-device intelligent processor for
+      ~ notification.
+      ~ A package holding this role must comply with requirements outlined in the Android CDD
+      ~ section "9.8.6 Content Capture".
+      ~ Example link for Android 11:
+      ~ https://source.android.com/compatibility/11/android-11-cdd#9_8_6_content_capture
+      -->
+    <role
+        name="android.app.role.SYSTEM_NOTIFICATION_INTELLIGENCE"
+        defaultHolders="config_systemNotificationIntelligence"
+        exclusive="true"
+        fallBackToDefaultHolder="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false">
+        <permissions>
+            <permission name="android.permission.REQUEST_NOTIFICATION_ASSISTANT_SERVICE" />
+            <permission name="android.permission.SYSTEM_APPLICATION_OVERLAY" />
+        </permissions>
+    </role>
+
+    <!---
+      ~ A role for the system package that provides on-device intelligent processor for text.
+      ~ A package holding this role must comply with requirements outlined in the Android CDD
+      ~ section "9.8.6 Content Capture".
+      ~ Example link for Android 11:
+      ~ https://source.android.com/compatibility/11/android-11-cdd#9_8_6_content_capture
+      -->
+    <role
+        name="android.app.role.SYSTEM_TEXT_INTELLIGENCE"
+        defaultHolders="config_systemTextIntelligence"
+        exclusive="true"
+        fallBackToDefaultHolder="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false">
+        <permissions>
+            <permission name="android.permission.MANAGE_UI_TRANSLATION" />
+            <permission name="android.permission.SYSTEM_APPLICATION_OVERLAY" />
+        </permissions>
+    </role>
+
+    <!---
+      ~ A role for the system package that provides on-device intelligent processor for visual
+      ~ features.
+      ~ A package holding this role must comply with requirements outlined in the Android CDD
+      ~ section "9.8.6 Content Capture".
+      ~ Example link for Android 11:
+      ~ https://source.android.com/compatibility/11/android-11-cdd#9_8_6_content_capture
+      -->
+    <role
+        name="android.app.role.SYSTEM_VISUAL_INTELLIGENCE"
+        defaultHolders="config_systemVisualIntelligence"
+        exclusive="true"
+        fallBackToDefaultHolder="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false">
+        <permissions>
+            <permission name="android.permission.CAMERA" />
+            <permission name="android.permission.UPDATE_DEVICE_STATS" />
+            <permission name="android.permission.OBSERVE_SENSOR_PRIVACY" />
+        </permissions>
+    </role>
+
+    <!---
+      ~ A role for the system package that serves as the activity recognizer on the device.
+      ~ This is the application that provides the data behind the activity recognition
+      ~ runtime permission.
+      -->
+    <role
+        name="android.app.role.SYSTEM_ACTIVITY_RECOGNIZER"
+        allowBypassingQualification="true"
+        defaultHolders="config_systemActivityRecognizer"
+        exclusive="true"
+        fallBackToDefaultHolder="true"
+        systemOnly="true"
+        visible="false">
+        <required-components>
+            <service>
+                <intent-filter>
+                    <action name="android.intent.action.ACTIVITY_RECOGNIZER" />
+                </intent-filter>
+            </service>
+        </required-components>
+    </role>
+
+    <!---
+      ~ A role for the system UI package.
+      -->
+    <role
+        name="android.app.role.SYSTEM_UI"
+        defaultHolders="config_systemUi"
+        exclusive="true"
+        fallBackToDefaultHolder="true"
+        minSdkVersion="31"
+        systemOnly="true"
+        visible="false">
+        <permissions>
+            <permission name="android.permission.MANAGE_SENSOR_PRIVACY" />
+            <permission name="android.permission.OBSERVE_SENSOR_PRIVACY" />
         </permissions>
     </role>
 </roles>

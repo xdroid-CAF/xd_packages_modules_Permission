@@ -70,6 +70,7 @@ import com.android.permissioncontroller.permission.data.BroadcastReceiverLiveDat
 import com.android.permissioncontroller.permission.data.CarrierPrivilegedStatusLiveData
 import com.android.permissioncontroller.permission.data.DataRepositoryForPackage
 import com.android.permissioncontroller.permission.data.HasIntentAction
+import com.android.permissioncontroller.permission.data.LauncherPackagesLiveData
 import com.android.permissioncontroller.permission.data.ServiceLiveData
 import com.android.permissioncontroller.permission.data.SmartUpdateMediatorLiveData
 import com.android.permissioncontroller.permission.data.UsageStatsLiveData
@@ -116,7 +117,9 @@ private fun getCheckFrequencyMs() = DeviceConfig.getLong(
 private val PREF_KEY_FIRST_BOOT_TIME = "first_boot_time"
 
 fun isHibernationEnabled(): Boolean {
-    return HibernationEnabledLiveData.value!!
+    return DeviceConfig.getBoolean(
+        NAMESPACE_APP_HIBERNATION, Utils.PROPERTY_APP_HIBERNATION_ENABLED,
+        false /* defaultValue */)
 }
 
 fun isHibernationJobEnabled(): Boolean {
@@ -302,7 +305,7 @@ fun UsageStats.lastTimePackageUsed(): Long {
     var lastTimePkgUsed = this.lastTimeVisible
     // TODO(b/180748832): Change this to SDK check once SDK moves up and feature flag is removed.
     if (isHibernationEnabled()) {
-        lastTimePkgUsed = maxOf(lastTimePkgUsed, this.lastTimeComponentUsed)
+        lastTimePkgUsed = maxOf(lastTimePkgUsed, this.lastTimeAnyComponentUsed)
     }
     return lastTimePkgUsed
 }
@@ -328,6 +331,12 @@ suspend fun isPackageHibernationExemptBySystem(
     pkg: LightPackageInfo,
     user: UserHandle
 ): Boolean {
+    if (!LauncherPackagesLiveData.getInitializedValue().contains(pkg.packageName)) {
+        if (DEBUG_HIBERNATION_POLICY) {
+            DumpableLog.i(LOG_TAG, "Exempted ${pkg.packageName} - Package is not on launcher")
+        }
+        return true
+    }
     if (!ExemptServicesLiveData[user]
             .getInitializedValue()[pkg.packageName]
             .isNullOrEmpty()) {
@@ -461,14 +470,15 @@ class HibernationJobService : JobService() {
                 }
 
                 val appsToHibernate = getAppsToHibernate(this@HibernationJobService)
-                var hibernatedApps: List<Pair<String, UserHandle>> = emptyList()
+                var hibernatedApps: Set<Pair<String, UserHandle>> = emptySet()
                 if (isHibernationEnabled()) {
-                    val hibernationController = HibernationController(this@HibernationJobService)
+                    val hibernationController =
+                        HibernationController(this@HibernationJobService, getUnusedThresholdMs())
                     hibernatedApps = hibernationController.hibernateApps(appsToHibernate)
                 }
                 val revokedApps = revokeAppPermissions(
                         appsToHibernate, this@HibernationJobService, sessionId)
-                val unusedApps = if (isHibernationEnabled()) hibernatedApps else revokedApps
+                val unusedApps: Set<Pair<String, UserHandle>> = hibernatedApps + revokedApps
                 if (unusedApps.isNotEmpty()) {
                     showUnusedAppsNotification(unusedApps.size, sessionId)
                 }
