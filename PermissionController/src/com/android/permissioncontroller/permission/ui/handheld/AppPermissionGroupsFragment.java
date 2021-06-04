@@ -55,12 +55,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.core.os.BuildCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreference;
 
+import com.android.modules.utils.build.SdkLevel;
 import com.android.permissioncontroller.PermissionControllerStatsLog;
 import com.android.permissioncontroller.R;
 import com.android.permissioncontroller.permission.debug.PermissionUsages;
@@ -73,6 +75,7 @@ import com.android.permissioncontroller.permission.ui.model.AppPermissionGroupsV
 import com.android.permissioncontroller.permission.utils.KotlinUtils;
 import com.android.permissioncontroller.permission.utils.Utils;
 import com.android.settingslib.HelpUtils;
+import com.android.settingslib.widget.FooterPreference;
 
 import java.text.Collator;
 import java.time.Instant;
@@ -110,8 +113,8 @@ public final class AppPermissionGroupsFragment extends SettingsWithLargeHeader i
     private boolean mIsFirstLoad;
     private String mPackageName;
     private UserHandle mUser;
-    private @NonNull PermissionUsages mPermissionUsages;
-    private @NonNull List<AppPermissionUsage> mAppPermissionUsages = new ArrayList<>();
+    private PermissionUsages mPermissionUsages;
+    private List<AppPermissionUsage> mAppPermissionUsages = new ArrayList<>();
 
     private Collator mCollator;
 
@@ -175,14 +178,19 @@ public final class AppPermissionGroupsFragment extends SettingsWithLargeHeader i
         mCollator = Collator.getInstance(
                 getContext().getResources().getConfiguration().getLocales().get(0));
 
-        Context context = getPreferenceManager().getContext();
-        mPermissionUsages = new PermissionUsages(context);
+        // If the build type is below S, the app ops for permission usage can't be found. Thus, we
+        // shouldn't load permission usages, for them.
+        if (BuildCompat.isAtLeastS()) {
+            Context context = getPreferenceManager().getContext();
+            mPermissionUsages = new PermissionUsages(context);
 
-        long filterTimeBeginMillis = Math.max(System.currentTimeMillis()
-                - DAYS.toMillis(AGGREGATE_DATA_FILTER_BEGIN_DAYS), Instant.EPOCH.toEpochMilli());
-        mPermissionUsages.load(null, null, filterTimeBeginMillis, Long.MAX_VALUE,
-                PermissionUsages.USAGE_FLAG_LAST, getActivity().getLoaderManager(),
-                false, false, this, false);
+            long filterTimeBeginMillis = Math.max(System.currentTimeMillis()
+                            - DAYS.toMillis(AGGREGATE_DATA_FILTER_BEGIN_DAYS),
+                    Instant.EPOCH.toEpochMilli());
+            mPermissionUsages.load(null, null, filterTimeBeginMillis, Long.MAX_VALUE,
+                    PermissionUsages.USAGE_FLAG_LAST, getActivity().getLoaderManager(),
+                    false, false, this, false);
+        }
 
         updatePreferences(mViewModel.getPackagePermGroupsLiveData().getValue());
     }
@@ -230,8 +238,10 @@ public final class AppPermissionGroupsFragment extends SettingsWithLargeHeader i
         super.onCreateOptionsMenu(menu, inflater);
         if (mIsSystemPermsScreen) {
             menu.add(Menu.NONE, MENU_ALL_PERMS, Menu.NONE, R.string.all_permissions);
-            HelpUtils.prepareHelpMenuItem(getActivity(), menu, R.string.help_app_permissions,
-                    getClass().getName());
+            if (!SdkLevel.isAtLeastS()) {
+                HelpUtils.prepareHelpMenuItem(getActivity(), menu, R.string.help_app_permissions,
+                        getClass().getName());
+            }
         }
     }
 
@@ -455,7 +465,8 @@ public final class AppPermissionGroupsFragment extends SettingsWithLargeHeader i
                         .setPackage(mPackageName)
                         .setAction(Intent.ACTION_VIEW_PERMISSION_USAGE)
                         .putExtra(Intent.EXTRA_PERMISSION_GROUP_NAME, groupName);
-                ResolveInfo resolveInfo = packageManager.resolveActivity(viewUsageIntent, 0);
+                ResolveInfo resolveInfo = packageManager.resolveActivity(viewUsageIntent,
+                        PackageManager.MATCH_INSTANT);
                 if (resolveInfo != null && resolveInfo.activityInfo != null && Objects.equals(
                         resolveInfo.activityInfo.permission,
                         android.Manifest.permission.START_VIEW_PERMISSION_USAGE)) {
@@ -520,7 +531,7 @@ public final class AppPermissionGroupsFragment extends SettingsWithLargeHeader i
         autoRevokeSwitch.setKey(AUTO_REVOKE_SWITCH_KEY);
         autoRevokeCategory.addPreference(autoRevokeSwitch);
 
-        Preference autoRevokeSummary = new Preference(context);
+        FooterPreference autoRevokeSummary = new FooterPreference(context);
         autoRevokeSummary.setIcon(Utils.applyTint(getActivity(), R.drawable.ic_info_outline,
                 android.R.attr.colorControlNormal));
         autoRevokeSummary.setKey(AUTO_REVOKE_SUMMARY_KEY);
@@ -537,7 +548,8 @@ public final class AppPermissionGroupsFragment extends SettingsWithLargeHeader i
                 .findPreference(AUTO_REVOKE_CATEGORY_KEY);
         SwitchPreference autoRevokeSwitch = autoRevokeCategory.findPreference(
                 AUTO_REVOKE_SWITCH_KEY);
-        Preference autoRevokeSummary = autoRevokeCategory.findPreference(AUTO_REVOKE_SUMMARY_KEY);
+        FooterPreference autoRevokeSummary = autoRevokeCategory.findPreference(
+                AUTO_REVOKE_SUMMARY_KEY);
 
         if (!state.isEnabledGlobal()) {
             autoRevokeCategory.setVisible(false);
