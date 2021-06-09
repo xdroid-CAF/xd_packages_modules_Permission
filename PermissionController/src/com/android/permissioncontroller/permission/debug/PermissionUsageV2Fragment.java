@@ -25,8 +25,6 @@ import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.role.RoleManager;
 import android.content.Context;
 import android.content.Intent;
@@ -37,33 +35,31 @@ import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.util.Log;
 import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RadioButton;
-import android.widget.TextView;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
+import androidx.preference.PreferenceGroupAdapter;
 import androidx.preference.PreferenceScreen;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.permissioncontroller.R;
 import com.android.permissioncontroller.permission.model.AppPermissionGroup;
 import com.android.permissioncontroller.permission.model.AppPermissionUsage;
 import com.android.permissioncontroller.permission.model.AppPermissionUsage.GroupUsage;
 import com.android.permissioncontroller.permission.model.legacy.PermissionApps;
+import com.android.permissioncontroller.permission.ui.handheld.PermissionUsageGraphicPreference;
 import com.android.permissioncontroller.permission.ui.handheld.PermissionUsageV2ControlPreference;
 import com.android.permissioncontroller.permission.ui.handheld.SettingsWithLargeHeader;
+import com.android.permissioncontroller.permission.utils.KotlinUtils;
 import com.android.permissioncontroller.permission.utils.Utils;
 import com.android.settingslib.HelpUtils;
-import com.android.settingslib.widget.ActionBarShadowController;
 
 import java.lang.annotation.Retention;
 import java.text.Collator;
@@ -73,7 +69,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * This is a V2 version of the permission usage page. WIP.
@@ -89,24 +84,11 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
     static final int SORT_RECENT_APPS = 2;
 
     public static final int FILTER_24_HOURS = 2;
-    private static final int MENU_SORT_BY_APP = MENU_HIDE_SYSTEM + 1;
-    private static final int MENU_SORT_BY_TIME = MENU_HIDE_SYSTEM + 2;
-    private static final int MENU_FILTER_BY_PERMISSIONS = MENU_HIDE_SYSTEM + 3;
-    private static final int MENU_FILTER_BY_TIME = MENU_HIDE_SYSTEM + 4;
-    private static final int MENU_REFRESH = MENU_HIDE_SYSTEM + 5;
+    private static final int MENU_REFRESH = MENU_HIDE_SYSTEM + 1;
 
-    private static final String KEY_SHOW_SYSTEM_PREFS = "_show_system";
-    private static final String SHOW_SYSTEM_KEY = PermissionUsageV2Fragment.class.getName()
-            + KEY_SHOW_SYSTEM_PREFS;
-    private static final String KEY_PERM_NAME = "_perm_name";
-    private static final String PERM_NAME_KEY = PermissionUsageV2Fragment.class.getName()
-            + KEY_PERM_NAME;
     private static final String KEY_TIME_INDEX = "_time_index";
     private static final String TIME_INDEX_KEY = PermissionUsageV2Fragment.class.getName()
             + KEY_TIME_INDEX;
-    private static final String KEY_SORT = "_sort";
-    private static final String SORT_KEY = PermissionUsageV2Fragment.class.getName()
-            + KEY_SORT;
 
     private static final Map<String, Integer> PERMISSION_GROUP_ORDER = Map.of(
             Manifest.permission_group.LOCATION, 0,
@@ -115,6 +97,12 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
     );
     private static final int DEFAULT_ORDER = 3;
 
+    // Pie chart in this screen will be the first child.
+    // Hence we use PERMISSION_GROUP_ORDER + 1 here.
+    private static final int PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT =
+            PERMISSION_GROUP_ORDER.size() + 1;
+    private static final int EXPAND_BUTTON_ORDER = 999;
+
     private @NonNull PermissionUsages mPermissionUsages;
     private @Nullable List<AppPermissionUsage> mAppPermissionUsages = new ArrayList<>();
 
@@ -122,21 +110,19 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
 
     private @NonNull List<TimeFilterItem> mFilterTimes;
     private int mFilterTimeIndex;
-    private String mFilterGroup;
-    private @PermissionUsageV2Fragment.SortOption int mSort;
 
     private boolean mShowSystem;
     private boolean mHasSystemApps;
     private MenuItem mShowSystemMenu;
     private MenuItem mHideSystemMenu;
-    private MenuItem mSortByApp;
-    private MenuItem mSortByTime;
 
     private ArrayMap<String, Integer> mGroupAppCounts = new ArrayMap<>();
 
     private boolean mFinishedInitialLoad;
 
     private @NonNull RoleManager mRoleManager;
+
+    private PermissionUsageGraphicPreference mGraphic;
 
     /**
      * @return A new fragment
@@ -158,27 +144,21 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
         super.onCreate(savedInstanceState);
 
         mFinishedInitialLoad = false;
-        mSort = SORT_RECENT_APPS;
-        mFilterGroup = null;
         initializeTimeFilter();
         mFilterTimeIndex = FILTER_24_HOURS;
 
         if (savedInstanceState != null) {
-            mShowSystem = savedInstanceState.getBoolean(SHOW_SYSTEM_KEY);
-            mFilterGroup = savedInstanceState.getString(PERM_NAME_KEY);
             mFilterTimeIndex = savedInstanceState.getInt(TIME_INDEX_KEY);
-            mSort = savedInstanceState.getInt(SORT_KEY);
         }
+
+        // By default, do not show system app usages.
+        mShowSystem = false;
 
         setLoading(true, false);
         setHasOptionsMenu(true);
         ActionBar ab = getActivity().getActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
-        }
-
-        if (mFilterGroup == null) {
-            mFilterGroup = getArguments().getString(Intent.EXTRA_PERMISSION_GROUP_NAME);
         }
 
         Context context = getPreferenceManager().getContext();
@@ -188,6 +168,65 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
         mRoleManager = Utils.getSystemServiceSafe(context, RoleManager.class);
 
         reloadData();
+    }
+
+    @Override
+    public RecyclerView.Adapter onCreateAdapter(PreferenceScreen preferenceScreen) {
+        PreferenceGroupAdapter adapter =
+                (PreferenceGroupAdapter) super.onCreateAdapter(preferenceScreen);
+
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                updatePreferenceScreenAdvancedTitleAndSummary(preferenceScreen, adapter);
+            }
+
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                onChanged();
+            }
+
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                onChanged();
+            }
+
+            @Override
+            public void onItemRangeChanged(int positionStart, int itemCount) {
+                onChanged();
+            }
+
+            @Override
+            public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+                onChanged();
+            }
+        });
+
+        updatePreferenceScreenAdvancedTitleAndSummary(preferenceScreen, adapter);
+        return adapter;
+    }
+
+    private void updatePreferenceScreenAdvancedTitleAndSummary(PreferenceScreen preferenceScreen,
+            PreferenceGroupAdapter adapter) {
+        int count = adapter.getItemCount();
+        if (count == 0) {
+            return;
+        }
+
+        Preference preference = adapter.getItem(count - 1);
+
+        // This is a hacky way of getting the expand button preference for advanced info
+        if (preference.getOrder() == EXPAND_BUTTON_ORDER) {
+            preference.setTitle(R.string.perm_usage_adv_info_title);
+            preference.setSummary(preferenceScreen.getSummary());
+            if (mGraphic != null) {
+                mGraphic.setShowOtherCategory(false);
+            }
+        } else {
+            if (mGraphic != null) {
+                mGraphic.setShowOtherCategory(true);
+            }
+        }
     }
 
     @Override
@@ -220,19 +259,12 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(SHOW_SYSTEM_KEY, mShowSystem);
-        outState.putString(PERM_NAME_KEY, mFilterGroup);
         outState.putInt(TIME_INDEX_KEY, mFilterTimeIndex);
-        outState.putInt(SORT_KEY, mSort);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        mSortByApp = menu.add(Menu.NONE, MENU_SORT_BY_APP, Menu.NONE, R.string.sort_by_app);
-        mSortByTime = menu.add(Menu.NONE, MENU_SORT_BY_TIME, Menu.NONE, R.string.sort_by_time);
-        menu.add(Menu.NONE, MENU_FILTER_BY_PERMISSIONS, Menu.NONE, R.string.filter_by_permissions);
-        menu.add(Menu.NONE, MENU_FILTER_BY_TIME, Menu.NONE, R.string.filter_by_time);
         if (mHasSystemApps) {
             mShowSystemMenu = menu.add(Menu.NONE, MENU_SHOW_SYSTEM, Menu.NONE,
                     R.string.menu_show_system);
@@ -255,22 +287,6 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
             case android.R.id.home:
                 getActivity().finish();
                 return true;
-            case MENU_SORT_BY_APP:
-                mSort = SORT_RECENT_APPS;
-                updateUI();
-                updateMenu();
-                break;
-            case MENU_SORT_BY_TIME:
-                mSort = SORT_RECENT;
-                updateUI();
-                updateMenu();
-                break;
-            case MENU_FILTER_BY_PERMISSIONS:
-                showPermissionFilterDialog();
-                break;
-            case MENU_FILTER_BY_TIME:
-                showTimeFilterDialog();
-                break;
             case MENU_SHOW_SYSTEM:
             case MENU_HIDE_SYSTEM:
                 mShowSystem = item.getItemId() == MENU_SHOW_SYSTEM;
@@ -287,16 +303,9 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
 
     private void updateMenu() {
         if (mHasSystemApps) {
-            /* Do not show system apps for now
-                mShowSystemMenu.setVisible(!mShowSystem);
-                mHideSystemMenu.setVisible(mShowSystem);
-             */
-            mShowSystemMenu.setVisible(false);
-            mHideSystemMenu.setVisible(false);
+            mShowSystemMenu.setVisible(!mShowSystem);
+            mHideSystemMenu.setVisible(mShowSystem);
         }
-
-        mSortByApp.setVisible(mSort != SORT_RECENT_APPS);
-        mSortByTime.setVisible(mSort != SORT_RECENT);
     }
 
     @Override
@@ -305,12 +314,6 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
             return;
         }
         mAppPermissionUsages = new ArrayList<>(mPermissionUsages.getUsages());
-
-        // Ensure the group name is valid.
-        if (getGroup(mFilterGroup) == null) {
-            mFilterGroup = null;
-        }
-
         updateUI();
     }
 
@@ -331,6 +334,7 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
             setPreferenceScreen(screen);
         }
         screen.removeAll();
+        screen.setInitialExpandedChildrenCount(PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT);
 
         StringBuffer accounts = new StringBuffer();
         for (UserHandle user : getContext().getSystemService(UserManager.class).getAllProfiles()) {
@@ -349,7 +353,7 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
                 Instant.EPOCH.toEpochMilli());
 
         mGroupAppCounts.clear();
-        // Permission group to count mapping
+        // Permission group to count mapping.
         Map<String, Integer> usages = new HashMap<>();
         List<AppPermissionGroup> permissionGroups = getOSPermissionGroups();
         for (int i = 0; i < permissionGroups.size(); i++) {
@@ -367,31 +371,65 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
             getActivity().invalidateOptionsMenu();
         }
 
-        AppPermissionGroup group = getGroup(mFilterGroup);
-        if (group != null) {
-            setHeader(Utils.applyTint(context, context.getDrawable(group.getIconResId()),
-                    android.R.attr.colorControlNormal),
-                    context.getString(R.string.app_permission_usage_filter_label,
-                            group.getLabel()), null, null, true);
-            setSummary(context.getString(R.string.app_permission_usage_remove_filter), v -> {
-                onPermissionGroupSelected(null);
-            });
-        }
+        mGraphic = new PermissionUsageGraphicPreference(context);
+        screen.addPreference(mGraphic);
+        mGraphic.setUsages(usages);
 
         // Add the preference header.
         PreferenceCategory category = new PreferenceCategory(context);
         screen.addPreference(category);
 
-        List<Map.Entry<String, Integer>> groupUsagesList = usages.entrySet().stream()
-                .sorted(PermissionUsageV2Fragment::comparePermissionGroupUsage)
-                .collect(Collectors.toList());
-
-        // If there are no entries, don't show anything.
-        if (usages.isEmpty()) {
-            screen.removeAll();
+        Map<String, CharSequence> groupUsageNameToLabel = new HashMap<>();
+        List<Map.Entry<String, Integer>> groupUsagesList = new ArrayList<>(usages.entrySet());
+        int usagesEntryCount = groupUsagesList.size();
+        for (int usageEntryIndex = 0; usageEntryIndex < usagesEntryCount; usageEntryIndex++) {
+            Map.Entry<String, Integer> usageEntry = groupUsagesList.get(usageEntryIndex);
+            groupUsageNameToLabel.put(usageEntry.getKey(),
+                    KotlinUtils.INSTANCE.getPermGroupLabel(context, usageEntry.getKey()));
         }
 
+        groupUsagesList.sort((e1, e2) -> comparePermissionGroupUsage(
+                e1, e2, groupUsageNameToLabel));
+
+        CharSequence advancedInfoSummary = getAdvancedInfoSummaryString(context, groupUsagesList);
+        screen.setSummary(advancedInfoSummary);
+
         addUIContent(context, groupUsagesList, permApps, category);
+    }
+
+    private CharSequence getAdvancedInfoSummaryString(Context context,
+            List<Map.Entry<String, Integer>> groupUsagesList) {
+        int size = groupUsagesList.size();
+        if (size <= PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT - 1) {
+            return "";
+        }
+
+        // case for 1 extra item in the advanced info
+        if (size == PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT) {
+            String permGroupName = groupUsagesList
+                    .get(PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT - 1).getKey();
+            return KotlinUtils.INSTANCE.getPermGroupLabel(context, permGroupName);
+        }
+
+        String permGroupName1 = groupUsagesList
+                .get(PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT - 1).getKey();
+        String permGroupName2 = groupUsagesList
+                .get(PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT).getKey();
+        CharSequence permGroupLabel1 = KotlinUtils
+                .INSTANCE.getPermGroupLabel(context, permGroupName1);
+        CharSequence permGroupLabel2 = KotlinUtils
+                .INSTANCE.getPermGroupLabel(context, permGroupName2);
+
+        // case for 2 extra items in the advanced info
+        if (size == PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT + 1) {
+            return context.getResources().getString(R.string.perm_usage_adv_info_summary_2_items,
+                    permGroupLabel1, permGroupLabel2);
+        }
+
+        // case for 3 or more extra items in the advanced info
+        int numExtraItems = size - PERMISSION_USAGE_INITIAL_EXPANDED_CHILDREN_COUNT - 1;
+        return context.getResources().getString(R.string.perm_usage_adv_info_summary_more_items,
+                permGroupLabel1, permGroupLabel2, numExtraItems);
     }
 
     /**
@@ -440,15 +478,13 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
                         groupUsage.getGroup());
                 seenSystemApp = seenSystemApp || isSystemApp;
 
-                used = true;
-                addGroupUser(groupName);
-
-                // Filter out usages that aren't of the filtered permission group.
-                // We do this after we call addGroupUser so we compute the correct usage counts
-                // for the permission filter dialog but before we add the usage to our list.
-                if (mFilterGroup != null && !mFilterGroup.equals(groupName)) {
+                // If not showing system apps, skip.
+                if (!mShowSystem && isSystemApp) {
                     continue;
                 }
+
+                used = true;
+                addGroupUser(groupName);
 
                 usages.put(groupName, usages.getOrDefault(groupName, 0) + 1);
             }
@@ -473,7 +509,7 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
                 Map.Entry<String, Integer> currentEntry = usages.get(i);
                 PermissionUsageV2ControlPreference permissionUsagePreference =
                         new PermissionUsageV2ControlPreference(context, currentEntry.getKey(),
-                                currentEntry.getValue());
+                                currentEntry.getValue(), mShowSystem);
                 category.addPreference(permissionUsagePreference);
             }
 
@@ -563,15 +599,19 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
         return 0;
     }
 
-    private static int comparePermissionGroupUsage(@NonNull Map.Entry<String, Integer> x,
-            @NonNull Map.Entry<String, Integer> y) {
-        int xPermissionOrder = PERMISSION_GROUP_ORDER.getOrDefault(x.getKey(), DEFAULT_ORDER);
-        int yPermissionOrder = PERMISSION_GROUP_ORDER.getOrDefault(y.getKey(), DEFAULT_ORDER);
-        if (xPermissionOrder != yPermissionOrder) {
-            return xPermissionOrder - yPermissionOrder;
+    private static int comparePermissionGroupUsage(@NonNull Map.Entry<String, Integer> first,
+            @NonNull Map.Entry<String, Integer> second,
+            Map<String, CharSequence> groupUsageNameToLabelMapping) {
+        int firstPermissionOrder = PERMISSION_GROUP_ORDER
+                .getOrDefault(first.getKey(), DEFAULT_ORDER);
+        int secondPermissionOrder = PERMISSION_GROUP_ORDER
+                .getOrDefault(second.getKey(), DEFAULT_ORDER);
+        if (firstPermissionOrder != secondPermissionOrder) {
+            return firstPermissionOrder - secondPermissionOrder;
         }
 
-        return y.getValue().compareTo(x.getValue());
+        return groupUsageNameToLabelMapping.get(first.getKey()).toString()
+                .compareTo(groupUsageNameToLabelMapping.get(second.getKey()).toString());
     }
 
     /**
@@ -619,60 +659,6 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
     }
 
     /**
-     * Show a dialog that allows selecting a permission group by which to filter the entries.
-     */
-    private void showPermissionFilterDialog() {
-        Context context = getPreferenceManager().getContext();
-
-        // Get the permission labels.
-        List<AppPermissionGroup> groups = getOSPermissionGroups();
-        groups.sort(
-                (x, y) -> mCollator.compare(x.getLabel().toString(), y.getLabel().toString()));
-
-        // Create the dialog entries.
-        String[] groupNames = new String[groups.size() + 1];
-        CharSequence[] groupLabels = new CharSequence[groupNames.length];
-        int[] groupAccessCounts = new int[groupNames.length];
-        groupNames[0] = null;
-        groupLabels[0] = context.getString(R.string.permission_usage_any_permission);
-        Integer allAccesses = mGroupAppCounts.get(null);
-        if (allAccesses == null) {
-            allAccesses = 0;
-        }
-        groupAccessCounts[0] = allAccesses;
-        int selection = 0;
-        int numGroups = groups.size();
-        for (int i = 0; i < numGroups; i++) {
-            AppPermissionGroup group = groups.get(i);
-            groupNames[i + 1] = group.getName();
-            groupLabels[i + 1] = group.getLabel();
-            Integer appCount = mGroupAppCounts.get(group.getName());
-            if (appCount == null) {
-                appCount = 0;
-            }
-            groupAccessCounts[i + 1] = appCount;
-            if (group.getName().equals(mFilterGroup)) {
-                selection = i + 1;
-            }
-        }
-
-        // Create the dialog
-        Bundle args = new Bundle();
-        args.putCharSequence(PermissionsFilterDialog.TITLE,
-                context.getString(R.string.filter_by_title));
-        args.putCharSequenceArray(PermissionsFilterDialog.ELEMS,
-                groupLabels);
-        args.putInt(PermissionsFilterDialog.SELECTION, selection);
-        args.putStringArray(PermissionsFilterDialog.GROUPS, groupNames);
-        args.putIntArray(PermissionsFilterDialog.ACCESS_COUNTS, groupAccessCounts);
-        PermissionsFilterDialog chooserDialog = new PermissionsFilterDialog();
-        chooserDialog.setArguments(args);
-        chooserDialog.setTargetFragment(this, 0);
-        chooserDialog.show(getFragmentManager().beginTransaction(),
-                PermissionsFilterDialog.class.getName());
-    }
-
-    /**
      * Callback when the user selects a permission group by which to filter.
      *
      * @param selectedGroup The PermissionGroup to use to filter entries, or null if we should show
@@ -687,97 +673,6 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
     }
 
     /**
-     * A dialog that allows the user to select a permission group by which to filter entries.
-     *
-     * @see #showPermissionFilterDialog()
-     */
-    public static class PermissionsFilterDialog extends DialogFragment {
-        private static final String TITLE = PermissionsFilterDialog.class.getName() + ".arg.title";
-        private static final String ELEMS = PermissionsFilterDialog.class.getName() + ".arg.elems";
-        private static final String SELECTION = PermissionsFilterDialog.class.getName()
-                + ".arg.selection";
-        private static final String GROUPS = PermissionsFilterDialog.class.getName()
-                + ".arg.groups";
-        private static final String ACCESS_COUNTS = PermissionsFilterDialog.class.getName()
-                + ".arg.access_counts";
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder b = new AlertDialog.Builder(getActivity())
-                    .setView(createDialogView());
-
-            return b.create();
-        }
-
-        private @NonNull View createDialogView() {
-            PermissionUsageV2Fragment fragment = (PermissionUsageV2Fragment) getTargetFragment();
-            CharSequence[] elems = getArguments().getCharSequenceArray(ELEMS);
-            String[] groups = getArguments().getStringArray(GROUPS);
-            int[] accessCounts = getArguments().getIntArray(ACCESS_COUNTS);
-            int selectedIndex = getArguments().getInt(SELECTION);
-
-            LayoutInflater layoutInflater = LayoutInflater.from(fragment.getActivity());
-            View view = layoutInflater.inflate(R.layout.permission_filter_dialog, null);
-            ViewGroup itemsListView = view.requireViewById(R.id.items_container);
-
-            ((TextView) view.requireViewById(R.id.title)).setText(
-                    getArguments().getCharSequence(TITLE));
-
-            ActionBarShadowController.attachToView(view.requireViewById(R.id.title_container),
-                    getLifecycle(), view.requireViewById(R.id.scroll_view));
-
-            for (int i = 0; i < elems.length; i++) {
-                String groupName = groups[i];
-                View itemView = layoutInflater.inflate(R.layout.permission_filter_dialog_item,
-                        itemsListView, false);
-
-                ((TextView) itemView.requireViewById(R.id.title)).setText(elems[i]);
-                ((TextView) itemView.requireViewById(R.id.summary)).setText(
-                        getActivity().getResources().getQuantityString(
-                                R.plurals.permission_usage_permission_filter_subtitle,
-                                accessCounts[i], accessCounts[i]));
-
-                itemView.setOnClickListener((v) -> {
-                    dismissAllowingStateLoss();
-                    fragment.onPermissionGroupSelected(groupName);
-                });
-
-                RadioButton radioButton = itemView.requireViewById(R.id.radio_button);
-                radioButton.setChecked(i == selectedIndex);
-                radioButton.setOnClickListener((v) -> {
-                    dismissAllowingStateLoss();
-                    fragment.onPermissionGroupSelected(groupName);
-                });
-
-                itemsListView.addView(itemView);
-            }
-
-            return view;
-        }
-    }
-
-    private void showTimeFilterDialog() {
-        Context context = getPreferenceManager().getContext();
-
-        CharSequence[] labels = new CharSequence[mFilterTimes.size()];
-        for (int i = 0; i < labels.length; i++) {
-            labels[i] = mFilterTimes.get(i).getLabel();
-        }
-
-        // Create the dialog
-        Bundle args = new Bundle();
-        args.putCharSequence(TimeFilterDialog.TITLE,
-                context.getString(R.string.filter_by_title));
-        args.putCharSequenceArray(TimeFilterDialog.ELEMS, labels);
-        args.putInt(TimeFilterDialog.SELECTION, mFilterTimeIndex);
-        TimeFilterDialog chooserDialog = new TimeFilterDialog();
-        chooserDialog.setArguments(args);
-        chooserDialog.setTargetFragment(this, 0);
-        chooserDialog.show(getFragmentManager().beginTransaction(),
-                TimeFilterDialog.class.getName());
-    }
-
-    /**
      * Callback when the user selects a time by which to filter.
      *
      * @param selectedIndex The index of the dialog option selected by the user.
@@ -785,33 +680,6 @@ public class PermissionUsageV2Fragment extends SettingsWithLargeHeader implement
     private void onTimeSelected(int selectedIndex) {
         mFilterTimeIndex = selectedIndex;
         reloadData();
-    }
-
-    /**
-     * A dialog that allows the user to select a time by which to filter entries.
-     *
-     * @see #showTimeFilterDialog()
-     */
-    public static class TimeFilterDialog extends DialogFragment {
-        private static final String TITLE = TimeFilterDialog.class.getName() + ".arg.title";
-        private static final String ELEMS = TimeFilterDialog.class.getName() + ".arg.elems";
-        private static final String SELECTION = TimeFilterDialog.class.getName() + ".arg.selection";
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            PermissionUsageV2Fragment fragment = (PermissionUsageV2Fragment) getTargetFragment();
-            CharSequence[] elems = getArguments().getCharSequenceArray(ELEMS);
-            AlertDialog.Builder b = new AlertDialog.Builder(getActivity())
-                    .setTitle(getArguments().getCharSequence(TITLE))
-                    .setSingleChoiceItems(elems, getArguments().getInt(SELECTION),
-                            (dialog, which) -> {
-                                dismissAllowingStateLoss();
-                                fragment.onTimeSelected(which);
-                            }
-                    );
-
-            return b.create();
-        }
     }
 
     /**

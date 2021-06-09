@@ -170,6 +170,11 @@ public class Role {
     private final boolean mShowNone;
 
     /**
+     * Whether this role is static, i.e. the role will always be assigned to its default holders.
+     */
+    private final boolean mStatic;
+
+    /**
      * Whether this role only accepts system apps as its holders.
      */
     private final boolean mSystemOnly;
@@ -189,7 +194,7 @@ public class Role {
      * The permissions to be granted by this role.
      */
     @NonNull
-    private final List<String> mPermissions;
+    private final List<Permission> mPermissions;
 
     /**
      * The app op permissions to be granted by this role.
@@ -215,9 +220,9 @@ public class Role {
             @StringRes int labelResource, int minSdkVersion, boolean overrideUserWhenGranting,
             @StringRes int requestDescriptionResource, @StringRes int requestTitleResource,
             boolean requestable, @StringRes int searchKeywordsResource,
-            @StringRes int shortLabelResource, boolean showNone, boolean systemOnly,
+            @StringRes int shortLabelResource, boolean showNone, boolean statik, boolean systemOnly,
             boolean visible, @NonNull List<RequiredComponent> requiredComponents,
-            @NonNull List<String> permissions, @NonNull List<String> appOpPermissions,
+            @NonNull List<Permission> permissions, @NonNull List<String> appOpPermissions,
             @NonNull List<AppOp> appOps, @NonNull List<PreferredActivity> preferredActivities) {
         mName = name;
         mAllowBypassingQualification = allowBypassingQualification;
@@ -235,6 +240,7 @@ public class Role {
         mSearchKeywordsResource = searchKeywordsResource;
         mShortLabelResource = shortLabelResource;
         mShowNone = showNone;
+        mStatic = statik;
         mSystemOnly = systemOnly;
         mVisible = visible;
         mRequiredComponents = requiredComponents;
@@ -323,7 +329,7 @@ public class Role {
     }
 
     @NonNull
-    public List<String> getPermissions() {
+    public List<Permission> getPermissions() {
         return mPermissions;
     }
 
@@ -362,20 +368,27 @@ public class Role {
      * @return whether this role is available.
      */
     public boolean isAvailableAsUser(@NonNull UserHandle user, @NonNull Context context) {
-        // Workaround to match the value 31+ for S+ in roles.xml before SDK finalization.
-        if (mMinSdkVersion >= 31) {
-            if (!SdkLevel.isAtLeastS()) {
-                return false;
-            }
-        } else {
-            if (Build.VERSION.SDK_INT < mMinSdkVersion) {
-                return false;
-            }
+        if (!isAvailableBySdkVersion()) {
+            return false;
         }
         if (mBehavior != null) {
             return mBehavior.isAvailableAsUser(this, user, context);
         }
         return true;
+    }
+
+    /**
+     * Check whether this role is available based on SDK version.
+     *
+     * @return whether this role is available based on SDK version
+     */
+    boolean isAvailableBySdkVersion() {
+        // Workaround to match the value 31+ for S+ in roles.xml before SDK finalization.
+        if (mMinSdkVersion >= 31) {
+            return SdkLevel.isAtLeastS();
+        } else {
+            return Build.VERSION.SDK_INT >= mMinSdkVersion;
+        }
     }
 
     /**
@@ -387,6 +400,10 @@ public class Role {
      */
     public boolean isAvailable(@NonNull Context context) {
         return isAvailableAsUser(Process.myUserHandle(), context);
+    }
+
+    public boolean isStatic() {
+        return mStatic;
     }
 
     /**
@@ -623,6 +640,10 @@ public class Role {
             }
         }
 
+        if (mStatic && !getDefaultHolders(context).contains(packageName)) {
+            return false;
+        }
+
         return true;
     }
 
@@ -749,7 +770,8 @@ public class Role {
      */
     public void grant(@NonNull String packageName, boolean dontKillApp,
             boolean overrideUserSetAndFixedPermissions, @NonNull Context context) {
-        boolean permissionOrAppOpChanged = Permissions.grant(packageName, mPermissions,
+        boolean permissionOrAppOpChanged = Permissions.grant(packageName,
+                Permissions.filterBySdkVersion(mPermissions),
                 SdkLevel.isAtLeastS() ? !mSystemOnly : true, overrideUserSetAndFixedPermissions,
                 true, false, false, context);
 
@@ -795,13 +817,13 @@ public class Role {
         List<String> otherRoleNames = roleManager.getHeldRolesFromController(packageName);
         otherRoleNames.remove(mName);
 
-        List<String> permissionsToRevoke = new ArrayList<>(mPermissions);
+        List<String> permissionsToRevoke = Permissions.filterBySdkVersion(mPermissions);
         ArrayMap<String, Role> roles = Roles.get(context);
         int otherRoleNamesSize = otherRoleNames.size();
         for (int i = 0; i < otherRoleNamesSize; i++) {
             String roleName = otherRoleNames.get(i);
             Role role = roles.get(roleName);
-            permissionsToRevoke.removeAll(role.mPermissions);
+            permissionsToRevoke.removeAll(Permissions.filterBySdkVersion(role.mPermissions));
         }
 
         boolean permissionOrAppOpChanged = Permissions.revoke(packageName, permissionsToRevoke,
@@ -945,6 +967,7 @@ public class Role {
                 + ", mSearchKeywordsResource=" + mSearchKeywordsResource
                 + ", mShortLabelResource=" + mShortLabelResource
                 + ", mShowNone=" + mShowNone
+                + ", mStatic=" + mStatic
                 + ", mSystemOnly=" + mSystemOnly
                 + ", mVisible=" + mVisible
                 + ", mRequiredComponents=" + mRequiredComponents
