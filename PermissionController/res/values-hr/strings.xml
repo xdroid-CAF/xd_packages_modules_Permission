@@ -256,7 +256,7 @@
     <string name="permission_description_summary_camera" msgid="108004375101882069">"Aplikacije s tim dopuštenjem mogu snimati fotografije i videozapise"</string>
     <string name="permission_description_summary_contacts" msgid="2337798886460408996">"Aplikacije s tim dopuštenjem mogu pristupiti vašim kontaktima"</string>
     <string name="permission_description_summary_location" msgid="2817531799933480694">"Aplikacije s tim dopuštenjem mogu pristupiti lokaciji ovog uređaja"</string>
-    <string name="permission_description_summary_nearby_devices" msgid="8269183818275073741">"Aplikacije s tim dopuštenjem mogu tražiti uređaje u blizini, povezati se s njima i odrediti njihov približni položaj"</string>
+    <string name="permission_description_summary_nearby_devices" msgid="8269183818275073741">"Aplikacije s tim dopuštenjem mogu tražiti uređaje u blizini, povezivati se s njima i određivati njihov približni položaj"</string>
     <string name="permission_description_summary_microphone" msgid="630834800308329907">"Aplikacije s tim dopuštenjem mogu snimati zvuk"</string>
     <string name="permission_description_summary_phone" msgid="4515277217435233619">"Aplikacije s tim dopuštenjem mogu uspostavljati telefonske pozive i upravljati njima"</string>
     <string name="permission_description_summary_sensors" msgid="1836045815643119949">"Aplikacije s tim dopuštenjem mogu pristupiti podacima senzora o vašim vitalnim znakovima"</string>
@@ -343,17 +343,17 @@
     <string name="permission_subtitle_media_only" msgid="8917869683764720717">"Mediji"</string>
     <string name="permission_subtitle_all_files" msgid="4982613338298067862">"Sve datoteke"</string>
     <string name="permission_subtitle_background" msgid="8916750995309083180">"Dopušteno cijelo vrijeme"</string>
-    <string name="app_perms_24h_access" msgid="99069906850627181">"Zadnji put pristupljeno: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
-    <string name="app_perms_24h_access_yest" msgid="5411926024794555022">"Zadnji put pristupljeno jučer u <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
+    <string name="app_perms_24h_access" msgid="99069906850627181">"Posljednji put pristupljeno: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
+    <string name="app_perms_24h_access_yest" msgid="5411926024794555022">"Posljednji put pristupljeno jučer u <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="app_perms_content_provider" msgid="6996750793881252778">"Pristupljeno u posljednja 24 sata"</string>
     <string name="app_perms_24h_access_background" msgid="3413674718969576843">"Posljednji pristup <xliff:g id="TIME_DATE">%1$s</xliff:g> • dopušteno cijelo vrijeme"</string>
     <string name="app_perms_24h_access_yest_background" msgid="9174750810998076725">"Posljednji pristup jučer u <xliff:g id="TIME_DATE">%1$s</xliff:g> • dopušteno cijelo vrijeme"</string>
     <string name="app_perms_content_provider_background" msgid="7793984056711923997">"Pristupljeno u posljednja 24 sata • Dopušteno cijelo vrijeme"</string>
-    <string name="app_perms_24h_access_media_only" msgid="6651699644199132054">"Zadnji put pristupljeno: <xliff:g id="TIME_DATE">%1$s</xliff:g> • Mediji"</string>
-    <string name="app_perms_24h_access_yest_media_only" msgid="7213187706424998792">"Zadnji put pristupljeno jučer u <xliff:g id="TIME_DATE">%1$s</xliff:g> • Mediji"</string>
+    <string name="app_perms_24h_access_media_only" msgid="6651699644199132054">"Posljednji put pristupljeno: <xliff:g id="TIME_DATE">%1$s</xliff:g> • Mediji"</string>
+    <string name="app_perms_24h_access_yest_media_only" msgid="7213187706424998792">"Posljednji put pristupljeno jučer u <xliff:g id="TIME_DATE">%1$s</xliff:g> • Mediji"</string>
     <string name="app_perms_content_provider_media_only" msgid="6206759230589923421">"Pristupljeno u posljednja 24 sata • Mediji"</string>
-    <string name="app_perms_24h_access_all_files" msgid="8902360456978159091">"Zadnji put pristupljeno: <xliff:g id="TIME_DATE">%1$s</xliff:g> • Sve datoteke"</string>
-    <string name="app_perms_24h_access_yest_all_files" msgid="5708424073126844909">"Zadnji put pristupljeno jučer u <xliff:g id="TIME_DATE">%1$s</xliff:g> • Sve datoteke"</string>
+    <string name="app_perms_24h_access_all_files" msgid="8902360456978159091">"Posljednji put pristupljeno: <xliff:g id="TIME_DATE">%1$s</xliff:g> • Sve datoteke"</string>
+    <string name="app_perms_24h_access_yest_all_files" msgid="5708424073126844909">"Posljednji put pristupljeno jučer u <xliff:g id="TIME_DATE">%1$s</xliff:g> • Sve datoteke"</string>
     <string name="app_perms_content_provider_all_files" msgid="3315281519230304799">"Pristupljeno u posljednja 24 sata • Sve datoteke"</string>
     <string name="no_permissions_allowed" msgid="6081976856354669209">"Nije odobreno nijedno dopuštenje"</string>
     <string name="no_permissions_denied" msgid="8159923922804043282">"Nije odbijeno nijedno dopuštenje"</string>
