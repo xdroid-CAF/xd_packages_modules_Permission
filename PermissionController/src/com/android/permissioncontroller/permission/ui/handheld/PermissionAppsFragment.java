@@ -52,12 +52,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.core.os.BuildCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
-import com.android.modules.utils.build.SdkLevel;
 import com.android.permissioncontroller.PermissionControllerStatsLog;
 import com.android.permissioncontroller.R;
 import com.android.permissioncontroller.permission.debug.PermissionUsages;
@@ -120,8 +118,8 @@ public final class PermissionAppsFragment extends SettingsWithLargeHeader implem
     private String mPermGroupName;
     private Collator mCollator;
     private PermissionAppsViewModel mViewModel;
-    private PermissionUsages mPermissionUsages;
-    private List<AppPermissionUsage> mAppPermissionUsages = new ArrayList<>();
+    private @NonNull PermissionUsages mPermissionUsages;
+    private @NonNull List<AppPermissionUsage> mAppPermissionUsages = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -160,19 +158,13 @@ public final class PermissionAppsFragment extends SettingsWithLargeHeader implem
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
-        // If the build type is below S, the app ops for permission usage can't be found. Thus, we
-        // shouldn't load permission usages, for them.
-        if (BuildCompat.isAtLeastS()) {
-            Context context = getPreferenceManager().getContext();
-            mPermissionUsages = new PermissionUsages(context);
-
-            long filterTimeBeginMillis = Math.max(System.currentTimeMillis()
-                            - DAYS.toMillis(AGGREGATE_DATA_FILTER_BEGIN_DAYS),
-                    Instant.EPOCH.toEpochMilli());
-            mPermissionUsages.load(null, null, filterTimeBeginMillis, Long.MAX_VALUE,
-                    PermissionUsages.USAGE_FLAG_LAST, getActivity().getLoaderManager(),
-                    false, false, this, false);
-        }
+        Context context = getPreferenceManager().getContext();
+        mPermissionUsages = new PermissionUsages(context);
+        long filterTimeBeginMillis = Math.max(System.currentTimeMillis()
+                - DAYS.toMillis(AGGREGATE_DATA_FILTER_BEGIN_DAYS), Instant.EPOCH.toEpochMilli());
+        mPermissionUsages.load(null, null, filterTimeBeginMillis, Long.MAX_VALUE,
+                PermissionUsages.USAGE_FLAG_LAST, getActivity().getLoaderManager(),
+                false, false, this, false);
     }
 
     @Override
@@ -205,10 +197,8 @@ public final class PermissionAppsFragment extends SettingsWithLargeHeader implem
             menu.add(Menu.NONE, MENU_PERMISSION_USAGE, Menu.NONE, R.string.permission_usage_title);
         }
 
-        if (!SdkLevel.isAtLeastS()) {
-            HelpUtils.prepareHelpMenuItem(getActivity(), menu, R.string.help_app_permissions,
-                    getClass().getName());
-        }
+        HelpUtils.prepareHelpMenuItem(getActivity(), menu, R.string.help_app_permissions,
+                getClass().getName());
     }
 
     @Override

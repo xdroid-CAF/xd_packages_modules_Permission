@@ -97,7 +97,7 @@ import com.android.permissioncontroller.R;
 import com.android.permissioncontroller.permission.model.AppPermissionGroup;
 
 import java.lang.annotation.Retention;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1208,9 +1208,7 @@ public final class Utils {
      */
     public static Pair<String, Integer> getPermissionLastAccessSummaryTimestamp(
             Long lastAccessTime, Context context, String groupName) {
-        long midnightToday = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS).toEpochSecond()
-                * 1000L;
-
+        long midnightToday = Instant.now().truncatedTo(ChronoUnit.DAYS).toEpochMilli();
         boolean isLastAccessToday = lastAccessTime != null
                 && midnightToday <= lastAccessTime;
         String lastAccessTimeFormatted = "";

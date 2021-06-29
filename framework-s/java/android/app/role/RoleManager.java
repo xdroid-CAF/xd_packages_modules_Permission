@@ -22,7 +22,6 @@ import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
-import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.annotation.SystemService;
 import android.annotation.UserIdInt;
@@ -455,7 +454,6 @@ public final class RoleManager {
      * @hide
      */
     @RequiresPermission(Manifest.permission.OBSERVE_ROLE_HOLDERS)
-    @SuppressLint("SamShouldBeLast") // TODO(b/190240500): remove this
     @SystemApi
     public void addOnRoleHoldersChangedListenerAsUser(@CallbackExecutor @NonNull Executor executor,
             @NonNull OnRoleHoldersChangedListener listener, @NonNull UserHandle user) {
@@ -501,7 +499,6 @@ public final class RoleManager {
      * @hide
      */
     @RequiresPermission(Manifest.permission.OBSERVE_ROLE_HOLDERS)
-    @SuppressLint("SamShouldBeLast") // TODO(b/190240500): remove this
     @SystemApi
     public void removeOnRoleHoldersChangedListenerAsUser(
             @NonNull OnRoleHoldersChangedListener listener, @NonNull UserHandle user) {

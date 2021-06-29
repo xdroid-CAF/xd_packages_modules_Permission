@@ -59,8 +59,9 @@ class HibernationController(
                     if (hibernationManager.isHibernatingForUser(pkg.packageName)) {
                         continue
                     }
+                    // TODO(b/184097792): Change this to < S when API finalizes.
                     if (!targetsPreS &&
-                        pkg.targetSdkVersion < Build.VERSION_CODES.S) {
+                        pkg.targetSdkVersion <= Build.VERSION_CODES.R) {
                         // Only apps targeting S or above can be truly hibernated.
                         continue
                     }

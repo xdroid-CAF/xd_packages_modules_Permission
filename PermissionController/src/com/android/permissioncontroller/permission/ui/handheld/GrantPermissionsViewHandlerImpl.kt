@@ -435,7 +435,7 @@ class GrantPermissionsViewHandlerImpl(
             if (resultListener != null) {
                 resultListener!!.onPermissionGrantResult(groupName, CANCELED)
             } else {
-                mActivity.finishAfterTransition()
+                mActivity.finish()
             }
             return
         }
@@ -498,7 +498,7 @@ class GrantPermissionsViewHandlerImpl(
 
     override fun onBackPressed() {
         if (resultListener == null) {
-            mActivity.finishAfterTransition()
+            mActivity.finish()
             return
         }
         resultListener?.onPermissionGrantResult(groupName, CANCELED)

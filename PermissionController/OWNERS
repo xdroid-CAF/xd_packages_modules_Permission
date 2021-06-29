@@ -1,7 +1,6 @@
 include platform/frameworks/base:/core/java/android/permission/OWNERS
 
 toddke@google.com
-patb@google.com
 
 # For automotive related changes
 stenning@google.com

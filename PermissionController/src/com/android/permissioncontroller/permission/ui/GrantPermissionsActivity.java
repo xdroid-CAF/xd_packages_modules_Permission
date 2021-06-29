@@ -49,6 +49,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.core.util.Consumer;
+import androidx.fragment.app.FragmentActivity;
 
 import com.android.modules.utils.build.SdkLevel;
 import com.android.permissioncontroller.DeviceUtils;
@@ -70,7 +71,7 @@ import java.util.Random;
 /**
  * An activity which displays runtime permission prompts on behalf of an app.
  */
-public class GrantPermissionsActivity extends SettingsActivity
+public class GrantPermissionsActivity extends FragmentActivity
         implements GrantPermissionsViewHandler.ResultListener {
 
     private static final String LOG_TAG = "GrantPermissionsActivit";
@@ -219,7 +220,7 @@ public class GrantPermissionsActivity extends SettingsActivity
         if (!mViewModel.getRequestInfosLiveData().isInitialized() || mResultSet) {
             return;
         } else if (requests == null) {
-            finishAfterTransition();
+            finish();
             return;
         } else if (requests.isEmpty()) {
             setResultAndFinish();
@@ -424,12 +425,12 @@ public class GrantPermissionsActivity extends SettingsActivity
     }
 
     @Override
-    public void finishAfterTransition() {
+    public void finish() {
         setResultIfNeeded(RESULT_CANCELED);
         if (mViewModel != null) {
             mViewModel.autoGrantNotify();
         }
-        super.finishAfterTransition();
+        super.finish();
     }
 
     private boolean checkKgm(String name, List<String> affectedForegroundPermissions,
@@ -491,7 +492,7 @@ public class GrantPermissionsActivity extends SettingsActivity
 
     private void setResultAndFinish() {
         setResultIfNeeded(RESULT_OK);
-        finishAfterTransition();
+        finish();
     }
 
     private void logGrantPermissionActivityButtons(String permissionGroupName,

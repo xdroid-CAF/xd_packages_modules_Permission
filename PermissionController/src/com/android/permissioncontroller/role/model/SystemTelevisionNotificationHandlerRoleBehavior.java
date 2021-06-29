@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-package com.android.permissioncontroller.permission.ui.handheld;
+package com.android.permissioncontroller.role.model;
+
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.UserHandle;
 
 import androidx.annotation.NonNull;
-import androidx.preference.PreferenceFragmentCompat;
 
 /**
- * Wrapper over PermissionAppsFragment
+ * Class for behavior of the Television Notification Handler role.
  */
-public class PermissionAppsWrapperFragment extends PermissionsCollapsingToolbarBaseFragment {
-    @NonNull
+public class SystemTelevisionNotificationHandlerRoleBehavior implements RoleBehavior {
+
     @Override
-    public PreferenceFragmentCompat createPreferenceFragment() {
-        return new PermissionAppsFragment();
+    public boolean isAvailableAsUser(@NonNull Role role, @NonNull UserHandle user,
+            @NonNull Context context) {
+        // Role is only available on Leanback devices
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LEANBACK);
     }
 }

@@ -38,9 +38,6 @@ const val PROPERTY_LOCATION_INDICATORS_ENABLED = "location_indicators_enabled"
 /* Whether location accuracy feature is enabled */
 const val PROPERTY_LOCATION_ACCURACY_ENABLED = "location_accuracy_enabled"
 
-/* Default location precision */
-const val PROPERTY_LOCATION_PRECISION = "location_precision"
-
 /* Whether privacy hub feature is enabled */
 const val PROPERTY_PRIVACY_HUB_ENABLED = "privacy_hub_enabled"
 
@@ -111,16 +108,6 @@ fun shouldShowLocationIndicators(): Boolean {
 fun isLocationAccuracyEnabled(): Boolean {
     return DeviceConfig.getBoolean(DeviceConfig.NAMESPACE_PRIVACY,
         PROPERTY_LOCATION_ACCURACY_ENABLED, true)
-}
-
-/**
- * Default state of location precision
- * true: default is FINE.
- * false: default is COARSE.
- */
-fun getDefaultPrecision(): Boolean {
-    return DeviceConfig.getBoolean(DeviceConfig.NAMESPACE_PRIVACY,
-            PROPERTY_LOCATION_PRECISION, true)
 }
 
 /**

@@ -18,6 +18,7 @@ package com.android.permissioncontroller.permission
 
 import android.content.Context
 import android.os.Build
+import android.permission.PermissionControllerManager
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.permissioncontroller.permission.utils.Utils
@@ -29,7 +30,7 @@ import java.util.concurrent.TimeUnit
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.S, codeName = "S")
 class GetPermissionGroupInfoTest {
     private val context = InstrumentationRegistry.getInstrumentation().context as Context
-    private val packageManager = context.packageManager
+    private val pcManager = context.getSystemService(PermissionControllerManager::class.java)!!
     private val timeoutMs: Long = 10000
 
     @Test
@@ -38,8 +39,8 @@ class GetPermissionGroupInfoTest {
         var returnedPerms: List<String>? = null
         for (group in groups) {
             val latch = CountDownLatch(1)
-            packageManager.getPlatformPermissionsForGroup(group, context.mainExecutor) {
-                returnedPerms = it
+            pcManager.getPlatformPermissionsForGroup(group, context.mainExecutor) { ret ->
+                returnedPerms = ret
                 latch.countDown()
             }
             latch.await(timeoutMs, TimeUnit.MILLISECONDS)
@@ -56,8 +57,8 @@ class GetPermissionGroupInfoTest {
             for (permName in perms) {
                 var permGroup: String? = null
                 val latch = CountDownLatch(1)
-                packageManager.getGroupOfPlatformPermission(permName, context.mainExecutor) {
-                    permGroup = it
+                pcManager.getGroupOfPlatformPermission(permName, context.mainExecutor) { retGroup ->
+                    permGroup = retGroup
                     latch.countDown()
                 }
                 latch.await(timeoutMs, TimeUnit.MILLISECONDS)

@@ -17,15 +17,11 @@
 package com.android.permissioncontroller.permission.data
 
 import android.os.UserHandle
-import android.provider.DeviceConfig
-import android.provider.DeviceConfig.NAMESPACE_PERMISSIONS
 import android.util.ArraySet
 import android.util.Log
-import com.android.permissioncontroller.PermissionControllerApplication
 import com.android.permissioncontroller.hibernation.getUnusedThresholdMs
 import com.android.permissioncontroller.hibernation.isHibernationEnabled
 import com.android.permissioncontroller.hibernation.lastTimePackageUsed
-import com.android.permissioncontroller.permission.utils.Utils
 
 /**
  * Gets all unused packages from an existing live data that have not been opened in a few months
@@ -41,8 +37,8 @@ class UnusedPackagesLiveData(
 
     private val LOG_TAG = UnusedPackagesLiveData::class.java.simpleName
 
-    private var unusedThreshold = getUnusedThresholdMs()
-    private var usageStatsLiveData = UsageStatsLiveData[unusedThreshold]
+    private val unusedThreshold = getUnusedThresholdMs()
+    private val usageStatsLiveData = UsageStatsLiveData[unusedThreshold]
 
     init {
         addSource(usageStatsLiveData) {
@@ -54,22 +50,6 @@ class UnusedPackagesLiveData(
         addSource(sourceLiveData) {
             update()
         }
-        DeviceConfig.addOnPropertiesChangedListener(
-            NAMESPACE_PERMISSIONS,
-            PermissionControllerApplication.get().mainExecutor,
-            { properties ->
-                for (key in properties.keyset) {
-                    if (key == Utils.PROPERTY_HIBERNATION_UNUSED_THRESHOLD_MILLIS) {
-                        removeSource(usageStatsLiveData)
-                        unusedThreshold = getUnusedThresholdMs()
-                        usageStatsLiveData = UsageStatsLiveData[unusedThreshold]
-                        addSource(usageStatsLiveData) {
-                            update()
-                        }
-                    }
-                }
-            }
-        )
     }
 
     override fun onUpdate() {

@@ -17,8 +17,16 @@
 
 <resources>
 
-    <style name="Settings" parent="Theme.SubSettingsBase">
+    <style name="Settings"
+           parent="@android:style/Theme.DeviceDefault.Settings">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="preferenceCategoryTitleTextAppearance">@style/TextAppearance.CategoryTitle</item>
+    </style>
+
+    <!-- TODO(b/177638483): Remove this theme once permission UI uses toolbar as well. -->
+    <style name="Settings.Role">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="TextAppearance.CategoryTitle"
@@ -95,6 +103,10 @@
     </style>
 
     <style name="Settings.FilterTouches">
+        <item name="android:filterTouchesWhenObscured">true</item>
+    </style>
+
+    <style name="Settings.Role.FilterTouches">
         <item name="android:filterTouchesWhenObscured">true</item>
     </style>
 

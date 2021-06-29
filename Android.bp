@@ -27,10 +27,9 @@ apex_defaults {
     updatable: true,
     min_sdk_version: "30",
     bootclasspath_fragments: ["com.android.permission-bootclasspath-fragment"],
-    systemserverclasspath_fragments: ["com.android.permission-systemserverclasspath-fragment"],
-    prebuilts: ["current_sdkinfo"],
     key: "com.android.permission.key",
     certificate: ":com.android.permission.certificate",
+    java_libs: ["service-permission"],
     apps: ["PermissionController"],
 }
 
@@ -52,8 +51,10 @@ filegroup {
 
 sdk {
     name: "permission-module-sdk",
-    bootclasspath_fragments: ["com.android.permission-bootclasspath-fragment"],
-    java_sdk_libs: ["service-permission"],
+    java_sdk_libs: [
+        "framework-permission",
+        "framework-permission-s",
+    ],
 }
 
 // Encapsulate the contributions made by the com.android.permission to the bootclasspath.
@@ -63,12 +64,5 @@ bootclasspath_fragment {
       "framework-permission",
       "framework-permission-s",
     ],
-    apex_available: ["com.android.permission"],
-}
-
-// Encapsulate the contributions made by the com.android.permission to the systemserverclasspath.
-systemserverclasspath_fragment {
-    name: "com.android.permission-systemserverclasspath-fragment",
-    contents: ["service-permission"],
     apex_available: ["com.android.permission"],
 }

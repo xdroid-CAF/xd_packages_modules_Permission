@@ -128,7 +128,7 @@ public abstract class SettingsFragment extends CollapsingToolbarBaseFragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                requireActivity().finishAfterTransition();
+                requireActivity().finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

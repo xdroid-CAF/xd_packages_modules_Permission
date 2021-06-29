@@ -56,7 +56,7 @@
     <string name="app_permission_manager" msgid="3903811137630909550">"ଅନୁମତି ପରିଚାଳକ"</string>
     <string name="never_ask_again" msgid="4728762438198560329">"ପୁଣି ପଚାରନ୍ତୁ ନାହିଁ"</string>
     <string name="no_permissions" msgid="3881676756371148563">"କୌଣସି ଅନୁମତିଗୁଡ଼ିକ ନାହିଁ"</string>
-    <string name="additional_permissions" msgid="5801285469338873430">"ଅତିରିକ୍ତ ଅନୁମତି"</string>
+    <string name="additional_permissions" msgid="5801285469338873430">"ଅତିରିକ୍ତ ଅନୁମତିଗୁଡ଼ିକ"</string>
     <string name="app_permissions_info_button_label" msgid="7633312050729974623">"ଆପ୍‌ର ସୂଚନା ଖୋଲନ୍ତୁ"</string>
     <plurals name="additional_permissions_more" formatted="false" msgid="5297511511961335277">
       <item quantity="other"><xliff:g id="COUNT_1">%1$d</xliff:g> ଅଧିକ</item>
@@ -68,7 +68,8 @@
     <string name="app_permissions_group_summary2" msgid="4329922444840521150">"<xliff:g id="COUNT_0">%1$d</xliff:g>/<xliff:g id="COUNT_1">%2$d</xliff:g>ଟି ଆପକୁ ଅନୁମତି ଦିଆଯାଇଛି"</string>
     <string name="menu_show_system" msgid="4254021607027872504">"ସିଷ୍ଟମ୍‌ ଦେଖାନ୍ତୁ"</string>
     <string name="menu_hide_system" msgid="3855390843744028465">"ସିଷ୍ଟମ୍‌କୁ ଲୁଚାନ୍ତୁ"</string>
-    <string name="manage_permission" msgid="3796219072742331048">"ଅନୁମତି ପରିଚାଳନା କରନ୍ତୁ"</string>
+    <!-- no translation found for manage_permission (3796219072742331048) -->
+    <skip />
     <string name="no_apps" msgid="2412612731628386816">"କୌଣସି ଆପ୍‌ ନାହିଁ"</string>
     <string name="location_settings" msgid="3624412509133422562">"ଲୋକେ‍ସନ୍‌ ସେଟିଂସ୍‌"</string>
     <string name="location_warning" msgid="2381649060929040962">"ଏହି ଡିଭାଇସ୍‍ ପାଇଁ <xliff:g id="APP_NAME">%1$s</xliff:g> ଲୋକେସନ୍‍ ସେବା ପ୍ରଦାନ କରେ। ଲୋକେସନ୍‌ ସେଟିଂସ୍‌ରୁ ଲୋକେସନ୍‍ ଆକ୍ସେସ୍‍ ବଦଳାଯାଇପାରିବ।"</string>
@@ -100,7 +101,7 @@
     <string name="wear_not_allowed_dlg_text" msgid="512340555334769098">"ୱିୟର୍‌ରେ ଇନଷ୍ଟଲ୍‍/ଅନଇନଷ୍ଟଲ୍‍ କାର୍ଯ୍ୟଗୁଡ଼ିକ ସମର୍ଥନ କରେନାହିଁ।"</string>
     <string name="permission_review_title_template_install" msgid="1284337937156289081">"&lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; ଆକ୍ସେସ୍‍ କରିବା ପାଇଁ କେଉଁସବୁ ଅନୁମତି ଦିଆଯିବ, ତାହା ବାଛନ୍ତୁ"</string>
     <string name="permission_review_title_template_update" msgid="3232333580548588657">"&lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt; ଅପଡେଟ୍‍ କରାଯାଇଛି। ଏହି ଆପ୍‍ କେଉଁସବୁ ଆକ୍ସେସ୍‍ କରିପାରିବ, ତାହା ବାଛନ୍ତୁ।"</string>
-    <string name="review_button_cancel" msgid="2191147944056548886">"ବାତିଲ୍ କରନ୍ତୁ"</string>
+    <string name="review_button_cancel" msgid="2191147944056548886">"ବାତିଲ୍‌"</string>
     <string name="review_button_continue" msgid="2527918375047602199">"ଜାରି ରଖନ୍ତୁ"</string>
     <string name="new_permissions_category" msgid="552995090178417611">"ନୂଆ ଅନୁମତିଗୁଡ଼ିକ"</string>
     <string name="current_permissions_category" msgid="4292990083585728880">"ବର୍ତ୍ତମାନର ଅନୁମତିଗୁଡ଼ିକ"</string>
@@ -112,24 +113,13 @@
     <string name="perm_usage_adv_info_summary_2_items" msgid="3702175198750127822">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_summary_more_items" msgid="949055326299562218">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g> ଏବଂ ଅଧିକ <xliff:g id="NUM">%3$s</xliff:g>ଟି"</string>
     <string name="permission_group_usage_subtitle" msgid="712843174810251274">"ଗତ 24 ଘଣ୍ଟାରେ ଯେତେବେଳେ ଆପଗୁଡ଼ିକ ଆପଣଙ୍କ <xliff:g id="PERMGROUP">%1$s</xliff:g> ବ୍ୟବହାର କରିଥାଏ ତାହାର ଟାଇମଲାଇନ୍"</string>
-    <string name="permission_usage_access_dialog_subtitle" msgid="4171772805196955753">"ଏହି ଆପ୍ କେତେବେଳେ ଆପଣଙ୍କ <xliff:g id="PERMGROUP">%1$s</xliff:g> ଅନୁମତି ବ୍ୟବହାର କରିଛି"</string>
+    <!-- no translation found for permission_usage_access_dialog_subtitle (4171772805196955753) -->
+    <skip />
     <string name="permission_usage_access_dialog_learn_more" msgid="7121468469493184613">"ଅଧିକ ଜାଣନ୍ତୁ"</string>
-    <plurals name="duration_used_days" formatted="false" msgid="1993098309578536308">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ଦିନ</item>
-      <item quantity="one">1 ଦିନ</item>
-    </plurals>
-    <plurals name="duration_used_hours" formatted="false" msgid="1020075479447003242">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ଘଣ୍ଟା</item>
-      <item quantity="one">1 ଘଣ୍ଟା</item>
-    </plurals>
-    <plurals name="duration_used_minutes" formatted="false" msgid="3422338854436291744">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ମିନିଟ୍</item>
-      <item quantity="one">1 ମିନିଟ୍</item>
-    </plurals>
-    <plurals name="duration_used_seconds" formatted="false" msgid="2726799598314248110">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ସେକେଣ୍ଡ</item>
-      <item quantity="one">1 ସେକେଣ୍ଡ</item>
-    </plurals>
+    <!-- no translation found for duration_used_days (1993098309578536308) -->
+    <!-- no translation found for duration_used_hours (1020075479447003242) -->
+    <!-- no translation found for duration_used_minutes (3422338854436291744) -->
+    <!-- no translation found for duration_used_seconds (2726799598314248110) -->
     <plurals name="permission_usage_summary" formatted="false" msgid="2837021459986644819">
       <item quantity="other">ଶେଷ ଆକ୍ସେସ୍: <xliff:g id="TIME_2">%1$s</xliff:g>\n<xliff:g id="NUM_3">%2$s</xliff:g>ଟି ଆକ୍ସେସ୍</item>
       <item quantity="one">ଶେଷ ଆକ୍ସେସ୍: <xliff:g id="TIME_0">%1$s</xliff:g>\n<xliff:g id="NUM_1">%2$s</xliff:g> ଆକ୍ସେସ୍</item>
@@ -171,7 +161,8 @@
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>ଟି ଆପ୍ସ</item>
       <item quantity="one">1 ଆପ୍</item>
     </plurals>
-    <string name="permission_usage_preference_summary_not_used" msgid="8806755646449754282">"ଗତ 24 ଘଣ୍ଟାରେ ବ୍ୟବହାର କରାଯାଇନାହିଁ"</string>
+    <!-- no translation found for permission_usage_preference_summary_not_used (8806755646449754282) -->
+    <skip />
     <plurals name="permission_usage_preference_label" formatted="false" msgid="9033113721294293706">
       <item quantity="other"><xliff:g id="NUMBER">%1$d</xliff:g>ଟି ଆପ୍ ଦ୍ୱାରା ବ୍ୟବହାର କରାଯାଇଛି</item>
       <item quantity="one">1ଟି ଆପ୍ ଦ୍ୱାରା ବ୍ୟବହାର କରାଯାଇଛି</item>
@@ -238,7 +229,7 @@
     <string name="app_permission_footer_special_file_access" msgid="1884202176147657788">"ଯଦି ଆପଣ ସମସ୍ତ ଫାଇଲର ପରିଚାଳନାକୁ ଅନୁମତି ଦିଅନ୍ତି, ତେବେ ଏହି ଆପ୍ ଏ ଡିଭାଇସ୍ କିମ୍ବା ସଂଯୋଗ ହୋଇଥିବା ଷ୍ଟୋରେଜ୍ ଡିଭାଇସର ସାଧାରଣ ଷ୍ଟୋରେଜରେ ଥିବା ଯେ କୌଣସି ଫାଇଲକୁ ଆକ୍ସେସ୍, ପରିବର୍ତ୍ତନ ଏବଂ ଡିଲିଟ୍ କରିପାରିବ। ଆପଟି ଆପଣଙ୍କୁ ନ ପଚାରି ଫାଇଲଗୁଡ଼ିକୁ ଆକ୍ସେସ୍ କରିପାରେ।"</string>
     <string name="special_file_access_dialog" msgid="583804114020740610">"ଏହି ଆପକୁ ଏ ଡିଭାଇସରେ କିମ୍ବା ଯେ କୌଣସି ସଂଯୋଗ ହୋଇଥିବା ଷ୍ଟୋରେଜ୍ ଡିଭାଇସଗୁଡ଼ିକରେ ଥିବା ଫାଇଲଗୁଡ଼ିକୁ ଆକ୍ସେସ୍, ପରିବର୍ତ୍ତନ ଏବଂ ଡିଲିଟ୍ କରିବାକୁ ଅନୁମତି ଦେବେ କି? ଏହି ଆପ୍ ଆପଣଙ୍କୁ ନ ପଚାରି ଫାଇଲଗୁଡ଼ିକୁ ଆକ୍ସେସ୍ କରିପାରେ।"</string>
     <string name="permission_description_summary_generic" msgid="5401399408814903391">"ଏହି ଅନୁମତି ଥିବା ଆପ୍ସ <xliff:g id="DESCRIPTION">%1$s</xliff:g>"</string>
-    <string name="permission_description_summary_activity_recognition" msgid="2652850576497070146">"ଏହି ଅନୁମତି ସହିତ ଆପଗୁଡ଼ିକ, ଚାଲିବା, ବାଇକ୍ ଚଲାଇବା, ଡ୍ରାଇଭିଂ, ଷ୍ଟେପ୍ ଗଣନା ଏବଂ ଆହୁରି ଅନେକ କିଛି ପରି ଆପଣଙ୍କ ଶାରୀରିକ କାର୍ଯ୍ୟକଳାପକୁ ଆକ୍ସେସ୍ କରିପାରିବ"</string>
+    <string name="permission_description_summary_activity_recognition" msgid="2652850576497070146">"ଏହି ଅନୁମତି ଥିବା ଆପ୍ସ ଆପଣଙ୍କର ଶାରୀରିକ କାର୍ଯ୍ୟକଳାପ, ଯେପରିକି ଚାଲିବା, ସାଇକେଲ ଚଲେଇବା, ଗାଡ଼ି ଚଲାଇବା, କେତେ ପାଦ ଚାଲିଲେ ତାହା ଗଣିବା ଏବଂ ଆହୁରି ଅନେକ କିଛି ଆକ୍ସେସ୍ କରିପାରିବ"</string>
     <string name="permission_description_summary_calendar" msgid="103329982944411010">"ଏହି ଅନୁମତି ଥିବା ଆପ୍ସ ଆପଣଙ୍କର କ୍ୟାଲେଣ୍ଡର୍ ଆକ୍ସେସ୍ କରିପାରିବ"</string>
     <string name="permission_description_summary_call_log" msgid="7321437186317577624">"ଏହି ଅନୁମତି ଥିବା ଆପ୍‌ଗୁଡ଼ିକ ଫୋନ୍‌ କଲ୍ ଲଗ୍ ପଢ଼ିପାରିବେ ଏବଂ ଲେଖିପାରିବେ"</string>
     <string name="permission_description_summary_camera" msgid="108004375101882069">"ଏହି ଅନୁମତି ଥିବା ଆପ୍ସ ଛବି ନେଇପାରିବେ ଏବଂ ଭିଡିଓ ରେକର୍ଡ କରିପାରିବେ"</string>
@@ -323,13 +314,12 @@
     <string name="permission_subtitle_only_in_foreground" msgid="9068389431267377564">"କେବଳ ଆପ୍‍ ବ୍ୟବହାରରେ ରହିଥିବା ବେଳେ"</string>
     <string name="permission_subtitle_media_only" msgid="8917869683764720717">"ମିଡିଆ"</string>
     <string name="permission_subtitle_all_files" msgid="4982613338298067862">"ସମସ୍ତ ଫାଇଲ୍"</string>
-    <string name="permission_subtitle_background" msgid="8916750995309083180">"ସର୍ବଦା ଅନୁମତି ଦିଆଯାଇଛି"</string>
     <string name="app_perms_24h_access" msgid="99069906850627181">"<xliff:g id="TIME_DATE">%1$s</xliff:g>ରେ ଗତଥର ଆକ୍ସେସ୍ କରାଯାଇଛି"</string>
     <string name="app_perms_24h_access_yest" msgid="5411926024794555022">"ଗତକାଲି <xliff:g id="TIME_DATE">%1$s</xliff:g>ରେ ଗତଥର ଆକ୍ସେସ୍ କରାଯାଇଛି"</string>
     <string name="app_perms_content_provider" msgid="6996750793881252778">"ଗତ 24 ଘଣ୍ଟାରେ ଆକ୍ସେସ୍ କରାଯାଇଛି"</string>
-    <string name="app_perms_24h_access_background" msgid="3413674718969576843">"<xliff:g id="TIME_DATE">%1$s</xliff:g>ରେ ଗତଥର ଆକ୍ସେସ୍ କରାଯାଇଛି • ସର୍ବଦା ଅନୁମତି ଦିଆଯାଇଛି"</string>
-    <string name="app_perms_24h_access_yest_background" msgid="9174750810998076725">"ଗତକାଲି <xliff:g id="TIME_DATE">%1$s</xliff:g>ରେ ଗତଥର ଆକ୍ସେସ୍ କରାଯାଇଛି • ସର୍ବଦା ଅନୁମତି ଦିଆଯାଇଛି"</string>
-    <string name="app_perms_content_provider_background" msgid="7793984056711923997">"ଗତ 24 ଘଣ୍ଟାରେ ଆକ୍ସେସ୍ କରାଯାଇଛି • ସର୍ବଦା ଅନୁମତି ଦିଆଯାଇଛି"</string>
+    <string name="app_perms_24h_access_only_in_foreground" msgid="8590228656172893995">"<xliff:g id="TIME_DATE">%1$s</xliff:g>ରେ ଗତଥର ଆକ୍ସେସ୍ କରାଯାଇଛି • କେବଳ ଆପ୍ ବ୍ୟବହାରରେ ଥିବା ବେଳେ"</string>
+    <string name="app_perms_24h_access_yest_only_in_foreground" msgid="8491319626462867381">"ଗତକାଲି <xliff:g id="TIME_DATE">%1$s</xliff:g>ରେ ଗତଥର ଆକ୍ସେସ୍ କରାଯାଇଛି • କେବଳ ଆପ୍ ବ୍ୟବହାରରେ ଥିବା ବେଳେ"</string>
+    <string name="app_perms_content_provider_only_in_foreground" msgid="7111427348979322476">"ଗତ 24 ଘଣ୍ଟାରେ ଆକ୍ସେସ୍ କରାଯାଇଛି • କେବଳ ଆପ୍ ବ୍ୟବହାରରେ ଥିବା ବେଳେ"</string>
     <string name="app_perms_24h_access_media_only" msgid="6651699644199132054">"<xliff:g id="TIME_DATE">%1$s</xliff:g>ରେ ଗତଥର ଆକ୍ସେସ୍ କରାଯାଇଛି • ମିଡିଆ"</string>
     <string name="app_perms_24h_access_yest_media_only" msgid="7213187706424998792">"ଗତକାଲି <xliff:g id="TIME_DATE">%1$s</xliff:g>ରେ ଗତଥର ଆକ୍ସେସ୍ କରାଯାଇଛି • ମିଡିଆ"</string>
     <string name="app_perms_content_provider_media_only" msgid="6206759230589923421">"ଗତ 24 ଘଣ୍ଟାରେ ଆକ୍ସେସ୍ କରାଯାଇଛି • ମିଡିଆ"</string>

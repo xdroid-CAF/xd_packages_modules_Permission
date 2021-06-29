@@ -17,7 +17,6 @@
 package com.android.permissioncontroller.hibernation
 
 import android.Manifest
-import android.Manifest.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION
 import android.accessibilityservice.AccessibilityService
 import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_CANT_SAVE_STATE
@@ -61,7 +60,6 @@ import android.view.inputmethod.InputMethod
 import androidx.annotation.MainThread
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
-import com.android.modules.utils.build.SdkLevel
 import com.android.permissioncontroller.Constants
 import com.android.permissioncontroller.DumpableLog
 import com.android.permissioncontroller.PermissionControllerApplication
@@ -166,50 +164,18 @@ class HibernationOnBootReceiver : BroadcastReceiver() {
                     "owner. Running hibernation job.")
         }
 
-        if (isNewJobScheduleRequired(context)) {
-            // periodic jobs normally run immediately, which is unnecessarily premature
-            SKIP_NEXT_RUN = true
-            val jobInfo = JobInfo.Builder(
+        SKIP_NEXT_RUN = true
+
+        val jobInfo = JobInfo.Builder(
                 Constants.HIBERNATION_JOB_ID,
                 ComponentName(context, HibernationJobService::class.java))
-                .setPeriodic(getCheckFrequencyMs())
-                // persist this job across boots
-                .setPersisted(true)
-                .build()
-            val status = context.getSystemService(JobScheduler::class.java)!!.schedule(jobInfo)
-            if (status != JobScheduler.RESULT_SUCCESS) {
-                DumpableLog.e(LOG_TAG,
+            .setPeriodic(getCheckFrequencyMs())
+            .build()
+        val status = context.getSystemService(JobScheduler::class.java)!!.schedule(jobInfo)
+        if (status != JobScheduler.RESULT_SUCCESS) {
+            DumpableLog.e(LOG_TAG,
                     "Could not schedule ${HibernationJobService::class.java.simpleName}: $status")
-            }
         }
-    }
-
-    /**
-     * Returns whether a new job needs to be scheduled. A persisted job is used to keep the schedule
-     * across boots, but that job needs to be scheduled a first time and whenever the check
-     * frequency changes.
-     */
-    private fun isNewJobScheduleRequired(context: Context): Boolean {
-        // check if the job is already scheduled or needs a change
-        var scheduleNewJob = false
-        val existingJob: JobInfo? = context.getSystemService(JobScheduler::class.java)!!
-            .getPendingJob(Constants.HIBERNATION_JOB_ID)
-        if (existingJob == null) {
-            if (DEBUG_HIBERNATION_POLICY) {
-                DumpableLog.i(LOG_TAG, "No existing job, scheduling a new one")
-            }
-            scheduleNewJob = true
-        } else if (existingJob.intervalMillis != getCheckFrequencyMs()) {
-            if (DEBUG_HIBERNATION_POLICY) {
-                DumpableLog.i(LOG_TAG, "Interval frequency has changed, updating job")
-            }
-            scheduleNewJob = true
-        } else {
-            if (DEBUG_HIBERNATION_POLICY) {
-                DumpableLog.i(LOG_TAG, "Job already scheduled.")
-            }
-        }
-        return scheduleNewJob
     }
 }
 
@@ -347,7 +313,8 @@ private suspend fun getAppsToHibernate(
  */
 fun UsageStats.lastTimePackageUsed(): Long {
     var lastTimePkgUsed = this.lastTimeVisible
-    if (SdkLevel.isAtLeastS()) {
+    // TODO(b/180748832): Change this to SDK check once SDK moves up and feature flag is removed.
+    if (isHibernationEnabled()) {
         lastTimePkgUsed = maxOf(lastTimePkgUsed, this.lastTimeAnyComponentUsed)
     }
     return lastTimePkgUsed
@@ -416,22 +383,6 @@ suspend fun isPackageHibernationExemptBySystem(
                     "- holder of READ_PRIVILEGED_PHONE_STATE")
         }
         return true
-    }
-
-    if (SdkLevel.isAtLeastS()) {
-        val hasUpdatePackagesWithoutUserActionPermission =
-            PermissionControllerApplication.get().packageManager.checkPermission(
-                UPDATE_PACKAGES_WITHOUT_USER_ACTION, pkg.packageName) == PERMISSION_GRANTED
-        val installPackagesAppOpMode = AppOpLiveData[pkg.packageName,
-            AppOpsManager.OPSTR_REQUEST_INSTALL_PACKAGES, pkg.uid]
-            .getInitializedValue()
-        if (hasUpdatePackagesWithoutUserActionPermission &&
-            installPackagesAppOpMode == AppOpsManager.MODE_ALLOWED) {
-            if (DEBUG_HIBERNATION_POLICY) {
-                DumpableLog.i(LOG_TAG, "Exempted ${pkg.packageName} - 3p app store")
-            }
-            return true
-        }
     }
 
     return false
@@ -519,7 +470,7 @@ class HibernationJobService : JobService() {
         if (SKIP_NEXT_RUN) {
             SKIP_NEXT_RUN = false
             if (DEBUG_HIBERNATION_POLICY) {
-                DumpableLog.i(LOG_TAG, "Skipping auto revoke first run when scheduled by system")
+                Log.i(LOG_TAG, "Skipping auto revoke first run when scheduled by system")
             }
             jobFinished(params, false)
             return true
@@ -695,17 +646,17 @@ class ExemptServicesLiveData(val user: UserHandle)
 object HibernationEnabledLiveData
     : MutableLiveData<Boolean>() {
     init {
-        value = SdkLevel.isAtLeastS() &&
-            DeviceConfig.getBoolean(NAMESPACE_APP_HIBERNATION,
-            Utils.PROPERTY_APP_HIBERNATION_ENABLED, false /* defaultValue */)
+        // TODO(b/175830282): Add SDK check when platform SDK moves up
+        value = DeviceConfig.getBoolean(
+            NAMESPACE_APP_HIBERNATION, Utils.PROPERTY_APP_HIBERNATION_ENABLED,
+            false /* defaultValue */)
         DeviceConfig.addOnPropertiesChangedListener(
             NAMESPACE_APP_HIBERNATION,
             PermissionControllerApplication.get().mainExecutor,
             { properties ->
                 for (key in properties.keyset) {
                     if (key == Utils.PROPERTY_APP_HIBERNATION_ENABLED) {
-                        value = SdkLevel.isAtLeastS() &&
-                            properties.getBoolean(key, false /* defaultValue */)
+                        value = properties.getBoolean(key, false /* defaultValue */)
                         break
                     }
                 }

@@ -112,6 +112,7 @@ class UnusedAppsFragment<PF, UnusedAppPref> : PreferenceFragmentCompat()
             }
         })
 
+        setHasOptionsMenu(true)
         activity?.getActionBar()?.setDisplayHomeAsUpEnabled(true)
 
         if (!viewModel.areUnusedPackagesLoaded()) {
