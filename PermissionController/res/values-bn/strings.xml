@@ -68,8 +68,7 @@
     <string name="app_permissions_group_summary2" msgid="4329922444840521150">"<xliff:g id="COUNT_1">%2$d</xliff:g>টি অ্যাপের মধ্যে <xliff:g id="COUNT_0">%1$d</xliff:g>টি অনুমোদিত"</string>
     <string name="menu_show_system" msgid="4254021607027872504">"সিস্টেম অ্যাপ দেখুন"</string>
     <string name="menu_hide_system" msgid="3855390843744028465">"সিস্টেম অ্যাপ লুকান"</string>
-    <!-- no translation found for manage_permission (3796219072742331048) -->
-    <skip />
+    <string name="manage_permission" msgid="3796219072742331048">"অনুমতি ম্যানেজ করুন"</string>
     <string name="no_apps" msgid="2412612731628386816">"কোনও অ্যাপ নেই"</string>
     <string name="location_settings" msgid="3624412509133422562">"লোকেশন সেটিংস"</string>
     <string name="location_warning" msgid="2381649060929040962">"<xliff:g id="APP_NAME">%1$s</xliff:g> এই ডিভাইসের জন্য লোকেশন পরিষেবা প্রদান করে। লোকেশন সেটিংস থেকে লোকেশনের অ্যাক্সেস পরিবর্তন করা যায়।"</string>
@@ -113,13 +112,24 @@
     <string name="perm_usage_adv_info_summary_2_items" msgid="3702175198750127822">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_summary_more_items" msgid="949055326299562218">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g> ও আরও <xliff:g id="NUM">%3$s</xliff:g>টি"</string>
     <string name="permission_group_usage_subtitle" msgid="712843174810251274">"গত ২৪ ঘণ্টায় আপনার <xliff:g id="PERMGROUP">%1$s</xliff:g> ব্যবহার সংক্রান্ত অ্যাপের টাইমলাইন"</string>
-    <!-- no translation found for permission_usage_access_dialog_subtitle (4171772805196955753) -->
-    <skip />
+    <string name="permission_usage_access_dialog_subtitle" msgid="4171772805196955753">"যখন এই অ্যাপ আপনার <xliff:g id="PERMGROUP">%1$s</xliff:g> সংক্রান্ত অনুমতি ব্যবহার করেছে"</string>
     <string name="permission_usage_access_dialog_learn_more" msgid="7121468469493184613">"আরও জানুন"</string>
-    <!-- no translation found for duration_used_days (1993098309578536308) -->
-    <!-- no translation found for duration_used_hours (1020075479447003242) -->
-    <!-- no translation found for duration_used_minutes (3422338854436291744) -->
-    <!-- no translation found for duration_used_seconds (2726799598314248110) -->
+    <plurals name="duration_used_days" formatted="false" msgid="1993098309578536308">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> দিন</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> দিন</item>
+    </plurals>
+    <plurals name="duration_used_hours" formatted="false" msgid="1020075479447003242">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ঘণ্টা</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ঘণ্টা</item>
+    </plurals>
+    <plurals name="duration_used_minutes" formatted="false" msgid="3422338854436291744">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> মিনিট</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> মিনিট</item>
+    </plurals>
+    <plurals name="duration_used_seconds" formatted="false" msgid="2726799598314248110">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> সেকেন্ড</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> সেকেন্ড</item>
+    </plurals>
     <plurals name="permission_usage_summary" formatted="false" msgid="2837021459986644819">
       <item quantity="one">শেষবার অ্যাক্সেস করা হয়েছে: <xliff:g id="TIME_2">%1$s</xliff:g>\n<xliff:g id="NUM_3">%2$s</xliff:g>বার অ্যাক্সেস করা হয়েছে</item>
       <item quantity="other">শেষবার অ্যাক্সেস করা হয়েছে: <xliff:g id="TIME_2">%1$s</xliff:g>\n<xliff:g id="NUM_3">%2$s</xliff:g>বার অ্যাক্সেস করা হয়েছে</item>
@@ -161,8 +171,7 @@
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g>টি অ্যাপ</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>টি অ্যাপ</item>
     </plurals>
-    <!-- no translation found for permission_usage_preference_summary_not_used (8806755646449754282) -->
-    <skip />
+    <string name="permission_usage_preference_summary_not_used" msgid="8806755646449754282">"গত ২৪ ঘন্টায় ব্যবহার করা হয়নি"</string>
     <plurals name="permission_usage_preference_label" formatted="false" msgid="9033113721294293706">
       <item quantity="one"><xliff:g id="NUMBER">%1$d</xliff:g>টি অ্যাপ ব্যবহার করেছে</item>
       <item quantity="other"><xliff:g id="NUMBER">%1$d</xliff:g>টি অ্যাপ ব্যবহার করেছে</item>
@@ -199,11 +208,11 @@
     <string name="app_permission_button_deny" msgid="6016454069832050300">"অনুমতি দেবেন না"</string>
     <string name="precise_image_description" msgid="6349638632303619872">"সুনির্দিষ্ট লোকেশন"</string>
     <string name="approximate_image_description" msgid="938803699637069884">"আনুমানিক লোকেশন"</string>
-    <string name="app_permission_location_accuracy" msgid="7166912915040018669">"নির্ভুল লোকেশন ব্যবহার করুন"</string>
+    <string name="app_permission_location_accuracy" msgid="7166912915040018669">"সুনির্দিষ্ট লোকেশন ব্যবহার করুন"</string>
     <string name="app_permission_location_accuracy_subtitle" msgid="2654077606404987210">"সুনির্দিষ্ট লোকেশনের সুবিধা বন্ধ থাকলে, অ্যাপ আপনার আনুমানিক লোকেশন অ্যাক্সেস করতে পারবে"</string>
     <string name="app_permission_title" msgid="2090897901051370711">"<xliff:g id="PERM">%1$s</xliff:g> অনুমতি"</string>
     <string name="app_permission_header" msgid="2951363137032603806">"এই অ্যাপের জন্য <xliff:g id="PERM">%1$s</xliff:g> অ্যাক্সেস"</string>
-    <string name="app_permission_footer_app_permissions_link" msgid="4926890342636587393">"<xliff:g id="APP">%1$s</xliff:g>-কে দেওয়া সব অনুমতি দেখুন"</string>
+    <string name="app_permission_footer_app_permissions_link" msgid="4926890342636587393">"<xliff:g id="APP">%1$s</xliff:g>-এর ক্ষেত্রে দেওয়া সব অনুমতি দেখুন"</string>
     <string name="app_permission_footer_permission_apps_link" msgid="3941988129992794327">"যেসব অ্যাপের এই অনুমতি আছে সেগুলি দেখুন"</string>
     <string name="assistant_mic_label" msgid="1011432357152323896">"Assistant-এর মাইক্রোফোন ব্যবহার সম্পর্কিত ডেটা দেখুন"</string>
     <string name="auto_revoke_label" msgid="5068393642936571656">"অ্যাপ ব্যবহার করা না হলে সেটি থেকে অনুমতি প্রত্যাহার করে নিন"</string>
@@ -314,12 +323,13 @@
     <string name="permission_subtitle_only_in_foreground" msgid="9068389431267377564">"শুধুমাত্র অ্যাপ ব্যবহারের সময়"</string>
     <string name="permission_subtitle_media_only" msgid="8917869683764720717">"মিডিয়া ফাইল"</string>
     <string name="permission_subtitle_all_files" msgid="4982613338298067862">"সমস্ত ফাইল"</string>
+    <string name="permission_subtitle_background" msgid="8916750995309083180">"সব সময়ের জন্য অনুমতি দেওয়া হয়েছে"</string>
     <string name="app_perms_24h_access" msgid="99069906850627181">"<xliff:g id="TIME_DATE">%1$s</xliff:g>-এ শেষবার অ্যাক্সেস করা হয়েছে"</string>
     <string name="app_perms_24h_access_yest" msgid="5411926024794555022">"গতকাল <xliff:g id="TIME_DATE">%1$s</xliff:g>-এ শেষবার অ্যাক্সেস করা হয়েছে"</string>
     <string name="app_perms_content_provider" msgid="6996750793881252778">"গত ২৪ ঘন্টায় অ্যাক্সেস করা হয়েছে"</string>
-    <string name="app_perms_24h_access_only_in_foreground" msgid="8590228656172893995">"<xliff:g id="TIME_DATE">%1$s</xliff:g>-এ শেষবার অ্যাক্সেস করা হয়েছে • শুধুমাত্র অ্যাপ ব্যবহারের সময়"</string>
-    <string name="app_perms_24h_access_yest_only_in_foreground" msgid="8491319626462867381">"গতকাল <xliff:g id="TIME_DATE">%1$s</xliff:g>-এ শেষবার অ্যাক্সেস করা হয়েছে • শুধুমাত্র অ্যাপ ব্যবহারের সময়"</string>
-    <string name="app_perms_content_provider_only_in_foreground" msgid="7111427348979322476">"গত ২৪ ঘন্টায় অ্যাক্সেস করা হয়েছে • শুধুমাত্র অ্যাপ ব্যবহারের সময়"</string>
+    <string name="app_perms_24h_access_background" msgid="3413674718969576843">"<xliff:g id="TIME_DATE">%1$s</xliff:g>-এ শেষ অ্যাক্সেস করা হয়েছে • সব সময়ের জন্য অনুমতি দেওয়া হয়েছে"</string>
+    <string name="app_perms_24h_access_yest_background" msgid="9174750810998076725">"গতকাল <xliff:g id="TIME_DATE">%1$s</xliff:g>-এ শেষবার অ্যাক্সেস করা হয়েছে • সব সময়ের জন্য অনুমতি দেওয়া হয়েছে"</string>
+    <string name="app_perms_content_provider_background" msgid="7793984056711923997">"গত ২৪ ঘন্টায় অ্যাক্সেস করা হয়েছে • সব সময়ের জন্য অনুমতি দেওয়া হয়েছে"</string>
     <string name="app_perms_24h_access_media_only" msgid="6651699644199132054">"<xliff:g id="TIME_DATE">%1$s</xliff:g>-এ শেষবার অ্যাক্সেস করা হয়েছে • মিডিয়া"</string>
     <string name="app_perms_24h_access_yest_media_only" msgid="7213187706424998792">"গতকাল <xliff:g id="TIME_DATE">%1$s</xliff:g>-এ শেষবার অ্যাক্সেস করা হয়েছে • মিডিয়া"</string>
     <string name="app_perms_content_provider_media_only" msgid="6206759230589923421">"গত ২৪ ঘন্টায় অ্যাক্সেস করা হয়েছে • মিডিয়া"</string>
@@ -453,7 +463,7 @@
     <string name="permgrouprequest_calendar" msgid="1493150855673603806">"&lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;-কে আপনার ক্যালেন্ডারে অ্যাক্সেস দেবেন?"</string>
     <string name="permgrouprequest_sms" msgid="5672063688745420991">"&lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;-কে এসএমএস দেখতে ও পাঠাতে দেবেন?"</string>
     <string name="permgrouprequest_storage" msgid="8717773092518621602">"&lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;-কে আপনার ডিভাইসের ফটো, মিডিয়া এবং ফাইলে অ্যাক্সেস দেবেন?"</string>
-    <string name="permgrouprequest_microphone" msgid="2825208549114811299">"&lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;কে অডিও রেকর্ড করার অনুমতি দেবেন?"</string>
+    <string name="permgrouprequest_microphone" msgid="2825208549114811299">"&lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;-কে অডিও রেকর্ড করার অনুমতি দেবেন?"</string>
     <string name="permgrouprequestdetail_microphone" msgid="8510456971528228861">"আপনি এই অ্যাপ ব্যবহার করার সময়েই শুধুমাত্র সেটি অডিও রেকর্ড করতে পারবে"</string>
     <string name="permgroupbackgroundrequest_microphone" msgid="8874462606796368183">"&lt;b&gt;<xliff:g id="APP_NAME">%1$s</xliff:g>&lt;/b&gt;-কে অডিও রেকর্ড করার অনুমতি দিতে চান?"</string>
     <string name="permgroupbackgroundrequestdetail_microphone" msgid="553702902263681838">"এই অ্যাপ হয়ত সবসময় এমনকি আপনি যখন অ্যাপ ব্যবহার করছেন না তখনও অডিও রেকর্ড করতে চাইতে পারে। "<annotation id="link">"সেটিংস থেকে অনুমতি দিন।"</annotation></string>
@@ -473,7 +483,7 @@
     <string name="auto_granted_location_permission_notification_title" msgid="1438871159268985993">"লোকেশন অ্যাক্সেস করা হতে পারে"</string>
     <string name="auto_granted_permission_notification_body" msgid="6919835973190443695">"আপনার আইটি অ্যাডমিন <xliff:g id="APP_NAME">%s</xliff:g> অ্যাপটিকে আপনার লোকেশন অ্যাক্সেস করার অনুমতি দিয়েছে"</string>
     <string name="other_permissions_label" msgid="8986184335503271992">"অন্যান্য অনুমতি"</string>
-    <string name="not_used_permissions_label" msgid="3939839426115141264">"যেসব অনুমতি শুধুমাত্র সিস্টেম অ্যাপ্লিকেশনে ব্যবহার করা হয়"</string>
+    <string name="not_used_permissions_label" msgid="3939839426115141264">"যেসব অনুমতি শুধু সিস্টেম অ্যাপ ব্যবহার করেছে"</string>
     <string name="not_used_permissions_description" msgid="7595514824169388718">"যেসব অনুমতি শুধুমাত্র সিস্টেম অ্যাপ্লিকেশনে ব্যবহার করা হয়।"</string>
     <string name="additional_permissions_label" msgid="7693557637462569046">"অতিরিক্ত অনুমতি"</string>
     <string name="additional_permissions_description" msgid="2186611950890732112">"অ্যাপ্লিকেশনে বর্ণনা করা অনুমতি।"</string>

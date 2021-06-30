@@ -42,7 +42,7 @@
     <string name="grant_dialog_button_allow" msgid="5314677880021102550">"Zulassen"</string>
     <string name="grant_dialog_button_allow_always" msgid="4485552579273565981">"Immer zulassen"</string>
     <string name="grant_dialog_button_allow_foreground" msgid="501896824973636533">"Bei Nutzung der App"</string>
-    <string name="grant_dialog_button_change_to_precise_location" msgid="3273115879467236033">"Auf genauen Standort ändern"</string>
+    <string name="grant_dialog_button_change_to_precise_location" msgid="3273115879467236033">"Zu genauem Standort ändern"</string>
     <string name="grant_dialog_button_keey_approximate_location" msgid="438025182769080011">"Ungefähren Standort beibehalten"</string>
     <string name="grant_dialog_button_allow_one_time" msgid="2618088516449706391">"Nur dieses Mal"</string>
     <string name="grant_dialog_button_allow_background" msgid="8236044729434367833">"Immer zulassen"</string>
@@ -53,7 +53,7 @@
     <string name="unused_apps" msgid="2058057455175955094">"Nicht verwendete Apps"</string>
     <string name="app_disable_dlg_positive" msgid="7418444149981904940">"App deaktivieren"</string>
     <string name="app_disable_dlg_text" msgid="3126943217146120240">"Bei Deaktivierung dieser App funktionieren Android und andere Apps möglicherweise nicht mehr ordnungsgemäß. Beachte hierbei, dass du diese App nicht löschen kannst, weil sie auf deinem Gerät vorinstalliert war. Durch die Deaktivierung schaltest du diese App ab und blendest sie auf deinem Gerät aus."</string>
-    <string name="app_permission_manager" msgid="3903811137630909550">"Berechtigungsmanager"</string>
+    <string name="app_permission_manager" msgid="3903811137630909550">"Berechtigungs­manager"</string>
     <string name="never_ask_again" msgid="4728762438198560329">"Nicht mehr fragen"</string>
     <string name="no_permissions" msgid="3881676756371148563">"Keine Berechtigungen"</string>
     <string name="additional_permissions" msgid="5801285469338873430">"Zusätzliche Berechtigungen"</string>
@@ -68,8 +68,7 @@
     <string name="app_permissions_group_summary2" msgid="4329922444840521150">"<xliff:g id="COUNT_0">%1$d</xliff:g> von <xliff:g id="COUNT_1">%2$d</xliff:g> Apps zugelassen"</string>
     <string name="menu_show_system" msgid="4254021607027872504">"System-Apps anzeigen"</string>
     <string name="menu_hide_system" msgid="3855390843744028465">"System-Apps ausblenden"</string>
-    <!-- no translation found for manage_permission (3796219072742331048) -->
-    <skip />
+    <string name="manage_permission" msgid="3796219072742331048">"Berechtigung verwalten"</string>
     <string name="no_apps" msgid="2412612731628386816">"Keine Apps"</string>
     <string name="location_settings" msgid="3624412509133422562">"Standorteinstellungen"</string>
     <string name="location_warning" msgid="2381649060929040962">"<xliff:g id="APP_NAME">%1$s</xliff:g> ist ein Anbieter von Standortdiensten für dieses Gerät. Die Berechtigungen für den Zugriff auf deinen Standort kannst du in den Standorteinstellungen ändern."</string>
@@ -107,19 +106,30 @@
     <string name="current_permissions_category" msgid="4292990083585728880">"Aktuelle Berechtigungen"</string>
     <string name="message_staging" msgid="9110563899955511866">"App wird vorbereitet…"</string>
     <string name="app_name_unknown" msgid="1319665005754048952">"Unbekannt"</string>
-    <string name="permission_usage_title" msgid="1568233336351734538">"Privatsphäredashboard"</string>
+    <string name="permission_usage_title" msgid="1568233336351734538">"Privatsphäre­dashboard"</string>
     <string name="permission_group_usage_title" msgid="2595013198075285173">"„<xliff:g id="PERMGROUP">%1$s</xliff:g>“-Nutzung"</string>
     <string name="perm_usage_adv_info_title" msgid="3357831829538873708">"Andere Berechtigungen ansehen"</string>
     <string name="perm_usage_adv_info_summary_2_items" msgid="3702175198750127822">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_summary_more_items" msgid="949055326299562218">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g> und <xliff:g id="NUM">%3$s</xliff:g> weitere"</string>
     <string name="permission_group_usage_subtitle" msgid="712843174810251274">"Zeitachse, wann Apps in den letzten 24 Stunden die Berechtigung „<xliff:g id="PERMGROUP">%1$s</xliff:g>“ verwendet haben"</string>
-    <!-- no translation found for permission_usage_access_dialog_subtitle (4171772805196955753) -->
-    <skip />
+    <string name="permission_usage_access_dialog_subtitle" msgid="4171772805196955753">"Als diese App deine <xliff:g id="PERMGROUP">%1$s</xliff:g>-Berechtigung verwendet hat"</string>
     <string name="permission_usage_access_dialog_learn_more" msgid="7121468469493184613">"Weitere Informationen"</string>
-    <!-- no translation found for duration_used_days (1993098309578536308) -->
-    <!-- no translation found for duration_used_hours (1020075479447003242) -->
-    <!-- no translation found for duration_used_minutes (3422338854436291744) -->
-    <!-- no translation found for duration_used_seconds (2726799598314248110) -->
+    <plurals name="duration_used_days" formatted="false" msgid="1993098309578536308">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Tage</item>
+      <item quantity="one">1 Tag</item>
+    </plurals>
+    <plurals name="duration_used_hours" formatted="false" msgid="1020075479447003242">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Stunden</item>
+      <item quantity="one">1 Stunde</item>
+    </plurals>
+    <plurals name="duration_used_minutes" formatted="false" msgid="3422338854436291744">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Min.</item>
+      <item quantity="one">1 Min.</item>
+    </plurals>
+    <plurals name="duration_used_seconds" formatted="false" msgid="2726799598314248110">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Sek.</item>
+      <item quantity="one">1 Sek.</item>
+    </plurals>
     <plurals name="permission_usage_summary" formatted="false" msgid="2837021459986644819">
       <item quantity="other">Letzter Zugriff: <xliff:g id="TIME_2">%1$s</xliff:g>\n<xliff:g id="NUM_3">%2$s</xliff:g> Zugriffe</item>
       <item quantity="one">Letzter Zugriff: <xliff:g id="TIME_0">%1$s</xliff:g>\n<xliff:g id="NUM_1">%2$s</xliff:g> Zugriff</item>
@@ -161,8 +171,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Apps</item>
       <item quantity="one">1 App</item>
     </plurals>
-    <!-- no translation found for permission_usage_preference_summary_not_used (8806755646449754282) -->
-    <skip />
+    <string name="permission_usage_preference_summary_not_used" msgid="8806755646449754282">"In den letzten 24 Stunden nicht verwendet"</string>
     <plurals name="permission_usage_preference_label" formatted="false" msgid="9033113721294293706">
       <item quantity="other">Von <xliff:g id="NUMBER">%1$d</xliff:g> Apps verwendet</item>
       <item quantity="one">Von 1 App verwendet</item>
@@ -200,7 +209,7 @@
     <string name="precise_image_description" msgid="6349638632303619872">"Auf genauen Standort zugreifen"</string>
     <string name="approximate_image_description" msgid="938803699637069884">"Ungefährer Standort"</string>
     <string name="app_permission_location_accuracy" msgid="7166912915040018669">"Genauen Standort verwenden"</string>
-    <string name="app_permission_location_accuracy_subtitle" msgid="2654077606404987210">"Wenn der genaue Standort deaktiviert ist, können Apps auf Ihren ungefähren Standort zugreifen"</string>
+    <string name="app_permission_location_accuracy_subtitle" msgid="2654077606404987210">"Wenn der genaue Standort deaktiviert ist, können Apps auf deinen ungefähren Standort zugreifen"</string>
     <string name="app_permission_title" msgid="2090897901051370711">"Berechtigung: <xliff:g id="PERM">%1$s</xliff:g>"</string>
     <string name="app_permission_header" msgid="2951363137032603806">"Dieser App Zugriff auf <xliff:g id="PERM">%1$s</xliff:g> erlauben?"</string>
     <string name="app_permission_footer_app_permissions_link" msgid="4926890342636587393">"Alle Berechtigungen der App „<xliff:g id="APP">%1$s</xliff:g>“ anzeigen"</string>
@@ -251,7 +260,7 @@
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"Zugriff nur auf Mediendateien zugelassen"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"Verwalten aller Dateien zugelassen"</string>
     <string name="ask_header" msgid="2633816846459944376">"Jedes Mal fragen"</string>
-    <string name="denied_header" msgid="903209608358177654">"Nicht zulässig"</string>
+    <string name="denied_header" msgid="903209608358177654">"Nicht zugelassen"</string>
     <plurals name="days" formatted="false" msgid="7882807103511175827">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Tage</item>
       <item quantity="one">1 Tag</item>
@@ -314,12 +323,13 @@
     <string name="permission_subtitle_only_in_foreground" msgid="9068389431267377564">"Nur während die App verwendet wird"</string>
     <string name="permission_subtitle_media_only" msgid="8917869683764720717">"Mediendateien"</string>
     <string name="permission_subtitle_all_files" msgid="4982613338298067862">"Alle Dateien"</string>
+    <string name="permission_subtitle_background" msgid="8916750995309083180">"Immer zugelassen"</string>
     <string name="app_perms_24h_access" msgid="99069906850627181">"Letzter Zugriff um <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="app_perms_24h_access_yest" msgid="5411926024794555022">"Letzter Zugriff gestern um <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="app_perms_content_provider" msgid="6996750793881252778">"Zugriff in den letzten 24 Stunden"</string>
-    <string name="app_perms_24h_access_only_in_foreground" msgid="8590228656172893995">"Letzter Zugriff um <xliff:g id="TIME_DATE">%1$s</xliff:g> • Nur während die App verwendet wird"</string>
-    <string name="app_perms_24h_access_yest_only_in_foreground" msgid="8491319626462867381">"Letzter Zugriff gestern um <xliff:g id="TIME_DATE">%1$s</xliff:g> • Nur während die App verwendet wird"</string>
-    <string name="app_perms_content_provider_only_in_foreground" msgid="7111427348979322476">"Zugriff in den letzten 24 Stunden • Nur während die App verwendet wird"</string>
+    <string name="app_perms_24h_access_background" msgid="3413674718969576843">"Letzter Zugriff: <xliff:g id="TIME_DATE">%1$s</xliff:g> • Immer zugelassen"</string>
+    <string name="app_perms_24h_access_yest_background" msgid="9174750810998076725">"Letzter Zugriff gestern um <xliff:g id="TIME_DATE">%1$s</xliff:g> • Immer zugelassen"</string>
+    <string name="app_perms_content_provider_background" msgid="7793984056711923997">"Zugriff in den letzten 24 Stunden • Immer zugelassen"</string>
     <string name="app_perms_24h_access_media_only" msgid="6651699644199132054">"Letzter Zugriff um <xliff:g id="TIME_DATE">%1$s</xliff:g> • Medien"</string>
     <string name="app_perms_24h_access_yest_media_only" msgid="7213187706424998792">"Letzter Zugriff gestern um <xliff:g id="TIME_DATE">%1$s</xliff:g> • Medien"</string>
     <string name="app_perms_content_provider_media_only" msgid="6206759230589923421">"Zugriff in den letzten 24 Stunden • Medien"</string>
@@ -366,7 +376,7 @@
     <string name="role_emergency_request_title" msgid="8469579020654348567">"<xliff:g id="APP_NAME">%1$s</xliff:g> als Standard-Notfall-App festlegen?"</string>
     <string name="role_emergency_request_description" msgid="131645948770262850">"Keine Berechtigungen erforderlich"</string>
     <string name="role_emergency_search_keywords" msgid="1920007722599213358">"notfall"</string>
-    <string name="role_home_label" msgid="3871847846649769412">"Standardmäßige Start-App"</string>
+    <string name="role_home_label" msgid="3871847846649769412">"Standard-Start-App"</string>
     <string name="role_home_short_label" msgid="8544733747952272337">"Start-App"</string>
     <string name="role_home_description" msgid="7997371519626556675">"Oft auch als „Launcher“ bezeichnete Apps, die den Startbildschirm deines Android-Geräts ersetzen und Zugriff auf Inhalte und Funktionen deines Geräts gewähren"</string>
     <string name="role_home_request_title" msgid="738136983453341081">"<xliff:g id="APP_NAME">%1$s</xliff:g> als standardmäßige Start-App festlegen?"</string>
@@ -409,7 +419,7 @@
     <string name="default_apps_manage_domain_urls" msgid="6775566451561036069">"Links öffnen"</string>
     <string name="default_apps_for_work" msgid="4970308943596201811">"Standardeinstellung für Arbeit"</string>
     <string name="default_app_none" msgid="9084592086808194457">"Keine App"</string>
-    <string name="default_app_system_default" msgid="6218386768175513760">"(Systemstandardeinstellung)"</string>
+    <string name="default_app_system_default" msgid="6218386768175513760">"(System-Standardeinstellung)"</string>
     <string name="default_app_no_apps" msgid="115720991680586885">"Keine Apps"</string>
     <string name="car_default_app_selected" msgid="5416420830430644174">"Ausgewählt"</string>
     <string name="car_default_app_selected_with_info" msgid="1932204186080593500">"Ausgewählt – <xliff:g id="ADDITIONAL_INFO">%1$s</xliff:g>"</string>
