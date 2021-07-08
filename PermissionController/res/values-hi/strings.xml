@@ -68,8 +68,7 @@
     <string name="app_permissions_group_summary2" msgid="4329922444840521150">"<xliff:g id="COUNT_0">%1$d</xliff:g>/<xliff:g id="COUNT_1">%2$d</xliff:g> ऐप्लिकेशन को अनुमति दी गई है"</string>
     <string name="menu_show_system" msgid="4254021607027872504">"सिस्टम के ऐप्लिकेशन दिखाएं"</string>
     <string name="menu_hide_system" msgid="3855390843744028465">"सिस्टम के ऐप्लिकेशन छिपाएं"</string>
-    <!-- no translation found for manage_permission (3796219072742331048) -->
-    <skip />
+    <string name="manage_permission" msgid="3796219072742331048">"अनुमति मैनेज करें"</string>
     <string name="no_apps" msgid="2412612731628386816">"किसी ऐप्लिकेशन को इस अनुमति की ज़रूरत नहीं है"</string>
     <string name="location_settings" msgid="3624412509133422562">"जगह की जानकारी की सेटिंग"</string>
     <string name="location_warning" msgid="2381649060929040962">"<xliff:g id="APP_NAME">%1$s</xliff:g> से इस डिवाइस पर जगह की जानकारी मिलती है. जगह की जानकारी की सेटिंग में जाकर जगह की जानकरी ऐक्सेस करने की अनुमति में बदलाव किया जा सकता है."</string>
@@ -113,13 +112,24 @@
     <string name="perm_usage_adv_info_summary_2_items" msgid="3702175198750127822">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g>"</string>
     <string name="perm_usage_adv_info_summary_more_items" msgid="949055326299562218">"<xliff:g id="PERMGROUP_0">%1$s</xliff:g>, <xliff:g id="PERMGROUP_1">%2$s</xliff:g>, और अन्य <xliff:g id="NUM">%3$s</xliff:g> अनुमतियां"</string>
     <string name="permission_group_usage_subtitle" msgid="712843174810251274">"पिछले 24 घंटों में, <xliff:g id="PERMGROUP">%1$s</xliff:g> का इस्तेमाल किए जाने की ऐप्लिकेशन की टाइमलाइन"</string>
-    <!-- no translation found for permission_usage_access_dialog_subtitle (4171772805196955753) -->
-    <skip />
+    <string name="permission_usage_access_dialog_subtitle" msgid="4171772805196955753">"जब इस ऐप्लिकेशन ने आपकी <xliff:g id="PERMGROUP">%1$s</xliff:g> अनुमति का इस्तेमाल किया"</string>
     <string name="permission_usage_access_dialog_learn_more" msgid="7121468469493184613">"ज़्यादा जानें"</string>
-    <!-- no translation found for duration_used_days (1993098309578536308) -->
-    <!-- no translation found for duration_used_hours (1020075479447003242) -->
-    <!-- no translation found for duration_used_minutes (3422338854436291744) -->
-    <!-- no translation found for duration_used_seconds (2726799598314248110) -->
+    <plurals name="duration_used_days" formatted="false" msgid="1993098309578536308">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> दिन</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> दिन</item>
+    </plurals>
+    <plurals name="duration_used_hours" formatted="false" msgid="1020075479447003242">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> घंटा</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> घंटे</item>
+    </plurals>
+    <plurals name="duration_used_minutes" formatted="false" msgid="3422338854436291744">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> मिनट</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनट</item>
+    </plurals>
+    <plurals name="duration_used_seconds" formatted="false" msgid="2726799598314248110">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> सेकंड</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> सेकंड</item>
+    </plurals>
     <plurals name="permission_usage_summary" formatted="false" msgid="2837021459986644819">
       <item quantity="one">पिछले ऐक्सेस की जानकारी: <xliff:g id="TIME_2">%1$s</xliff:g>\n<xliff:g id="NUM_3">%2$s</xliff:g> बार ऐक्सेस किया गया</item>
       <item quantity="other">पिछले ऐक्सेस की जानकारी: <xliff:g id="TIME_2">%1$s</xliff:g>\n<xliff:g id="NUM_3">%2$s</xliff:g> बार ऐक्सेस किया गया</item>
@@ -161,8 +171,7 @@
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ऐप्लिकेशन</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ऐप्लिकेशन</item>
     </plurals>
-    <!-- no translation found for permission_usage_preference_summary_not_used (8806755646449754282) -->
-    <skip />
+    <string name="permission_usage_preference_summary_not_used" msgid="8806755646449754282">"पिछले 24 घंटों में इस्तेमाल नहीं किया गया"</string>
     <plurals name="permission_usage_preference_label" formatted="false" msgid="9033113721294293706">
       <item quantity="one"><xliff:g id="NUMBER">%1$d</xliff:g> ऐप्लिकेशन ने इस्तेमाल किया</item>
       <item quantity="other"><xliff:g id="NUMBER">%1$d</xliff:g> ऐप्लिकेशन ने इस्तेमाल किया</item>
@@ -229,7 +238,7 @@
     <string name="app_permission_footer_special_file_access" msgid="1884202176147657788">"अगर आप इस ऐप्लिकेशन को सभी फ़ाइलों को मैनेज करने की अनुमति देते हैं, तो यह ऐप्लिकेशन इस डिवाइस या इससे जुड़े दूसरे डिवाइस की मेमोरी में मौजूद किसी भी फ़ाइल को ऐक्सेस कर सकता है, उनमें बदलाव कर सकता है, और उन्हें मिटा भी सकता है. यह ऐप्लिकेशन आपसे पूछे बिना फ़ाइलें ऐक्सेस कर सकता है."</string>
     <string name="special_file_access_dialog" msgid="583804114020740610">"क्या आप इस ऐप्लिकेशन को इस डिवाइस या इससे जुड़े दूसरे डिवाइस की मेमोरी में मौजूद फ़ाइलें ऐक्सेस करने, उनमें बदलाव करने, और उन्हें मिटाने की अनुमति देना चाहते हैं? यह ऐप्लिकेशन आपसे पूछे बिना फ़ाइलें ऐक्सेस कर सकता है."</string>
     <string name="permission_description_summary_generic" msgid="5401399408814903391">"इस अनुमति वाली ऐप्लिकेशन <xliff:g id="DESCRIPTION">%1$s</xliff:g> कर सकते हैं"</string>
-    <string name="permission_description_summary_activity_recognition" msgid="2652850576497070146">"इसकी अनुमति वाले ऐप्लिकेशन, आपकी शारीरिक गतिविधियों की जानकारी ऐक्सेस कर सकते हैं. इसमें चलने, साइकल चलाने, गाड़ी चलाने, और कदमों की संख्या जैसी कई जानकारी शामिल है"</string>
+    <string name="permission_description_summary_activity_recognition" msgid="2652850576497070146">"इसकी अनुमति वाले ऐप्लिकेशन, आपकी शारीरिक गतिविधियों की जानकारी ऐक्सेस कर सकते हैं. इसमें पैदल चलने, बाइक चलाने, गाड़ी चलाने, और कदमों की संख्या जैसी कई जानकारी शामिल है"</string>
     <string name="permission_description_summary_calendar" msgid="103329982944411010">"इस अनुमति वाले ऐप्लिकेशन आपके कैलेंडर को ऐक्सेस कर सकते हैं"</string>
     <string name="permission_description_summary_call_log" msgid="7321437186317577624">"ऐसे ऐप्लिकेशन जिनके पास अनुमति है, वे फ़ोन में कॉल लॉग को पढ़ सकते हैं और लिख सकते हैं"</string>
     <string name="permission_description_summary_camera" msgid="108004375101882069">"इस अनुमति वाले ऐप्लिकेशन, फ़ोटो खींच सकते हैं और वीडियो रिकॉर्ड कर सकते हैं"</string>
@@ -239,14 +248,14 @@
     <string name="permission_description_summary_microphone" msgid="630834800308329907">"इस अनुमति वाले ऐप्लिकेशन ऑडियो रिकॉर्ड कर सकते हैं"</string>
     <string name="permission_description_summary_phone" msgid="4515277217435233619">"इस अनुमति वाले ऐप्लिकेशन, फ़ोन कॉल कर सकते हैं और कॉल को मैनेज कर सकते हैं"</string>
     <string name="permission_description_summary_sensors" msgid="1836045815643119949">"इस अनुमति वाले ऐप्लिकेशन, आपके बारे में खास जानकारी देने वाली चीज़ों को बताने वाले सेंसर डेटा को ऐक्सेस कर सकते हैं"</string>
-    <string name="permission_description_summary_sms" msgid="725999468547768517">"इस अनुमति वाले ऐप्लिकेशन मैसेज भेज और देख सकते हैं"</string>
-    <string name="permission_description_summary_storage" msgid="6575759089065303346">"इसकी अनुमति वाले ऐप्लिकेशन आपके डिवाइस के फ़ोटो, मीडिया, और फ़ाइलें ऐक्सेस कर सकते हैं"</string>
+    <string name="permission_description_summary_sms" msgid="725999468547768517">"इस अनुमति वाले ऐप्लिकेशन, मैसेज (एसएमएस) भेज और देख सकते हैं"</string>
+    <string name="permission_description_summary_storage" msgid="6575759089065303346">"इसकी अनुमति वाले ऐप्लिकेशन आपके डिवाइस की फ़ोटो, मीडिया, और फ़ाइलें ऐक्सेस कर सकते हैं"</string>
     <string name="app_permission_most_recent_summary" msgid="4292074449384040590">"पिछली बार ऐक्सेस किया गया: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="app_permission_most_recent_denied_summary" msgid="7659497197737708112">"इस समय मना किया गया / आखिरी बार ऐक्सेस किया गया: <xliff:g id="TIME_DATE">%1$s</xliff:g>"</string>
     <string name="app_permission_never_accessed_summary" msgid="401346181461975090">"कभी ऐक्सेस नहीं किया गया"</string>
     <string name="app_permission_never_accessed_denied_summary" msgid="6596000497490905146">"मना किया गया / कभी ऐक्सेस नहीं किया गया"</string>
     <string name="allowed_header" msgid="7769277978004790414">"इन ऐप्लिकेशन के पास अनुमति है"</string>
-    <string name="allowed_always_header" msgid="6455903312589013545">"हमेशा के लिए मंज़ूरी"</string>
+    <string name="allowed_always_header" msgid="6455903312589013545">"हमेशा के लिए अनुमति"</string>
     <string name="allowed_foreground_header" msgid="6845655788447833353">"सिर्फ़ इस्तेमाल में होने पर अनुमति है"</string>
     <string name="allowed_storage_scoped" msgid="5383645873719086975">"ये सिर्फ़ मीडिया फ़ाइलें ऐक्सेस कर सकते हैं"</string>
     <string name="allowed_storage_full" msgid="5356699280625693530">"ये ऐप्लिकेशन सभी फ़ाइलों को मैनेज कर सकते हैं"</string>
@@ -314,12 +323,13 @@
     <string name="permission_subtitle_only_in_foreground" msgid="9068389431267377564">"सिर्फ़ ऐप्लिकेशन इस्तेमाल में होने के दौरान"</string>
     <string name="permission_subtitle_media_only" msgid="8917869683764720717">"सिर्फ़ मीडिया फ़ाइलें"</string>
     <string name="permission_subtitle_all_files" msgid="4982613338298067862">"सभी फ़ाइलें"</string>
+    <string name="permission_subtitle_background" msgid="8916750995309083180">"हमेशा के लिए मंज़ूरी दी गई है"</string>
     <string name="app_perms_24h_access" msgid="99069906850627181">"पिछली बार <xliff:g id="TIME_DATE">%1$s</xliff:g> पर ऐक्सेस किया गया"</string>
     <string name="app_perms_24h_access_yest" msgid="5411926024794555022">"पिछली बार, कल <xliff:g id="TIME_DATE">%1$s</xliff:g> पर ऐक्सेस किया गया"</string>
     <string name="app_perms_content_provider" msgid="6996750793881252778">"पिछले 24 घंटे में ऐक्सेस किया गया"</string>
-    <string name="app_perms_24h_access_only_in_foreground" msgid="8590228656172893995">"पिछली बार <xliff:g id="TIME_DATE">%1$s</xliff:g> पर ऐक्सेस किया गया • जब ऐप्लिकेशन इस्तेमाल में हो, सिर्फ़ तब"</string>
-    <string name="app_perms_24h_access_yest_only_in_foreground" msgid="8491319626462867381">"पिछली बार, कल <xliff:g id="TIME_DATE">%1$s</xliff:g> पर ऐक्सेस किया गया • जब ऐप्लिकेशन इस्तेमाल में हो, सिर्फ़ तब"</string>
-    <string name="app_perms_content_provider_only_in_foreground" msgid="7111427348979322476">"पिछले 24 घंटे में ऐक्सेस किया गया • जब ऐप्लिकेशन इस्तेमाल में हो, सिर्फ़ तब"</string>
+    <string name="app_perms_24h_access_background" msgid="3413674718969576843">"पिछली बार <xliff:g id="TIME_DATE">%1$s</xliff:g> पर ऐक्सेस किया गया • हमेशा के लिए मंज़ूरी दी गई है"</string>
+    <string name="app_perms_24h_access_yest_background" msgid="9174750810998076725">"पिछली बार, कल <xliff:g id="TIME_DATE">%1$s</xliff:g> पर ऐक्सेस किया गया • हमेशा के लिए मंज़ूरी दी गई है"</string>
+    <string name="app_perms_content_provider_background" msgid="7793984056711923997">"पिछले 24 घंटे में ऐक्सेस किया गया • हमेशा के लिए मंज़ूरी दी गई है"</string>
     <string name="app_perms_24h_access_media_only" msgid="6651699644199132054">"पिछली बार <xliff:g id="TIME_DATE">%1$s</xliff:g> पर ऐक्सेस किया गया • मीडिया"</string>
     <string name="app_perms_24h_access_yest_media_only" msgid="7213187706424998792">"पिछली बार, कल <xliff:g id="TIME_DATE">%1$s</xliff:g> पर ऐक्सेस किया गया • मीडिया"</string>
     <string name="app_perms_content_provider_media_only" msgid="6206759230589923421">"पिछले 24 घंटे में ऐक्सेस किया गया • मीडिया"</string>
@@ -331,7 +341,7 @@
     <string name="no_apps_allowed" msgid="7718822655254468631">"किसी ऐप्लिकेशन को अनुमति नहीं है"</string>
     <string name="no_apps_allowed_full" msgid="8011716991498934104">"किसी भी ऐप्लिकेशन को, सभी फ़ाइलों के लिए अनुमति नहीं दी गई है"</string>
     <string name="no_apps_allowed_scoped" msgid="4908850477787659501">"किसी भी ऐप्लिकेशन को, सिर्फ़ मीडिया फ़ाइलों के लिए अनुमति नहीं दी गई है"</string>
-    <string name="no_apps_denied" msgid="7663435886986784743">"किसी ऐप्लिकेशन को नामंज़ूर नहीं किया गया है"</string>
+    <string name="no_apps_denied" msgid="7663435886986784743">"किसी ऐप्लिकेशन की अनुमति नहीं रोकी गई है"</string>
     <string name="car_permission_selected" msgid="180837028920791596">"चुनी गई अनुमति"</string>
     <string name="settings" msgid="5409109923158713323">"सेटिंग"</string>
     <string name="accessibility_service_dialog_title_single" msgid="7956432823014102366">"<xliff:g id="SERVICE_NAME">%s</xliff:g> को आपके डिवाइस पर पूरा ऐक्सेस मिला है"</string>
@@ -345,7 +355,7 @@
     <string name="role_assistant_request_description" msgid="6836644847620178483">"मैसेज, कॉल लॉग का ऐक्सेस पाएं"</string>
     <string name="role_browser_label" msgid="2877796144554070207">"डिफ़ॉल्ट ब्राउज़र ऐप्लिकेशन"</string>
     <string name="role_browser_short_label" msgid="6745009127123292296">"ब्राउज़र ऐप्लिकेशन"</string>
-    <string name="role_browser_description" msgid="3465253637499842671">"ऐसे ऐप्लिकेशन जिनसे आपको इंटरनेट का इस्तेमाल कर सकते हैं. साथ ही, टैप करने के लिए डिसप्ले लिंक मिलता है"</string>
+    <string name="role_browser_description" msgid="3465253637499842671">"ऐसे ऐप्लिकेशन जिनसे आपको इंटरनेट का ऐक्सेस मिलता है. साथ ही, टैप करने के लिए डिसप्ले लिंक मिलता है"</string>
     <string name="role_browser_request_title" msgid="2895200507835937192">"<xliff:g id="APP_NAME">%1$s</xliff:g> को अपने डिफ़ॉल्ट ब्राउज़र ऐप्लिकेशन के तौर पर सेट करें?"</string>
     <string name="role_browser_request_description" msgid="5888803407905985941">"अनुमति की ज़रूरत नहीं है"</string>
     <string name="role_dialer_label" msgid="1100224146343237968">"डिफ़ॉल्ट फ़ोन ऐप्लिकेशन"</string>
@@ -356,7 +366,7 @@
     <string name="role_dialer_search_keywords" msgid="3324448983559188087">"डायलर"</string>
     <string name="role_sms_label" msgid="8456999857547686640">"मैसेज का डिफ़ॉल्ट ऐप्लिकेशन"</string>
     <string name="role_sms_short_label" msgid="4371444488034692243">"एसएमएस ऐप्लिकेशन"</string>
-    <string name="role_sms_description" msgid="3424020199148153513">"ऐसे ऐप्लिकेशन जिनकी मदद से आप अपने फ़ोन नंबर से मैसेज, फ़ोटो, वीडियो के साथ ही दूसरी चीज़ें भेजने और पाने के लिए कर सकते हैं"</string>
+    <string name="role_sms_description" msgid="3424020199148153513">"ऐसे ऐप्लिकेशन जिनकी मदद से आप अपने फ़ोन नंबर का इस्तेमाल मैसेज, फ़ोटो, वीडियो के साथ ही दूसरी चीज़ें भेजने और पाने के लिए कर सकते हैं"</string>
     <string name="role_sms_request_title" msgid="7953552109601185602">"<xliff:g id="APP_NAME">%1$s</xliff:g> को अपने डिफ़ॉल्ट मैसेज ऐप्लिकेशन के तौर पर सेट करें?"</string>
     <string name="role_sms_request_description" msgid="983371022668134198">"संपर्कों, मैसेज, फ़ोन का ऐक्सेस मिलता है"</string>
     <string name="role_sms_search_keywords" msgid="8022048144395047352">"मैसेज, मैसेज भेजना, मैसेज करना, मैसेज भेजना या पाना."</string>

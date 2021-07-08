@@ -45,14 +45,11 @@
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS_PRIVILEGED" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_ROUTING" />
     <!-- TODO(b/170896938): make this privileged(signature may only work on pixel) -->
     <uses-permission android:name="android.permission.MANAGE_NOTIFICATION_LISTENERS" />
     <uses-permission android:name="android.permission.START_VIEW_PERMISSION_USAGE" />
     <uses-permission android:name="android.permission.MANAGE_APP_HIBERNATION" />
-    <!-- for test purposes only -->
-    <uses-permission android:name="android.permission.GET_RUNTIME_PERMISSION_GROUP_MAPPING" />
 
     <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="29" />
 
@@ -213,7 +210,7 @@
 
         <activity android:name="com.android.permissioncontroller.role.ui.DefaultAppListActivity"
                   android:label="@string/default_apps"
-                  android:theme="@style/Settings.Role.FilterTouches">
+                  android:theme="@style/Settings.FilterTouches">
             <intent-filter android:priority="2">
                 <action android:name="android.settings.MANAGE_DEFAULT_APPS_SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -222,7 +219,7 @@
 
         <activity android:name="com.android.permissioncontroller.role.ui.DefaultAppActivity"
                   android:permission="android.permission.MANAGE_ROLE_HOLDERS"
-                  android:theme="@style/Settings.Role.FilterTouches">
+                  android:theme="@style/Settings.FilterTouches">
             <intent-filter android:priority="1">
                 <action android:name="android.intent.action.MANAGE_DEFAULT_APP" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -242,7 +239,7 @@
         <activity android:name="com.android.permissioncontroller.role.ui.SpecialAppAccessListActivity"
                   android:label="@string/special_app_access"
                   android:permission="android.permission.MANAGE_ROLE_HOLDERS"
-                  android:theme="@style/Settings.Role.FilterTouches">
+                  android:theme="@style/Settings.FilterTouches">
             <intent-filter android:priority="1">
                 <action android:name="android.intent.action.MANAGE_SPECIAL_APP_ACCESSES" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -251,7 +248,7 @@
 
         <!-- TODO: Override other Settings intents when we've done migrating them. -->
         <activity android:name="com.android.permissioncontroller.role.ui.SpecialAppAccessActivity"
-                  android:theme="@style/Settings.Role.FilterTouches" />
+                  android:theme="@style/Settings.FilterTouches" />
 
         <activity android:name="com.android.permissioncontroller.role.ui.RoleSearchTrampolineActivity"
                   android:excludeFromRecents="true"
@@ -285,7 +282,8 @@
             </intent-filter>
         </provider>
 
-        <service android:name="com.android.permissioncontroller.permission.service.PermissionControllerServiceImpl">
+        <service android:name="com.android.permissioncontroller.permission.service.PermissionControllerServiceImpl"
+                 android:visibleToInstantApps="true">
             <intent-filter android:priority="1">
                 <action android:name="android.permission.PermissionControllerService"/>
             </intent-filter>
